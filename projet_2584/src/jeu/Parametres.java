@@ -11,4 +11,13 @@ package jeu;
  */
 public interface Parametres {
     
+     // A DEFINIR 
+    //static final int HAUT = ?;
+    //static final int BAS = ?;
+    //static final int GAUCHE= ?;
+    //static final int DROITE= ?;
+    
+    static final int TAILLE = 4;
+    static final int OBJECTIF = 2584;
+    
 }

@@ -5,18 +5,35 @@
  */
 package jeu;
 
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Random;
+
 /**
  *
  * @author Louis
  */
 public class Grille implements Parametres {
     
-    // A DEFINIR 
-    //static final int HAUT = ?;
-    //static final int BAS = ?;
-    //static final int GAUCHE= ?;
-    //static final int DROITE= ?;
+//hash set qui contient toutes les cases de la grille
+// ne fonctionne pas parce qu'il y a erreur dans la classe case, pas complète    
+private final HashSet<Case> grille;
     
-    static final int TAILLE = 4;
-    static final int OBJECTIF = 2584;
+private int valMax = 0; 
+
+private boolean deplacement;
+
+/**
+ * Constructeur d'une grille, on lui donne un hashset qui contiendra les différentes cases
+ */
+public Grille(){
+    this.grille = new HashSet<>;
+}
+
+
+
+
 }
