@@ -21,7 +21,7 @@ public class Case implements Parametres{
     private int val;
     
     //une case se trouve dans un objet grille
-    //private Grille grille;
+    private Grille grille;
     
 
     /**
@@ -52,8 +52,39 @@ public class Case implements Parametres{
        }
     }
     
- 
+    /**
+     * fonction hashcode qui servira lors de test
+     * deux cases ont un hashcode egal ssi elles ont les memes coordonnees
+     * @return 
+     */
+    @Override
+    public int hashCode(){
+        return this.x*7 + this.y*13;
+    }
     
+ 
+    /**
+     * fonction toString
+     * @return l'abscice, l'ordonnee et la valeur de la case
+     */
+    @Override
+    public String toString(){
+    return "Case(" + this.x + "," + this.y + "," + this.val + ")";
+    }
+    
+    /**
+     * fonction qui retourne true si la case courante a la meme valeur que la case rentree en parametre
+     * retourne false si la case courante n'a pas la meme valeur que la case parametre
+     * @param c qui represente une case
+     * @return boolean
+     */
+    public boolean valeurEgale(Case c){
+        if(c != null){
+            return this.val == c.val;
+        }else{
+            return false;
+        }
+    }
     
     
     
