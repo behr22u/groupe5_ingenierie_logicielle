@@ -23,6 +23,7 @@ public class Grille implements Parametres {
 
     public Grille() {
         this.grille = new HashSet<>();
+        this.createListFibo();
     }
 
     @Override
@@ -66,13 +67,13 @@ public class Grille implements Parametres {
     
     private void createListFibo(){
         ArrayList<Integer> list = new ArrayList<>();
-        listFibo.add(1);
-        listFibo.add(1);
-        while (!listFibo.contains(OBJECTIF)){
-            int t = listFibo.size();
-            listFibo.add(listFibo.get(t-2)+listFibo.get(t-1));
+        list.add(1);
+        list.add(1);
+        while (!list.contains(OBJECTIF)){
+            int t = list.size();
+            list.add(list.get(t-2) + list.get(t-1));
         }
-        this.listFibo = listFibo;
+        this.listFibo = list;
     }
 
     public boolean lanceurDeplacerCases(int direction) {
@@ -194,12 +195,12 @@ public class Grille implements Parametres {
         if (this.grille.size() < TAILLE * TAILLE) {
             ArrayList<Case> casesLibres = new ArrayList<>();
             Random ra = new Random();
-            int valeur = (1 + ra.nextInt(2)) * 2;
+            int valeur = (1 + ra.nextInt(2));
             // on crée toutes les cases encore libres
             for (int x = 0; x < TAILLE; x++) {
                 for (int y = 0; y < TAILLE; y++) {
                     Case c = new Case(x, y, valeur, this.listFibo);
-                    if (!this.grille.contains(c)) { // contains utilise la méthode equals dans Case
+                    if (!this.grille.contains(c)) { // contains utilise la méthode equals dans Case (qui vérifie les positions)
                         casesLibres.add(c);
                     }
                 }

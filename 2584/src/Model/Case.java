@@ -16,7 +16,7 @@ public class Case implements Parametres {
 
     private int x, y, valeur;
     private Grille grille;
-    private ArrayList<Integer> listFibo;
+    private final ArrayList<Integer> listFibo;
     
 
     public Case(int abs, int ord, int v, ArrayList<Integer> fibo) {
@@ -65,11 +65,7 @@ public class Case implements Parametres {
     }
     public boolean estVoisinFibo(Case c){
         Integer somme = c.getValeur() + this.getValeur();
-        if(this.listFibo.contains(somme)){
-            return true;
-        }else{
-            return false;
-        }
+        return this.listFibo.contains(somme);
         
     }
 
