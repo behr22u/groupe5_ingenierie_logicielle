@@ -12,13 +12,14 @@ import java.util.Random;
 
 /**
  *
- * @author Sylvain
- */
+ * @author Theloua
+ **/
 public class Grille implements Parametres {
 
     private final HashSet<Case> grille;
     private int valeurMax = 0;
     private boolean deplacement;
+    private ArrayList<Integer> listFibo;
 
     public Grille() {
         this.grille = new HashSet<>();
@@ -62,6 +63,17 @@ public class Grille implements Parametres {
         }
         return true;
     }
+    
+    private void createListFibo(){
+        ArrayList<Integer> list = new ArrayList<>();
+        listFibo.add(1);
+        listFibo.add(1);
+        while (!listFibo.contains(OBJECTIF)){
+            int t = listFibo.size();
+            listFibo.add(listFibo.get(t-2)+listFibo.get(t-1));
+        }
+        this.listFibo = listFibo;
+    }
 
     public boolean lanceurDeplacerCases(int direction) {
         Case[] extremites = this.getCasesExtremites(direction);
@@ -85,10 +97,10 @@ public class Grille implements Parametres {
         return deplacement;
     }
 
-    private void fusion(Case c) {////////////
-        c.setValeur(c.getValeur() * 2);
-        if (this.valeurMax < c.getValeur()) {
-            this.valeurMax = c.getValeur();
+    private void fusion(Case c1, Case c2) {////////////
+        c1.setValeur(c1.getValeur()+c2.getValeur() );
+        if (this.valeurMax < c1.getValeur()) {
+            this.valeurMax = c1.getValeur();
         }
         deplacement = true;
     }
@@ -119,8 +131,8 @@ public class Grille implements Parametres {
             }
             Case voisin = extremites[rangee].getVoisinDirect(-direction);
             if (voisin != null) {
-                if (extremites[rangee].valeurEgale(voisin)) {
-                    this.fusion(extremites[rangee]);
+                if (extremites[rangee].estVoisinFibo(voisin)) {
+                    this.fusion(extremites[rangee],voisin );
                     extremites[rangee] = voisin.getVoisinDirect(-direction);
                     this.grille.remove(voisin);
                     this.deplacerCasesRecursif(extremites, rangee, direction, compteur + 1);
@@ -133,7 +145,7 @@ public class Grille implements Parametres {
     }
 
     /*
-    * Si direction = HAUT : retourne les 4 cases qui sont le plus en haut (une pour chaque colonne)
+    * Si direction = HAUT : retourne les 4 cases qui sont le plus en haut (bas!?) (une pour chaque colonne)
     * Si direction = DROITE : retourne les 4 cases qui sont le plus à droite (une pour chaque ligne)
     * Si direction = BAS : retourne les 4 cases qui sont le plus en bas (une pour chaque colonne)
     * Si direction = GAUCHE : retourne les 4 cases qui sont le plus à gauche (une pour chaque ligne)
@@ -186,7 +198,7 @@ public class Grille implements Parametres {
             // on crée toutes les cases encore libres
             for (int x = 0; x < TAILLE; x++) {
                 for (int y = 0; y < TAILLE; y++) {
-                    Case c = new Case(x, y, valeur);
+                    Case c = new Case(x, y, valeur, this.listFibo);
                     if (!this.grille.contains(c)) { // contains utilise la méthode equals dans Case
                         casesLibres.add(c);
                     }

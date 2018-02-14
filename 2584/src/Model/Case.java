@@ -6,19 +6,24 @@
 
 package Model;
 
+import java.util.ArrayList;
+
 /**
  *
- * @author leath
+ * @author Theloua
  */
 public class Case implements Parametres {
 
     private int x, y, valeur;
     private Grille grille;
+    private ArrayList<Integer> listFibo;
+    
 
-    public Case(int abs, int ord, int v) {
+    public Case(int abs, int ord, int v, ArrayList<Integer> fibo) {
         this.x = abs;
         this.y = ord;
         this.valeur = v;
+        this.listFibo = fibo;
     }
 
     public void setGrille(Grille g) {
@@ -57,6 +62,15 @@ public class Case implements Parametres {
         } else {
             return false;
         }
+    }
+    public boolean estVoisinFibo(Case c){
+        Integer somme = c.getValeur() + this.getValeur();
+        if(this.listFibo.contains(somme)){
+            return true;
+        }else{
+            return false;
+        }
+        
     }
 
     @Override
