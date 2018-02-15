@@ -36,8 +36,8 @@ public class Main extends Application implements Model.Parametres{
         
         // TODO code application logic here
         Model.Grille g = new Model.Grille();
-        boolean b = g.nouvelleCase();
-        b = g.nouvelleCase();
+        boolean b = g.nouvelleCase(1);
+        b = g.nouvelleCase(1);
         System.out.println(g);
         Scanner sc = new Scanner(System.in);
         /*System.out.println("X:");

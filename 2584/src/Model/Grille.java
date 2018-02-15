@@ -65,17 +65,7 @@ public class Grille implements Parametres {
         return true;
     }
     
-    private void createListFibo(){
-        ArrayList<Integer> list = new ArrayList<>();
-        list.add(1);
-        list.add(1);
-        while (!list.contains(OBJECTIF)){
-            int t = list.size();
-            list.add(list.get(t-2) + list.get(t-1));
-        }
-        this.listFibo = list;
-    }
-
+    
     public boolean lanceurDeplacerCases(int direction) {
         Case[] extremites = this.getCasesExtremites(direction);
         deplacement = false; // pour vérifier si on a bougé au moins une case après le déplacement, avant d'en rajouter une nouvelle
@@ -196,6 +186,32 @@ public class Grille implements Parametres {
             ArrayList<Case> casesLibres = new ArrayList<>();
             Random ra = new Random();
             int valeur = (1 + ra.nextInt(2));
+            // on crée toutes les cases encore libres
+            for (int x = 0; x < TAILLE; x++) {
+                for (int y = 0; y < TAILLE; y++) {
+                    Case c = new Case(x, y, valeur, this.listFibo);
+                    if (!this.grille.contains(c)) { // contains utilise la méthode equals dans Case (qui vérifie les positions)
+                        casesLibres.add(c);
+                    }
+                }
+            }
+            // on en choisit une au hasard et on l'ajoute à la grille
+            Case ajout = casesLibres.get(ra.nextInt(casesLibres.size()));
+            ajout.setGrille(this);
+            this.grille.add(ajout);
+            if ((this.grille.size() == 1) || (this.valeurMax == 2 && ajout.getValeur() == 4)) { // Mise à jour de la valeur maximale présente dans la grille si c'est la première case ajoutée ou si on ajoute un 4 et que l'ancien max était 2
+                this.valeurMax = ajout.getValeur();
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public boolean nouvelleCase(int n) {
+        if (this.grille.size() < TAILLE * TAILLE) {
+            ArrayList<Case> casesLibres = new ArrayList<>();
+            Random ra = new Random();
+            int valeur = (n);
             // on crée toutes les cases encore libres
             for (int x = 0; x < TAILLE; x++) {
                 for (int y = 0; y < TAILLE; y++) {

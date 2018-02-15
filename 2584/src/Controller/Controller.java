@@ -3,23 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
 
+package Controller;
+
+import Model.Grille;
+import Model.SuitesMathematiques;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
 /**
  *
- * @author Louis
+ * @author leath
  */
-public class FXMLDocumentController implements Initializable {
-    
+public class Controller implements Initializable{
     @FXML
     private Label label;
+    
+    Grille g = new Grille();
+    ArrayList<Integer> termesFibonacci = SuitesMathematiques.fibonacci(2584);
     
     @FXML
     /**
@@ -32,5 +37,4 @@ public class FXMLDocumentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-    
 }
