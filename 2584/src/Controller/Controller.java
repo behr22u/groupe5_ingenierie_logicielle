@@ -7,6 +7,7 @@
 package Controller;
 
 import Model.Grille;
+import Model.Parametres;
 import static Model.Parametres.BAS;
 import static Model.Parametres.DROITE;
 import static Model.Parametres.GAUCHE;
@@ -26,24 +27,14 @@ import javafx.stage.Stage;
  *
  * @author leath
  */
-public class Controller implements Initializable{
+public class Controller implements Initializable, Parametres{
     @FXML
     private Label label;
     
     Grille g = new Grille();
-    ArrayList<Integer> termesFibonacci = SuitesMathematiques.fibonacci(2584);
+    public static ArrayList<Integer> termesFibonacci = SuitesMathematiques.fibonacci(OBJECTIF);
     
-    @FXML
-    /**
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
-    **/
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        //
-    }  
+    
     public void lancementJeu(){
         Model.Grille g = new Model.Grille();
             boolean b = g.nouvelleCase(1);
@@ -91,11 +82,10 @@ public class Controller implements Initializable{
             }
             g.gameOver();
     }
-    
-    /*
+
     @Override
-    public void start(Stage stage) throws Exception {
+    public void initialize(URL url, ResourceBundle rb) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    */
+    
 }

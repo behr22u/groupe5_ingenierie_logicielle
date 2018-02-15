@@ -5,6 +5,7 @@
  */
 package Model;
 
+import Controller.Controller;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -19,11 +20,9 @@ public class Grille implements Parametres {
     private final HashSet<Case> grille;
     private int valeurMax = 0;
     private boolean deplacement;
-    private ArrayList<Integer> listFibo;
 
     public Grille() {
         this.grille = new HashSet<>();
-        this.createListFibo();
     }
 
     @Override
@@ -189,7 +188,7 @@ public class Grille implements Parametres {
             // on crée toutes les cases encore libres
             for (int x = 0; x < TAILLE; x++) {
                 for (int y = 0; y < TAILLE; y++) {
-                    Case c = new Case(x, y, valeur, this.listFibo);
+                    Case c = new Case(x, y, valeur, Controller.termesFibonacci);
                     if (!this.grille.contains(c)) { // contains utilise la méthode equals dans Case (qui vérifie les positions)
                         casesLibres.add(c);
                     }
@@ -215,7 +214,7 @@ public class Grille implements Parametres {
             // on crée toutes les cases encore libres
             for (int x = 0; x < TAILLE; x++) {
                 for (int y = 0; y < TAILLE; y++) {
-                    Case c = new Case(x, y, valeur, this.listFibo);
+                    Case c = new Case(x, y, valeur, Controller.termesFibonacci);
                     if (!this.grille.contains(c)) { // contains utilise la méthode equals dans Case (qui vérifie les positions)
                         casesLibres.add(c);
                     }
