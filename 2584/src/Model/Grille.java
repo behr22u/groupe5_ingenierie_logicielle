@@ -188,7 +188,7 @@ public class Grille implements Parametres {
             // on crée toutes les cases encore libres
             for (int x = 0; x < TAILLE; x++) {
                 for (int y = 0; y < TAILLE; y++) {
-                    Case c = new Case(x, y, valeur, Controller.termesFibonacci);
+                    Case c = new Case(x, y, valeur);
                     if (!this.grille.contains(c)) { // contains utilise la méthode equals dans Case (qui vérifie les positions)
                         casesLibres.add(c);
                     }
@@ -214,7 +214,7 @@ public class Grille implements Parametres {
             // on crée toutes les cases encore libres
             for (int x = 0; x < TAILLE; x++) {
                 for (int y = 0; y < TAILLE; y++) {
-                    Case c = new Case(x, y, valeur, Controller.termesFibonacci);
+                    Case c = new Case(x, y, valeur);
                     if (!this.grille.contains(c)) { // contains utilise la méthode equals dans Case (qui vérifie les positions)
                         casesLibres.add(c);
                     }

@@ -6,6 +6,7 @@
 
 package Model;
 
+import static Controller.Controller.termesFibonacci;
 import java.util.ArrayList;
 
 /**
@@ -16,14 +17,12 @@ public class Case implements Parametres {
 
     private int x, y, valeur;
     private Grille grille;
-    private final ArrayList<Integer> listFibo;
     
 
-    public Case(int abs, int ord, int v, ArrayList<Integer> fibo) {
+    public Case(int abs, int ord, int v) {
         this.x = abs;
         this.y = ord;
         this.valeur = v;
-        this.listFibo = fibo;
     }
 
     public void setGrille(Grille g) {
@@ -65,7 +64,7 @@ public class Case implements Parametres {
     }
     public boolean estVoisinFibo(Case c){
         Integer somme = c.getValeur() + this.getValeur();
-        return this.listFibo.contains(somme);
+        return termesFibonacci.contains(somme);
         
     }
 

@@ -35,13 +35,14 @@ public class Main extends Application implements Model.Parametres{
      */
     public static void main(String[] args) {
         //launch(args);
-        
         // TODO code application logic here
-        
+        Controller controller = new Controller() ;
+        controller.lancementJeu();
     }
 
     @Override
     public void start(Stage stage) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
 }
