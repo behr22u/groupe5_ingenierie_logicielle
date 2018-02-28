@@ -57,7 +57,7 @@ public class Controller implements Initializable, Parametres{
 
         while (!this.finDePartie(grilles)) {
             for (int i=0 ; i<NOMBREDEJOUEURS ; i++ ){
-                System.out.println("C'est a vous joueur " + i+1 + " !");
+                System.out.println("C'est a vous joueur " + i + " !");
                 System.out.println("Déplacer vers la Droite (d), Gauche (g), Haut (h), ou Bas (b) ?");
                 String s = sc.nextLine();
                 s.toLowerCase();
@@ -77,15 +77,12 @@ public class Controller implements Initializable, Parametres{
                     } else {
                         direction = BAS;
                     }
-                    System.out.println("on est ici 1");
                     boolean b2 = grilles[i].lanceurDeplacerCases(direction);
                     if (b2) {
-                        System.out.println("on est ici 2");
                         boolean b = grilles[i].nouvelleCase();
                         if (!b) grilles[i].gameOver();
                     }
-                    System.out.println(g);
-                    System.out.println("on est ici 3");
+                    System.out.println(grilles[i]);
                     if (grilles[i].getValeurMax()>=OBJECTIF) grilles[i].victory();
                 }
             }
