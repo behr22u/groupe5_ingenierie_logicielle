@@ -7,7 +7,6 @@
 package Model;
 
 import static Controller.Controller.termesFibonacci;
-import java.util.ArrayList;
 
 /**
  *
