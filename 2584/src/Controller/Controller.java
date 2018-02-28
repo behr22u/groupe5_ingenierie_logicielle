@@ -36,22 +36,28 @@ public class Controller implements Initializable, Parametres{
     
     
     public void lancementJeu(){
-        Model.Grille g = new Model.Grille();
-            boolean b = g.nouvelleCase(1);
-            b = g.nouvelleCase(1);
-            System.out.println(g);
-            Scanner sc = new Scanner(System.in);
-            /*System.out.println("X:");
-            int x= sc.nextInt();
-            System.out.println("Y:");
-            int y= sc.nextInt();
-            System.out.println("Valeur:");
-            int valeur= sc.nextInt();
-            Case c = new Case(x,y,valeur);
-            g.getGrille().remove(c);
-            System.out.println(g);*/
+        Grille grilles[] = new Grille[NOMBREDEJOUEURS];
+        for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
+            System.out.println("Grille du joueur" + i);
+            grilles[i] = new Grille();
+            boolean b = grilles[i].nouvelleCase(1);
+            b = grilles[i].nouvelleCase(1);
+            System.out.println(grilles[i]);
+        }
+        Scanner sc = new Scanner(System.in);
+        /*System.out.println("X:");
+        int x= sc.nextInt();
+        System.out.println("Y:");
+        int y= sc.nextInt();
+        System.out.println("Valeur:");
+        int valeur= sc.nextInt();
+        Case c = new Case(x,y,valeur);
+        g.getGrille().remove(c);
+        System.out.println(g);*/
 
-            while (!g.partieFinie()) {
+        while (!this.finDePartie(grilles)) {
+            for (int i=0 ; i<NOMBREDEJOUEURS ; i++ ){
+                System.out.println("C'est a vous joueur " + i+1 + " !");
                 System.out.println("Déplacer vers la Droite (d), Gauche (g), Haut (h), ou Bas (b) ?");
                 String s = sc.nextLine();
                 s.toLowerCase();
@@ -71,16 +77,34 @@ public class Controller implements Initializable, Parametres{
                     } else {
                         direction = BAS;
                     }
-                    boolean b2 = g.lanceurDeplacerCases(direction);
+                    System.out.println("on est ici 1");
+                    boolean b2 = grilles[i].lanceurDeplacerCases(direction);
                     if (b2) {
-                        b = g.nouvelleCase();
-                        if (!b) g.gameOver();
+                        System.out.println("on est ici 2");
+                        boolean b = grilles[i].nouvelleCase();
+                        if (!b) grilles[i].gameOver();
                     }
                     System.out.println(g);
-                    if (g.getValeurMax()>=OBJECTIF) g.victory();
+                    System.out.println("on est ici 3");
+                    if (grilles[i].getValeurMax()>=OBJECTIF) grilles[i].victory();
                 }
             }
+        }
+        for(Grille g : grilles){
             g.gameOver();
+        }
+            
+    }
+    
+    private boolean finDePartie(Grille grilles[]){
+        boolean fini = false;
+        for(Grille g : grilles){
+            if (g.partieFinie()){
+                fini = true;
+            }
+        }
+        return fini;
+    
     }
 
     @Override
