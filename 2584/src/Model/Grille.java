@@ -54,7 +54,7 @@ public class Grille implements Parametres {
             for (Case c : this.grille) {
                 for (int i = 1; i <= 2; i++) {
                     if (c.getVoisinDirect(i) != null) {
-                        if (c.valeurEgale(c.getVoisinDirect(i))) {
+                        if (c.estVoisinFibo(c.getVoisinDirect(i))) {
                             return false;
                         }
                     }
@@ -224,7 +224,7 @@ public class Grille implements Parametres {
             Case ajout = casesLibres.get(ra.nextInt(casesLibres.size()));
             ajout.setGrille(this);
             this.grille.add(ajout);
-            if ((this.grille.size() == 1) || (this.valeurMax == 2 && ajout.getValeur() == 4)) { // Mise à jour de la valeur maximale présente dans la grille si c'est la première case ajoutée ou si on ajoute un 4 et que l'ancien max était 2
+            if ((this.grille.size() == 1) || (this.valeurMax == 1 && ajout.getValeur() == 2)) { // Mise à jour de la valeur maximale présente dans la grille si c'est la première case ajoutée ou si on ajoute un 2 et que l'ancien max était 1
                 this.valeurMax = ajout.getValeur();
             }
             return true;

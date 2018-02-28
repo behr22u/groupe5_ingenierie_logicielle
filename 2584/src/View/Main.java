@@ -6,6 +6,7 @@
 package View;
 
 import Controller.Controller;
+import static Controller.Controller.lancementJeu;
 import java.util.Scanner;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -36,8 +37,7 @@ public class Main extends Application implements Model.Parametres{
     public static void main(String[] args) {
         //launch(args);
         // TODO code application logic here
-        Controller controller = new Controller() ;
-        controller.lancementJeu();
+        lancementJeu();
     }
 
     @Override

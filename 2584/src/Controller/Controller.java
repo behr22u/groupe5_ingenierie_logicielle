@@ -35,7 +35,7 @@ public class Controller implements Initializable, Parametres{
     public static ArrayList<Integer> termesFibonacci = SuitesMathematiques.fibonacci(OBJECTIF);
     
     
-    public void lancementJeu(){
+    static public void lancementJeu(){
         Grille grilles[] = new Grille[NOMBREDEJOUEURS];
         for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
             System.out.println("Grille du joueur" + i);
@@ -55,7 +55,7 @@ public class Controller implements Initializable, Parametres{
         g.getGrille().remove(c);
         System.out.println(g);*/
 
-        while (!this.finDePartie(grilles)) {
+        while (!finDePartie(grilles)) {
             for (int i=0 ; i<NOMBREDEJOUEURS ; i++ ){
                 System.out.println("C'est a vous joueur " + i + " !");
                 System.out.println("Déplacer vers la Droite (d), Gauche (g), Haut (h), ou Bas (b) ?");
@@ -93,7 +93,7 @@ public class Controller implements Initializable, Parametres{
             
     }
     
-    private boolean finDePartie(Grille grilles[]){
+    static private boolean finDePartie(Grille grilles[]){
         boolean fini = false;
         for(Grille g : grilles){
             if (g.partieFinie()){
