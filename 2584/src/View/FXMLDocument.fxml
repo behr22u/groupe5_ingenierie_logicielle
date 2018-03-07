@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane fx:id="fond" onKeyPressed="#keyPressed" prefHeight="803.0" prefWidth="1041.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.FXMLDocumentController">
+<Pane fx:id="fond" onKeyPressed="#keyPressed" prefHeight="803.0" prefWidth="1041.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FXMLDocumentController">
    <children>
       <GridPane fx:id="grille" gridLinesVisible="true" layoutX="24.0" layoutY="191.0" onMouseDragged="#handleDragAction" prefHeight="397.0" prefWidth="397.0">
         <columnConstraints>
@@ -46,7 +46,7 @@
       </GridPane>
       
       <Button layoutX="460.0" layoutY="127.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" prefHeight="31.0" prefWidth="100.0" text="Start" />
-      
+           
       <Pane layoutX="155.0" layoutY="48.0" prefHeight="79.0" prefWidth="100.0" style="-fx-background-color: yellow;">
          <children>
             <Label layoutX="20.0" layoutY="14.0" prefHeight="21.0" prefWidth="72.0" text="Moves J1" />

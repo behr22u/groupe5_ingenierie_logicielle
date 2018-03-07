@@ -1,9 +1,9 @@
-    /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,11 +20,7 @@ import javafx.scene.layout.Pane;
 //import javafx.scene.paint.Color;
 //import javafx.scene.text.Font;
 
-/**
- *
- * @author castagno
- * TEST
- */
+
 public class FXMLDocumentController implements Initializable {
     /*
      * Variables globales correspondant à des objets définis dans la vue (fichier .fxml)
@@ -37,6 +33,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Pane fond; // panneau recouvrant toute la fenêtre
 
+    
+    
     // variables globales non définies dans la vue (fichier .fxml)
     private final Pane p = new Pane(); // panneau utilisé pour dessiner une tuile "2"
     private final Label c = new Label("2");
@@ -62,6 +60,19 @@ public class FXMLDocumentController implements Initializable {
         c.setVisible(true);
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /*
      * Méthodes listeners pour gérer les événements (portent les mêmes noms que
      * dans Scene Builder
