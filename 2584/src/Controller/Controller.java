@@ -18,9 +18,16 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -103,10 +110,69 @@ public class Controller implements Initializable, Parametres{
         return fini;
     
     }
+    
+    ///////////////////////// Prite affichage
+    /*
+     * Variables globales correspondant à des objets définis dans la vue (fichier .fxml)
+     * Ces variables sont ajoutées à la main et portent le même nom que les fx:id dans Scene Builder
+     */
+    @FXML
+    private Label score; // value will be injected by the FXMLLoader
+    @FXML
+    private GridPane grille;
+    @FXML
+    private Pane fond; // panneau recouvrant toute la fenêtre
+
+    
+    
+    // variables globales non définies dans la vue (fichier .fxml)
+    private final Pane p = new Pane(); // panneau utilisé pour dessiner une tuile "2"
+    
+    private int x = 24, y = 191;
+    private int objectifx = 24, objectify = 191;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // TODO
+        System.out.println("le contrôleur initialise la vue");
+        // utilisation de styles pour la grille et la tuile (voir styles.css)
+        p.getStyleClass().add("pane"); 
+        c.getStyleClass().add("tuile");
+        grille.getStyleClass().add("gridpane");
+        GridPane.setHalignment(c, HPos.CENTER);
+        fond.getChildren().add(p);
+        p.getChildren().add(c);
+
+        // on place la tuile en précisant les coordonnées (x,y) du coin supérieur gauche
+        p.setLayoutX(x);
+        p.setLayoutY(y);
+        p.setVisible(true);
+        c.setVisible(true);
     }
+
+
     
+    
+
+    @FXML
+    private void handleButtonAction(MouseEvent event) {
+        System.out.println("Clic de souris sur le bouton menu");
+    }
+
+    @FXML
+    public void keyPressed(KeyEvent ke) {
+        System.out.println("touche appuyée");
+        String touche = ke.getText();
+        if (touche.compareTo("q") == 0) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
+            
+        } else if (touche.compareTo("d") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
+            
+        } else if (touche.compareTo("z") == 0) { // utilisateur appuie sur "z" pour envoyer la tuile vers le haut
+            
+        } else if (touche.compareTo("s") == 0) { // utilisateur appuie sur "s" pour envoyer la tuile vers le bas
+            
+        }
+        
+
+    }
 }
