@@ -34,7 +34,10 @@ import javafx.stage.Stage;
  *
  * @author leath
  */
+
+
 public class Controller implements Initializable, Parametres{
+    private static Grille grille = new Grille();
     @FXML
     private Label label;
     
@@ -99,6 +102,21 @@ public class Controller implements Initializable, Parametres{
         }
             
     }
+    static public void lancementJeuGraphique(){
+        for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
+            System.out.println("Grille du joueur" + i);
+            grille = new Grille();
+            boolean b = grille.nouvelleCase(1);
+            b = grille.nouvelleCase(1);
+            System.out.println(grille);
+        }
+        if (grille.partieFinie()){
+            grille.gameOver();
+        }
+        
+        
+        
+    }
     
     static private boolean finDePartie(Grille grilles[]){
         boolean fini = false;
@@ -108,7 +126,6 @@ public class Controller implements Initializable, Parametres{
             }
         }
         return fini;
-    
     }
     
     ///////////////////////// Prite affichage
@@ -163,16 +180,22 @@ public class Controller implements Initializable, Parametres{
     public void keyPressed(KeyEvent ke) {
         System.out.println("touche appuyée");
         String touche = ke.getText();
+        int direction = 0;
         if (touche.compareTo("q") == 0) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
-            
+            direction = GAUCHE;
         } else if (touche.compareTo("d") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
-            
+            direction = DROITE;
         } else if (touche.compareTo("z") == 0) { // utilisateur appuie sur "z" pour envoyer la tuile vers le haut
-            
+            direction = HAUT;
         } else if (touche.compareTo("s") == 0) { // utilisateur appuie sur "s" pour envoyer la tuile vers le bas
-            
+            direction = BAS;
         }
-        
-
+        if (direction != 0){
+            boolean b2 = grille.lanceurDeplacerCases(direction);
+            if (b2) {
+                boolean b = grille.nouvelleCase();
+                if (!b) grille.gameOver();
+            }
+        }
     }
 }
