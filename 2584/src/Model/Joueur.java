@@ -12,7 +12,7 @@ package Model;
 public class Joueur {
     private Grille grilleActu;
     private Grille grilleSauv;
-    private int nbUndo;
+    private int nbUndo = 5;
     
     public void undo(){
         if (nbUndo>0){

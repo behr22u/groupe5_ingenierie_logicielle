@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Controller;
 
 import Model.Grille;
@@ -27,19 +26,21 @@ import javafx.stage.Stage;
  *
  * @author leath
  */
-public class Controller implements Initializable, Parametres{
+public class Controller implements Initializable, Parametres {
+
     @FXML
     private Label label;
-    
+
     Grille g = new Grille();
     public static ArrayList<Integer> termesFibonacci = SuitesMathematiques.fibonacci(OBJECTIF);
-    
-    
-    static public void lancementJeu(){
+
+    static public void lancementJeu() {
         Grille grilles[] = new Grille[NOMBREDEJOUEURS];
-        for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
+        Grille gSauv[] = new Grille[NOMBREDEJOUEURS];
+        for (int i = 0; i < NOMBREDEJOUEURS; i++) {
             System.out.println("Grille du joueur" + i);
             grilles[i] = new Grille();
+            gSauv[i] = new Grille();
             boolean b = grilles[i].nouvelleCase(1);
             b = grilles[i].nouvelleCase(1);
             System.out.println(grilles[i]);
@@ -56,18 +57,23 @@ public class Controller implements Initializable, Parametres{
         System.out.println(g);*/
 
         while (!finDePartie(grilles)) {
-            for (int i=0 ; i<NOMBREDEJOUEURS ; i++ ){
+            for (int i = 0; i < NOMBREDEJOUEURS; i++) {
                 System.out.println("C'est a vous joueur " + i + " !");
-                System.out.println("Déplacer vers la Droite (d), Gauche (g), Haut (h), ou Bas (b) ?");
+                System.out.println("Déplacer vers la Droite (d), Gauche (g), Haut (h), ou Bas (b) ? ou undo ?");
                 String s = sc.nextLine();
                 s.toLowerCase();
                 if (!(s.equals("d") || s.equals("droite")
                         || s.equals("g") || s.equals("gauche")
                         || s.equals("h") || s.equals("haut")
-                        || s.equals("b") || s.equals("bas"))) {
+                        || s.equals("b") || s.equals("bas") || s.equals("undo"))) {
                     System.out.println("Vous devez écrire d pour Droite, g pour Gauche, h pour Haut ou b pour Bas");
+                } else if (s.equals("undo")) {
+                    grilles[i]=gSauv[i];
+                    System.out.println("je suis ici");
+                    System.out.println(grilles[i]);
                 } else {
                     int direction;
+                    gSauv[i] = grilles[i];
                     if (s.equals("d") || s.equals("droite")) {
                         direction = DROITE;
                     } else if (s.equals("g") || s.equals("gauche")) {
@@ -80,33 +86,37 @@ public class Controller implements Initializable, Parametres{
                     boolean b2 = grilles[i].lanceurDeplacerCases(direction);
                     if (b2) {
                         boolean b = grilles[i].nouvelleCase();
-                        if (!b) grilles[i].gameOver();
+                        if (!b) {
+                            grilles[i].gameOver();
+                        }
                     }
                     System.out.println(grilles[i]);
-                    if (grilles[i].getValeurMax()>=OBJECTIF) grilles[i].victory();
+                    if (grilles[i].getValeurMax() >= OBJECTIF) {
+                        grilles[i].victory();
+                    }
                 }
             }
         }
-        for(Grille g : grilles){
+        for (Grille g : grilles) {
             g.gameOver();
         }
-            
+
     }
-    
-    static private boolean finDePartie(Grille grilles[]){
+
+    static private boolean finDePartie(Grille grilles[]) {
         boolean fini = false;
-        for(Grille g : grilles){
-            if (g.partieFinie()){
+        for (Grille g : grilles) {
+            if (g.partieFinie()) {
                 fini = true;
             }
         }
         return fini;
-    
+
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
