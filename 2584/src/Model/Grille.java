@@ -10,12 +10,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
+import javafx.scene.layout.GridPane;
 
 /**
  *
  * @author Theloua
  **/
-public class Grille implements Parametres {
+public class Grille extends GridPane implements Parametres {
 
     private final HashSet<Case> grille;
     private int valeurMax = 0;

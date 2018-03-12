@@ -16,13 +16,16 @@ import static Model.Parametres.OBJECTIF;
 import Model.SuitesMathematiques;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -102,6 +105,8 @@ public class Controller implements Initializable, Parametres{
         }
             
     }
+    
+    
     static public void lancementJeuGraphique(){
         for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
             System.out.println("Grille du joueur" + i);
@@ -136,7 +141,7 @@ public class Controller implements Initializable, Parametres{
     @FXML
     private Label score; // value will be injected by the FXMLLoader
     @FXML
-    private GridPane grille;
+    private GridPane gridpane;
     @FXML
     private Pane fond; // panneau recouvrant toute la fenêtre
 
@@ -144,10 +149,13 @@ public class Controller implements Initializable, Parametres{
     
     // variables globales non définies dans la vue (fichier .fxml)
     private final Pane p = new Pane(); // panneau utilisé pour dessiner une tuile "2"
-    
+    private final Label c = new Label("2");
     private int x = 24, y = 191;
     private int objectifx = 24, objectify = 191;
+    private ObservableList<Node> bla;
+    
 
+   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -155,7 +163,13 @@ public class Controller implements Initializable, Parametres{
         // utilisation de styles pour la grille et la tuile (voir styles.css)
         p.getStyleClass().add("pane"); 
         c.getStyleClass().add("tuile");
-        grille.getStyleClass().add("gridpane");
+        gridpane.getStyleClass().add("gridpane");
+        
+        for(int i = 0; i < gridpane.; i++ ){
+            gridpane.add(new Label(), i)
+        }
+)        
+        
         GridPane.setHalignment(c, HPos.CENTER);
         fond.getChildren().add(p);
         p.getChildren().add(c);
@@ -166,8 +180,61 @@ public class Controller implements Initializable, Parametres{
         p.setVisible(true);
         c.setVisible(true);
     }
+    
+  
 
 
+private List<Node> getNodesFromRow(int i) {
+        List<Node> list = new ArrayList<Node>();
+        for (Node n : gridpane.getChildren()) {
+            if (gridpane.getRowIndex(n).equals(i)) {
+                list.add(n);
+            }
+        }
+        System.out.println(list.size());
+        return list;
+    }
+
+
+public void viderGrid(GridPane gridpane){
+	gridpane.getChildren().clear();
+}
+
+// REGARDER API POUR CHANGER
+public void delete(int row) {
+        .removeNodes(getNodesFromRow(row));
+        int i = row;
+        while (!getNodesFromRow(i + 1).isEmpty()) {
+            moveNodes(i + 1, getNodesFromRow(i + 1));
+            removeNodes(getNodesFromRow(i + 1));
+            i++;
+        }
+    }
+
+
+
+/* A VOIR
+ public void addPane(){
+ 	for(int i = 0; i< Fields.size(); i++){
+ 		gridpane.add(new Pane(), i, 1);
+ 	}
+ }*/
+
+
+
+ private int getRowCount(GridPane pane) {
+        int numRows = pane.getRowConstraints().size();
+        for (int i = 0; i < pane.getChildren().size(); i++) {
+            Node child = pane.getChildren().get(i);
+            if (child.isManaged()) {
+                Integer rowIndex = GridPane.getRowIndex(child);
+                if(rowIndex != null){
+                    numRows = Math.max(numRows,rowIndex+1);
+                }
+            }
+        }
+        return numRows;
+    }
     
     
 
