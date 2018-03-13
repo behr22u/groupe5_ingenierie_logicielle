@@ -158,6 +158,10 @@ public class Controller implements Initializable, Parametres{
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        // a laisser si jamais on fait la version où la gridpane se met à jour (pas de déplacements visuels)
+        //viderGrid(gridpane);
+        
         // TODO
         System.out.println("le contrôleur initialise la vue");
         // utilisation de styles pour la grille et la tuile (voir styles.css)
@@ -165,10 +169,17 @@ public class Controller implements Initializable, Parametres{
         c.getStyleClass().add("tuile");
         gridpane.getStyleClass().add("gridpane");
         
-        for(int i = 0; i < gridpane.; i++ ){
-            gridpane.add(new Label(), i)
+        for(int i = 0; i < getRowCount(gridpane); i++ ){
+            for(int j = 0; i < getColumnCount(gridpane); i++){
+                Pane pane = new Pane();
+                Label label = new Label();
+                gridpane.add(new Label());
+            }
+            
         }
-)        
+        
+        
+        
         
         GridPane.setHalignment(c, HPos.CENTER);
         fond.getChildren().add(p);
@@ -195,14 +206,17 @@ private List<Node> getNodesFromRow(int i) {
         return list;
     }
 
-
+/**
+ * methode permettant de vider completement la gridpane rentrée en parametres
+ * @param gridpane 
+ */
 public void viderGrid(GridPane gridpane){
 	gridpane.getChildren().clear();
 }
 
 // REGARDER API POUR CHANGER
 public void delete(int row) {
-        .removeNodes(getNodesFromRow(row));
+        gridpane.removeNodes(getNodesFromRow(row));
         int i = row;
         while (!getNodesFromRow(i + 1).isEmpty()) {
             moveNodes(i + 1, getNodesFromRow(i + 1));
@@ -221,7 +235,11 @@ public void delete(int row) {
  }*/
 
 
-
+/**
+ * méthode qui permet de retourner le nombre de ligne de la gridpane utilisée
+ * @param pane
+ * @return le nombre de ligne
+ */
  private int getRowCount(GridPane pane) {
         int numRows = pane.getRowConstraints().size();
         for (int i = 0; i < pane.getChildren().size(); i++) {
@@ -235,6 +253,27 @@ public void delete(int row) {
         }
         return numRows;
     }
+ 
+ 
+ /**
+  * méthode qui permet de retourner le nombre de colonnes de la gridpane utilisée
+  * @param pane
+  * @return le nombre de colonnes
+  */
+ private int getColumnCount(GridPane pane){
+     int numCol = pane.getRowConstraints().size();
+     for(int i = 0; i < pane.getChildren().size(); i++){
+         Node child = pane.getChildren().get(i);
+         if(child.isManaged()){
+             Integer ColIndex = GridPane.getColumnIndex(child);
+             if(ColIndex != null){
+                 numCol = Math.max(numCol, ColIndex+1);
+             }
+         }
+     }
+     return numCol;
+ }
+ 
     
     
 
