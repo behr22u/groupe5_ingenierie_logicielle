@@ -149,7 +149,7 @@ public class Controller implements Initializable, Parametres{
     
     // variables globales non définies dans la vue (fichier .fxml)
     private final Pane p = new Pane(); // panneau utilisé pour dessiner une tuile "2"
-    private final Label c = new Label("2");
+    private Label c = new Label();
     private int x = 24, y = 191;
     private int objectifx = 24, objectify = 191;
     private ObservableList<Node> bla;
@@ -169,22 +169,17 @@ public class Controller implements Initializable, Parametres{
         c.getStyleClass().add("tuile");
         gridpane.getStyleClass().add("gridpane");
         
-        for(int i = 0; i < getRowCount(gridpane); i++ ){
-            for(int j = 0; i < getColumnCount(gridpane); i++){
+        for(int i = 0; i <= getRowCount(gridpane); i++ ){
+            for(int j = 0; i <= getColumnCount(gridpane); i++){
                 Pane pane = new Pane();
-                Label label = new Label();
-                gridpane.add(new Label());
+                c = new Label();  
+                gridpane.add(label,i, j);
+                fond.getChildren().add(p);
+                p.getChildren().add(label);
             }
             
         }
         
-        
-        
-        
-        GridPane.setHalignment(c, HPos.CENTER);
-        fond.getChildren().add(p);
-        p.getChildren().add(c);
-
         // on place la tuile en précisant les coordonnées (x,y) du coin supérieur gauche
         p.setLayoutX(x);
         p.setLayoutY(y);
