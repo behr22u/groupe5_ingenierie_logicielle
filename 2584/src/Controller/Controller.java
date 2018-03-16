@@ -6,6 +6,7 @@
 
 package Controller;
 
+import Model.Case;
 import Model.Grille;
 import Model.Parametres;
 import static Model.Parametres.BAS;
@@ -14,9 +15,14 @@ import static Model.Parametres.GAUCHE;
 import static Model.Parametres.HAUT;
 import static Model.Parametres.OBJECTIF;
 import Model.SuitesMathematiques;
+import static java.lang.Math.E;
+import static java.lang.StrictMath.E;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import javafx.application.Platform;
@@ -40,10 +46,10 @@ import javafx.stage.Stage;
 
 
 public class Controller implements Initializable, Parametres{
+    
     private static Grille grille = new Grille();
     @FXML
     private Label label;
-    
     Grille g = new Grille();
     public static ArrayList<Integer> termesFibonacci = SuitesMathematiques.fibonacci(OBJECTIF);
     
@@ -108,6 +114,8 @@ public class Controller implements Initializable, Parametres{
     
     
     static public void lancementJeuGraphique(){
+         
+        
         for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
             System.out.println("Grille du joueur" + i);
             grille = new Grille();
@@ -115,9 +123,21 @@ public class Controller implements Initializable, Parametres{
             b = grille.nouvelleCase(1);
             System.out.println(grille);
         }
+        
+        HashSet<Case> g = grille.getGrille();     
+        for(Case c : g){
+            
+            Pane pane = new Pane();
+            Label label = new Label(Integer.toString(c.getValeur()));
+            gridpane.add(label, c.getX(), c.getY());
+            
+        }
         if (grille.partieFinie()){
             grille.gameOver();
         }
+       
+        
+
         
         
         
@@ -140,35 +160,65 @@ public class Controller implements Initializable, Parametres{
      */
     @FXML
     private Label score; // value will be injected by the FXMLLoader
+    
+    @FXML
+    private Label lab;
+    
     @FXML
     private GridPane gridpane;
     @FXML
     private Pane fond; // panneau recouvrant toute la fenêtre
 
     
-    
-    // variables globales non définies dans la vue (fichier .fxml)
-    private final Pane p = new Pane(); // panneau utilisé pour dessiner une tuile "2"
-    private Label c = new Label();
-    private int x = 24, y = 191;
-    private int objectifx = 24, objectify = 191;
-    private ObservableList<Node> bla;
+    private final Pane p = new Pane();
+    private final Label c = new Label(); 
     
 
    
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        
-        // a laisser si jamais on fait la version où la gridpane se met à jour (pas de déplacements visuels)
-        //viderGrid(gridpane);
-        
+    public void initialize(URL url, ResourceBundle rb) {        
         // TODO
         System.out.println("le contrôleur initialise la vue");
         // utilisation de styles pour la grille et la tuile (voir styles.css)
         p.getStyleClass().add("pane"); 
         c.getStyleClass().add("tuile");
         gridpane.getStyleClass().add("gridpane");
+        GridPane.setHalignment(c, HPos.CENTER);
+        fond.getChildren().add(p);
+        p.getChildren().add(c);
+     
+        Iterator<Case> it = grille.iterator();
+        while(it.hasNext()){
+            
+            Pane pane = new Pane();
+            Label lab = new Label(Integer.toString(it.next().getValeur()));
+            gridpane.getChildren().add(pane);
+            pane.getChildren().add(lab);
+            
+            
+            
+        }
         
+        
+        
+        
+        /* de la merde
+        //ajout de la premiere case au hasard dans la grille
+        int valeurx = 1 + r.nextInt(3);
+        int valeury = 1 + r.nextInt(3);
+        gridpane.add(p, valeurx, valeury);
+
+        //ajout de la premiere case au hasard dans la grille    
+        valeurx = 1 + r.nextInt(3);
+        valeury = 1 + r.nextInt(3);
+        gridpane.add(p, valeurx, valeury);
+        */
+        
+        
+        
+        
+        
+        /*
         for(int i = 0; i <= getRowCount(gridpane); i++ ){
             for(int j = 0; i <= getColumnCount(gridpane); i++){
                 Pane pane = new Pane();
@@ -178,7 +228,7 @@ public class Controller implements Initializable, Parametres{
                 p.getChildren().add(label);
             }
             
-        }
+        }*/
         
         // on place la tuile en précisant les coordonnées (x,y) du coin supérieur gauche
         p.setLayoutX(x);
@@ -210,6 +260,7 @@ public void viderGrid(GridPane gridpane){
 }
 
 // REGARDER API POUR CHANGER
+/*
 public void delete(int row) {
         gridpane.removeNodes(getNodesFromRow(row));
         int i = row;
@@ -219,6 +270,7 @@ public void delete(int row) {
             i++;
         }
     }
+*/
 
 
 
