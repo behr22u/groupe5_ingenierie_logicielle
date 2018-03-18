@@ -15,7 +15,6 @@ import static Model.Parametres.GAUCHE;
 import static Model.Parametres.HAUT;
 import static Model.Parametres.OBJECTIF;
 import Model.SuitesMathematiques;
-import static java.lang.Math.E;
 import static java.lang.StrictMath.E;
 import java.net.URL;
 import java.util.ArrayList;
@@ -46,134 +45,46 @@ import javafx.stage.Stage;
 
 
 public class Controller implements Initializable, Parametres{
-    
-    private static Grille grille = new Grille();
-    @FXML
-    private Label label;
-    Grille g = new Grille();
     public static ArrayList<Integer> termesFibonacci = SuitesMathematiques.fibonacci(OBJECTIF);
+    private static Grille grilles[] = new Grille[NOMBREDEJOUEURS]; // ici parce que utilisé dans plein de fonctions différentes, et plus simple que de le placer en parametre
     
-    
-    static public void lancementJeu(){
-        Grille grilles[] = new Grille[NOMBREDEJOUEURS];
-        for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
-            System.out.println("Grille du joueur" + i);
-            grilles[i] = new Grille();
-            boolean b = grilles[i].nouvelleCase(1);
-            b = grilles[i].nouvelleCase(1);
-            System.out.println(grilles[i]);
-        }
-        Scanner sc = new Scanner(System.in);
-        /*System.out.println("X:");
-        int x= sc.nextInt();
-        System.out.println("Y:");
-        int y= sc.nextInt();
-        System.out.println("Valeur:");
-        int valeur= sc.nextInt();
-        Case c = new Case(x,y,valeur);
-        g.getGrille().remove(c);
-        System.out.println(g);*/
-
-        while (!finDePartie(grilles)) {
-            for (int i=0 ; i<NOMBREDEJOUEURS ; i++ ){
-                System.out.println("C'est a vous joueur " + i + " !");
-                System.out.println("Déplacer vers la Droite (d), Gauche (g), Haut (h), ou Bas (b) ?");
-                String s = sc.nextLine();
-                s.toLowerCase();
-                if (!(s.equals("d") || s.equals("droite")
-                        || s.equals("g") || s.equals("gauche")
-                        || s.equals("h") || s.equals("haut")
-                        || s.equals("b") || s.equals("bas"))) {
-                    System.out.println("Vous devez écrire d pour Droite, g pour Gauche, h pour Haut ou b pour Bas");
-                } else {
-                    int direction;
-                    if (s.equals("d") || s.equals("droite")) {
-                        direction = DROITE;
-                    } else if (s.equals("g") || s.equals("gauche")) {
-                        direction = GAUCHE;
-                    } else if (s.equals("h") || s.equals("haut")) {
-                        direction = HAUT;
-                    } else {
-                        direction = BAS;
-                    }
-                    boolean b2 = grilles[i].lanceurDeplacerCases(direction);
-                    if (b2) {
-                        boolean b = grilles[i].nouvelleCase();
-                        if (!b) grilles[i].gameOver();
-                    }
-                    System.out.println(grilles[i]);
-                    if (grilles[i].getValeurMax()>=OBJECTIF) grilles[i].victory();
-                }
-            }
-        }
-        for(Grille g : grilles){
-            g.gameOver();
-        }
-            
-    }
-    
-    
-    static public void lancementJeuGraphique(){
-         
-        
-        for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
-            System.out.println("Grille du joueur" + i);
-            grille = new Grille();
-            boolean b = grille.nouvelleCase(1);
-            b = grille.nouvelleCase(1);
-            System.out.println(grille);
-        }
-        
-        HashSet<Case> g = grille.getGrille();     
-        for(Case c : g){
-            
-            Pane pane = new Pane();
-            Label label = new Label(Integer.toString(c.getValeur()));
-            gridpane.add(label, c.getX(), c.getY());
-            
-        }
-        if (grille.partieFinie()){
-            grille.gameOver();
-        }
-       
-        
-
-        
-        
-        
-    }
-    
-    static private boolean finDePartie(Grille grilles[]){
-        boolean fini = false;
-        for(Grille g : grilles){
-            if (g.partieFinie()){
-                fini = true;
-            }
-        }
-        return fini;
-    }
-    
-    ///////////////////////// Prite affichage
     /*
      * Variables globales correspondant à des objets définis dans la vue (fichier .fxml)
      * Ces variables sont ajoutées à la main et portent le même nom que les fx:id dans Scene Builder
      */
     @FXML
     private Label score; // value will be injected by the FXMLLoader
-    
-    @FXML
-    private Label lab;
-    
     @FXML
     private GridPane gridpane;
     @FXML
     private Pane fond; // panneau recouvrant toute la fenêtre
 
     
-    private final Pane p = new Pane();
-    private final Label c = new Label(); 
     
-
+    public void lancementJeuGraphique(){
+        Grille grilles[] = new Grille[NOMBREDEJOUEURS];
+        for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
+            System.out.println("Grille du joueur" + i);
+            grilles[i] = new Grille();
+            boolean b = grilles[i].nouvelleCase();
+            b = grilles[i].nouvelleCase(1);
+            System.out.println(grilles[i]);
+        
+            HashSet<Case> g = grilles[i].getGrille(); 
+            int j=0;
+            
+            for(Case c : g){
+                Pane pane[j] = new Pane();
+                Label label[j] = new Label(Integer.toString(c.getValeur()));
+                gridpane.add(label, c.getX(), c.getY());
+                j++;
+            }
+        }
+        for(Grille g : grilles){
+            g.gameOver();
+        }  
+    }
+  
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {        
@@ -240,7 +151,7 @@ public class Controller implements Initializable, Parametres{
   
 
 
-private List<Node> getNodesFromRow(int i) {
+    private List<Node> getNodesFromRow(int i) {
         List<Node> list = new ArrayList<Node>();
         for (Node n : gridpane.getChildren()) {
             if (gridpane.getRowIndex(n).equals(i)) {
@@ -251,13 +162,13 @@ private List<Node> getNodesFromRow(int i) {
         return list;
     }
 
-/**
- * methode permettant de vider completement la gridpane rentrée en parametres
- * @param gridpane 
- */
-public void viderGrid(GridPane gridpane){
-	gridpane.getChildren().clear();
-}
+    /**
+     * methode permettant de vider completement la gridpane rentrée en parametres
+     * @param gridpane 
+     */
+    public void viderGrid(GridPane gridpane){
+            gridpane.getChildren().clear();
+    }
 
 // REGARDER API POUR CHANGER
 /*
@@ -282,48 +193,7 @@ public void delete(int row) {
  }*/
 
 
-/**
- * méthode qui permet de retourner le nombre de ligne de la gridpane utilisée
- * @param pane
- * @return le nombre de ligne
- */
- private int getRowCount(GridPane pane) {
-        int numRows = pane.getRowConstraints().size();
-        for (int i = 0; i < pane.getChildren().size(); i++) {
-            Node child = pane.getChildren().get(i);
-            if (child.isManaged()) {
-                Integer rowIndex = GridPane.getRowIndex(child);
-                if(rowIndex != null){
-                    numRows = Math.max(numRows,rowIndex+1);
-                }
-            }
-        }
-        return numRows;
-    }
- 
- 
- /**
-  * méthode qui permet de retourner le nombre de colonnes de la gridpane utilisée
-  * @param pane
-  * @return le nombre de colonnes
-  */
- private int getColumnCount(GridPane pane){
-     int numCol = pane.getRowConstraints().size();
-     for(int i = 0; i < pane.getChildren().size(); i++){
-         Node child = pane.getChildren().get(i);
-         if(child.isManaged()){
-             Integer ColIndex = GridPane.getColumnIndex(child);
-             if(ColIndex != null){
-                 numCol = Math.max(numCol, ColIndex+1);
-             }
-         }
-     }
-     return numCol;
- }
- 
     
-    
-
     @FXML
     private void handleButtonAction(MouseEvent event) {
         System.out.println("Clic de souris sur le bouton menu");
@@ -344,11 +214,88 @@ public void delete(int row) {
             direction = BAS;
         }
         if (direction != 0){
-            boolean b2 = grille.lanceurDeplacerCases(direction);
+            boolean b2 = grilles[1].lanceurDeplacerCases(direction);
             if (b2) {
-                boolean b = grille.nouvelleCase();
-                if (!b) grille.gameOver();
+                boolean b = grilles[1].nouvelleCase();
+                if (!b) grilles[1].gameOver();
             }
         }
+        ///// Rajouter eune condition ici pour quand il y aura un joueur non réel ou pe mettre dans une autre fonction?
+        direction = 0;
+        if (touche.compareTo("k") == 0) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
+            direction = GAUCHE;
+        } else if (touche.compareTo("m") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
+            direction = DROITE;
+        } else if (touche.compareTo("o") == 0) { // utilisateur appuie sur "z" pour envoyer la tuile vers le haut
+            direction = HAUT;
+        } else if (touche.compareTo("l") == 0) { // utilisateur appuie sur "s" pour envoyer la tuile vers le bas
+            direction = BAS;
+        }
+        if (direction != 0){
+            boolean b2 = grilles[2].lanceurDeplacerCases(direction);
+            if (b2) {
+                boolean b = grilles[2].nouvelleCase();
+                if (!b) grilles[2].gameOver();
+            }
+        }
+    }
+    
+     static public void lancementJeu(){
+        Grille grilles[] = new Grille[NOMBREDEJOUEURS];
+        for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
+            System.out.println("Grille du joueur" + i);
+            grilles[i] = new Grille();
+            boolean b = grilles[i].nouvelleCase(1);
+            b = grilles[i].nouvelleCase(1);
+            System.out.println(grilles[i]);
+        }
+        Scanner sc = new Scanner(System.in);
+
+        while (!finDePartie(grilles)) {
+            for (int i=0 ; i<NOMBREDEJOUEURS ; i++ ){
+                System.out.println("C'est a vous joueur " + i + " !");
+                System.out.println("Déplacer vers la Droite (d), Gauche (g), Haut (h), ou Bas (b) ?");
+                String s = sc.nextLine();
+                s.toLowerCase();
+                if (!(s.equals("d") || s.equals("droite")
+                        || s.equals("g") || s.equals("gauche")
+                        || s.equals("h") || s.equals("haut")
+                        || s.equals("b") || s.equals("bas"))) {
+                    System.out.println("Vous devez écrire d pour Droite, g pour Gauche, h pour Haut ou b pour Bas");
+                } else {
+                    int direction;
+                    if (s.equals("d") || s.equals("droite")) {
+                        direction = DROITE;
+                    } else if (s.equals("g") || s.equals("gauche")) {
+                        direction = GAUCHE;
+                    } else if (s.equals("h") || s.equals("haut")) {
+                        direction = HAUT;
+                    } else {
+                        direction = BAS;
+                    }
+                    boolean b2 = grilles[i].lanceurDeplacerCases(direction);
+                    if (b2) {
+                        boolean b = grilles[i].nouvelleCase();
+                        if (!b) grilles[i].gameOver();
+                    }
+                    System.out.println(grilles[i]);
+                    if (grilles[i].getValeurMax()>=OBJECTIF) grilles[i].victory();
+                }
+            }
+        }
+        for(Grille g : grilles){
+            g.gameOver();
+        }
+            
+    }
+     
+     static private boolean finDePartie(Grille grilles[]){
+        boolean fini = false;
+        for(Grille g : grilles){
+            if (g.partieFinie()){
+                fini = true;
+            }
+        }
+        return fini;
     }
 }
