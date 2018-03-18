@@ -68,9 +68,7 @@ public class Controller implements Initializable, Parametres{
             grilles[i] = new Grille();
             boolean b = grilles[i].nouvelleCase();
             b = grilles[i].nouvelleCase(1);
-        
         }
-        
     }
   
    

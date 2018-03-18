@@ -24,13 +24,16 @@ public class Main extends Application implements Model.Parametres{
     
     @Override
     public void start(Stage stage) throws Exception {
+        System.out.println("ici");
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         
+        System.out.println("ici");
         Scene scene = new Scene(root);
         boolean add = scene.getStylesheets().add("style.css");
-        
+        System.out.println("ici");
         stage.setScene(scene);
         stage.show();
+        System.out.println("ici");
     }
 
     /**
