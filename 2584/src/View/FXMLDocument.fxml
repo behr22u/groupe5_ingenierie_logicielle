@@ -7,7 +7,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane fx:id="fond" onKeyPressed="#keyPressed" prefHeight="803.0" prefWidth="1041.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Controller">
+<AnchorPane id="AnchorPane" prefHeight="613.0" prefWidth="445.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Controller">
+<Pane fx:id="fond" onKeyPressed="#keyPressed" prefHeight="803.0" prefWidth="1041.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane fx:id="grille" gridLinesVisible="true" layoutX="24.0" layoutY="191.0" onMouseDragged="#handleDragAction" prefHeight="397.0" prefWidth="397.0">
         <columnConstraints>
@@ -38,3 +39,4 @@
       
    </children>
 </Pane>
+</AnchorPane>
