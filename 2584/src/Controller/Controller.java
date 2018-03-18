@@ -61,43 +61,49 @@ public class Controller implements Initializable, Parametres{
 
     
     
-    public void lancementJeuGraphique(){
+    public static void lancementJeuGraphique(){
         Grille grilles[] = new Grille[NOMBREDEJOUEURS];
         for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
             System.out.println("Grille du joueur" + i);
             grilles[i] = new Grille();
             boolean b = grilles[i].nouvelleCase();
             b = grilles[i].nouvelleCase(1);
-            System.out.println(grilles[i]);
         
-            HashSet<Case> g = grilles[i].getGrille(); 
-            int j=0;
-            
-            for(Case c : g){
-                Pane pane[j] = new Pane();
-                Label label[j] = new Label(Integer.toString(c.getValeur()));
-                gridpane.add(label, c.getX(), c.getY());
-                j++;
-            }
         }
-        for(Grille g : grilles){
-            g.gameOver();
-        }  
+        
     }
   
    
     @Override
-    public void initialize(URL url, ResourceBundle rb) {        
+    public void initialize(URL url, ResourceBundle rb) {  
         // TODO
         System.out.println("le contrôleur initialise la vue");
-        // utilisation de styles pour la grille et la tuile (voir styles.css)
-        p.getStyleClass().add("pane"); 
-        c.getStyleClass().add("tuile");
-        gridpane.getStyleClass().add("gridpane");
-        GridPane.setHalignment(c, HPos.CENTER);
-        fond.getChildren().add(p);
-        p.getChildren().add(c);
-     
+        for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
+        HashSet<Case> g = grilles[i].getGrille(); 
+            int j=0;
+            
+            for(Case c : g){
+                Pane p = new Pane();
+                Label l = new Label(Integer.toString(c.getValeur()));
+                //gridpane.add(l, c.getX(), c.getY());
+                
+                // utilisation de styles pour la grille et la tuile (voir styles.css)
+                p.getStyleClass().add("pane"); 
+                l.getStyleClass().add("tuile");
+                gridpane.getStyleClass().add("gridpane");
+                GridPane.setHalignment(l, HPos.CENTER);
+                fond.getChildren().add(p);
+                p.getChildren().add(l);
+                // on place la tuile en précisant les coordonnées (x,y) du coin supérieur gauche
+                p.setLayoutX(c.getX());
+                p.setLayoutY(c.getY());
+                p.setVisible(true);
+                l.setVisible(true);
+                
+            }
+        
+        }
+        /*
         Iterator<Case> it = grille.iterator();
         while(it.hasNext()){
             
@@ -106,9 +112,8 @@ public class Controller implements Initializable, Parametres{
             gridpane.getChildren().add(pane);
             pane.getChildren().add(lab);
             
-            
-            
         }
+        */
         
         
         
@@ -141,11 +146,7 @@ public class Controller implements Initializable, Parametres{
             
         }*/
         
-        // on place la tuile en précisant les coordonnées (x,y) du coin supérieur gauche
-        p.setLayoutX(x);
-        p.setLayoutY(y);
-        p.setVisible(true);
-        c.setVisible(true);
+        
     }
     
   

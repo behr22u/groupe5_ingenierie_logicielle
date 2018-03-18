@@ -7,6 +7,7 @@ package View;
 
 import Controller.Controller;
 import static Controller.Controller.lancementJeu;
+import static Controller.Controller.lancementJeuGraphique;
 import java.util.Scanner;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -31,11 +32,7 @@ public class Main extends Application implements Model.Parametres{
         stage.setScene(scene);
         stage.show();
     }
-    
-    
-    
-    
-    
+
     /**
      * @param args the command line arguments
      */
@@ -43,6 +40,7 @@ public class Main extends Application implements Model.Parametres{
         //launch(args);
         // TODO code application logic here
         //lancementJeu();
+        lancementJeuGraphique();
         launch(args);
     }
 
