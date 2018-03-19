@@ -115,55 +115,17 @@ public class Controller implements Initializable, Parametres{
                 l.setVisible(true);
                 
             }
-        
         }
-        /*
-        Iterator<Case> it = grille.iterator();
-        while(it.hasNext()){
-            
-            Pane pane = new Pane();
-            Label lab = new Label(Integer.toString(it.next().getValeur()));
-            gridpane.getChildren().add(pane);
-            pane.getChildren().add(lab);
-            
-        }
-        */
+    }
+    
+  
+    private void updateView(){
         
-        
-        
-        
-        /* de la merde
-        //ajout de la premiere case au hasard dans la grille
-        int valeurx = 1 + r.nextInt(3);
-        int valeury = 1 + r.nextInt(3);
-        gridpane.add(p, valeurx, valeury);
-
-        //ajout de la premiere case au hasard dans la grille    
-        valeurx = 1 + r.nextInt(3);
-        valeury = 1 + r.nextInt(3);
-        gridpane.add(p, valeurx, valeury);
-        */
-        
-        
-        
-        
-        
-        /*
-        for(int i = 0; i <= getRowCount(gridpane); i++ ){
-            for(int j = 0; i <= getColumnCount(gridpane); i++){
-                Pane pane = new Pane();
-                c = new Label();  
-                gridpane.add(label,i, j);
-                fond.getChildren().add(p);
-                p.getChildren().add(label);
-            }
-            
-        }*/
+        //utiliser gridPane.getChildren().remove(node);
         
         
     }
     
-  
 
 
     private List<Node> getNodesFromRow(int i) {
@@ -185,6 +147,8 @@ public class Controller implements Initializable, Parametres{
             gridpane.getChildren().clear();
     }
 
+    
+    
 // REGARDER API POUR CHANGER
 /*
 public void delete(int row) {
@@ -200,12 +164,6 @@ public void delete(int row) {
 
 
 
-/* A VOIR
- public void addPane(){
- 	for(int i = 0; i< Fields.size(); i++){
- 		gridpane.add(new Pane(), i, 1);
- 	}
- }*/
 
 
     
