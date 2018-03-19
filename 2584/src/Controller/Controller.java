@@ -229,10 +229,10 @@ public void delete(int row) {
             direction = BAS;
         }
         if (direction != 0){
-            boolean b2 = grilles[1].lanceurDeplacerCases(direction);
+            boolean b2 = grilles[0].lanceurDeplacerCases(direction);
             if (b2) {
-                boolean b = grilles[1].nouvelleCase();
-                if (!b) grilles[1].gameOver();
+                boolean b = grilles[0].nouvelleCase();
+                if (!b) grilles[0].gameOver();
             }
             System.out.println(grilles[0]);
         }
