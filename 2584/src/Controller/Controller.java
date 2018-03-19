@@ -234,7 +234,9 @@ public void delete(int row) {
                 boolean b = grilles[1].nouvelleCase();
                 if (!b) grilles[1].gameOver();
             }
+            System.out.println(grilles[0]);
         }
+        
         ///// Rajouter eune condition ici pour quand il y aura un joueur non réel ou pe mettre dans une autre fonction?
         direction = 0;
         if (touche.compareTo("k") == 0) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
@@ -247,12 +249,14 @@ public void delete(int row) {
             direction = BAS;
         }
         if (direction != 0){
-            boolean b2 = grilles[2].lanceurDeplacerCases(direction);
+            boolean b2 = grilles[1].lanceurDeplacerCases(direction);
             if (b2) {
-                boolean b = grilles[2].nouvelleCase();
-                if (!b) grilles[2].gameOver();
+                boolean b = grilles[1].nouvelleCase();
+                if (!b) grilles[1].gameOver();
             }
+            System.out.println(grilles[1]);
         }
+        
     }
     
      static public void lancementJeu(){
