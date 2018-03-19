@@ -62,7 +62,6 @@ public class Controller implements Initializable, Parametres{
     
     
     public static void lancementJeuGraphique(){
-        Grille grilles[] = new Grille[NOMBREDEJOUEURS];
         for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
             System.out.println("Grille du joueur" + i);
             grilles[i] = new Grille();
@@ -77,24 +76,41 @@ public class Controller implements Initializable, Parametres{
         // TODO
         System.out.println("le contrôleur initialise la vue");
         for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
-        HashSet<Case> g = grilles[i].getGrille(); 
-            int j=0;
-            
+            System.out.println(grilles[i]);
+            System.out.println("ici 1 : " + i);
+            HashSet<Case> g = grilles[i].getGrille(); 
+            System.out.println("ici 2 : " + i);
             for(Case c : g){
+                System.out.println("ici 3 : " + i);
                 Pane p = new Pane();
                 Label l = new Label(Integer.toString(c.getValeur()));
                 //gridpane.add(l, c.getX(), c.getY());
-                
+                System.out.println("ici 4 : " + i);
                 // utilisation de styles pour la grille et la tuile (voir styles.css)
                 p.getStyleClass().add("pane"); 
+                System.out.println("ici 5 : " + i);
                 l.getStyleClass().add("tuile");
-                gridpane.getStyleClass().add("gridpane");
+                System.out.println("ici 6 : " + i);
+               // gridpane.getStyleClass().add("gridpane");
+                System.out.println("ici 7 : " + i);
                 GridPane.setHalignment(l, HPos.CENTER);
+                System.out.println("ici 8 : " + i);
                 fond.getChildren().add(p);
+                System.out.println("ici 9 : " + i);
                 p.getChildren().add(l);
-                // on place la tuile en précisant les coordonnées (x,y) du coin supérieur gauche
-                p.setLayoutX(c.getX());
-                p.setLayoutY(c.getY());
+                // on place la tuile en précisant les coordonnées (x,y) du coin supérieur gauche 
+                
+                switch(i){
+                    
+                    case 0 :  p.setLayoutX(24 + c.getX()*(397/4));
+                              p.setLayoutY(191 + c.getY()*(397/4));
+                              break;
+                              
+                    case 1 :  p.setLayoutX(618 + c.getX()*(397/4));
+                              p.setLayoutY(191 + c.getY()*(397/4));
+                              break;
+                }
+               
                 p.setVisible(true);
                 l.setVisible(true);
                 
