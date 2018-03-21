@@ -75,6 +75,10 @@ public class Controller implements Initializable, Parametres{
     public void initialize(URL url, ResourceBundle rb) {  
         // TODO
         System.out.println("le contrôleur initialise la vue");
+        this.afficheTableau();
+    }
+    
+    public void afficheTableau(){
         for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
             System.out.println(grilles[i]);
             System.out.println("ici 1 : " + i);
@@ -214,7 +218,7 @@ public void delete(int row) {
             }
             System.out.println(grilles[1]);
         }
-        
+        this.afficheTableau();
     }
     
      static public void lancementJeu(){
