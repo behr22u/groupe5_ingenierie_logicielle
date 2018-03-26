@@ -53,17 +53,23 @@ public class Controller implements Initializable, Parametres{
      * Ces variables sont ajoutées à la main et portent le même nom que les fx:id dans Scene Builder
      */
     @FXML
-    private Label score; // value will be injected by the FXMLLoader
+    private Label score1; // value will be injected by the FXMLLoader
     @FXML
-    private Label score1;
+    private Label score2;
+    
+    @FXML
+    private Label move1;
+    @FXML
+    private Label move2;
+    
     @FXML
     private GridPane gridpane;
     @FXML
     private Pane fond; // panneau recouvrant toute la fenêtre
     
     
-    private int move = 0; // nombre de déplacements du joueur 1
-    private int move1 = 0; // nombre déplacements du joueur 2
+    private int movej1 = 0; // nombre de déplacements du joueur 1
+    private int movej2 = 0; // nombre déplacements du joueur 2
 
     
     
@@ -204,8 +210,11 @@ public void delete(int row) {
                 if (!b) grilles[0].gameOver();
             }
             System.out.println(grilles[0]);
-            move ++;
-            score.setText(Integer.toString(move));
+            
+            // on incrémente la variable
+            movej1 ++;
+            // on modifie le label move1
+            move1.setText(Integer.toString(movej1));
         }
         
         ///// Rajouter eune condition ici pour quand il y aura un joueur non réel ou pe mettre dans une autre fonction?
@@ -226,8 +235,11 @@ public void delete(int row) {
                 if (!b) grilles[1].gameOver();
             }
             System.out.println(grilles[1]);
-            move1 ++;
-            score1.setText(Integer.toString(move1));
+            
+            //on incremente la variable
+            movej2 ++;
+            //on modifie le label move2
+            move2.setText(Integer.toString(movej2));
         }
         this.afficheTableau();
     }
