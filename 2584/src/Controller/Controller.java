@@ -55,9 +55,15 @@ public class Controller implements Initializable, Parametres{
     @FXML
     private Label score; // value will be injected by the FXMLLoader
     @FXML
+    private Label score1;
+    @FXML
     private GridPane gridpane;
     @FXML
     private Pane fond; // panneau recouvrant toute la fenêtre
+    
+    
+    private int move = 0; // nombre de déplacements du joueur 1
+    private int move1 = 0; // nombre déplacements du joueur 2
 
     
     
@@ -190,6 +196,7 @@ public void delete(int row) {
         } else if (touche.compareTo("s") == 0) { // utilisateur appuie sur "s" pour envoyer la tuile vers le bas
             direction = BAS;
         }
+        
         if (direction != 0){
             boolean b2 = grilles[0].lanceurDeplacerCases(direction);
             if (b2) {
@@ -197,6 +204,8 @@ public void delete(int row) {
                 if (!b) grilles[0].gameOver();
             }
             System.out.println(grilles[0]);
+            move ++;
+            score.setText(Integer.toString(move));
         }
         
         ///// Rajouter eune condition ici pour quand il y aura un joueur non réel ou pe mettre dans une autre fonction?
@@ -217,10 +226,15 @@ public void delete(int row) {
                 if (!b) grilles[1].gameOver();
             }
             System.out.println(grilles[1]);
+            move1 ++;
+            score1.setText(Integer.toString(move1));
         }
         this.afficheTableau();
     }
     
+    
+    
+    //jeu sans interface graphique
      static public void lancementJeu(){
         Grille grilles[] = new Grille[NOMBREDEJOUEURS];
         for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
