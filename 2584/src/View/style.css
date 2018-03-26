@@ -9,8 +9,12 @@ and open the template in the editor.
 */
 
 .pane {
-    -fx-background-color: #99FF33;
+    -fx-background-color: #DCC598;
     -fx-border-color: black;
+    -fx-text-align: center;
+    -fx-max-height: 100px;
+    -fx-max-width: 100px;
+    
 }
 
 .gridpane {
@@ -24,7 +28,7 @@ and open the template in the editor.
 .tuile {
     /*-fx-text-alignment: center;
     -fx-halignment: center; */
-    -fx-text-fill: #6666FF;
+    -fx-text-fill: #B3763B;
     /*-fx-font: "Cambria";*/
     -fx-font-size: 32;
     -fx-padding: 26 40 26 40;
