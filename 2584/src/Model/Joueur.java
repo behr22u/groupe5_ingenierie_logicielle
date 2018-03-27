@@ -11,18 +11,18 @@ package Model;
  */
 public class Joueur implements Parametres {
     
-    private Grille GrilleActuelle;
+    protected Grille grilleActuelle;
     
-    private Grille GrilleTampon;
+    protected Grille grilleTampon;
     
-    private int scoreMax;
+    protected int scoreMax;
     
-    private int nbUndo;
+    protected int nbUndo;
     
     
-    public Joueur(){
-        this.GrilleActuelle = new Grille();
-        this.GrilleTampon = new Grille();
+    public Joueur( Grille grille ){
+        this.grilleActuelle = grille;
+        this.grilleTampon = new Grille();
         this.nbUndo = 5;
         this.scoreMax = 0;
     }
@@ -35,12 +35,12 @@ public class Joueur implements Parametres {
     
     
     public void setGrilleA(Grille g){
-        this.GrilleActuelle = g;
+        this.grilleActuelle = g;
     }
     
     
     public void setGrilleT(Grille gi){
-        this.GrilleTampon = gi;
+        this.grilleTampon = gi;
     }
     
 }
