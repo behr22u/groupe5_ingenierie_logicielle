@@ -118,12 +118,12 @@ public class Controller implements Initializable, Parametres{
                 
                 switch(i){
                     
-                    case 0 :  p.setLayoutX(24 + c.getX()*(397/4));
-                              p.setLayoutY(191 + c.getY()*(397/4));
+                    case 0 :  p.setLayoutX(24 + c.getX()*100);
+                              p.setLayoutY(191 + c.getY()*100);
                               break;
                               
-                    case 1 :  p.setLayoutX(618 + c.getX()*(397/4));
-                              p.setLayoutY(191 + c.getY()*(397/4));
+                    case 1 :  p.setLayoutX(618 + c.getX()*100);
+                              p.setLayoutY(191 + c.getY()*100);
                               break;
                 }
                

@@ -22,6 +22,9 @@ public class Grille extends GridPane implements Parametres {
     private int valeurMax = 0;
     private boolean deplacement;
 
+    /**
+     * Constructeur d'une grille
+     */
     public Grille() {
         this.grille = new HashSet<>();
     }
@@ -40,14 +43,27 @@ public class Grille extends GridPane implements Parametres {
     }
     
 
+    /**
+     * getGrille qui retourne le hashset
+     * @return un hashset qui contient des objets cases
+     */
     public HashSet<Case> getGrille() {
         return grille;
     }
 
+    /**
+     * retourne la valeur maximale de la grille
+     * @return un entier
+     */
     public int getValeurMax() {
         return valeurMax;
     }
 
+    
+    /**
+     * methode partieFinie qu'on appelle pour tester si la partie est finie ou pas
+     * @return true si le nombre d'éléments de la grille est supérieur à 16, false si le nombre d'élément est inférieur à 16
+     */
     public boolean partieFinie() {
         if (this.grille.size() < TAILLE * TAILLE) {
             return false;
@@ -66,6 +82,11 @@ public class Grille extends GridPane implements Parametres {
     }
     
     
+    /**
+     * 
+     * @param direction
+     * @return 
+     */
     public boolean lanceurDeplacerCases(int direction) {
         Case[] extremites = this.getCasesExtremites(direction);
         deplacement = false; // pour vérifier si on a bougé au moins une case après le déplacement, avant d'en rajouter une nouvelle
@@ -88,6 +109,11 @@ public class Grille extends GridPane implements Parametres {
         return deplacement;
     }
 
+    /**
+     * 
+     * @param c1
+     * @param c2 
+     */
     private void fusion(Case c1, Case c2) {////////////
         c1.setValeur(c1.getValeur()+c2.getValeur() );
         if (this.valeurMax < c1.getValeur()) {
@@ -95,6 +121,7 @@ public class Grille extends GridPane implements Parametres {
         }
         deplacement = true;
     }
+    
 
     private void deplacerCasesRecursif(Case[] extremites, int rangee, int direction, int compteur) {
         if (extremites[rangee] != null) {
@@ -176,6 +203,7 @@ public class Grille extends GridPane implements Parametres {
         System.exit(0);
     }
 
+    
     public void gameOver() {
         System.out.println("La partie est finie. Votre score est " + this.valeurMax);
         System.exit(1);
@@ -207,6 +235,8 @@ public class Grille extends GridPane implements Parametres {
             return false;
         }
     }
+    
+    
     public boolean nouvelleCase(int n) {
         if (this.grille.size() < TAILLE * TAILLE) {
             ArrayList<Case> casesLibres = new ArrayList<>();
