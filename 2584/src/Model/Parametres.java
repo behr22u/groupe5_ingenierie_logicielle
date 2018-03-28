@@ -49,7 +49,17 @@ public interface Parametres {
     }
     ///prend en paramètre une chaine de caratère (touche du clavier) renvoire le int correspondant à la dirrection pour le joueur2
     static public int convertDirectionJ2(String touche){
-        
+        int direction = 0;
+        if (touche.compareTo("k") == 0) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
+            direction = GAUCHE;
+        } else if (touche.compareTo("m") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
+            direction = DROITE;
+        } else if (touche.compareTo("o") == 0) { // utilisateur appuie sur "z" pour envoyer la tuile vers le haut
+            direction = HAUT;
+        } else if (touche.compareTo("l") == 0) { // utilisateur appuie sur "s" pour envoyer la tuile vers le bas
+            direction = BAS;
+        }
+        return direction;
     }
 }
 

@@ -16,6 +16,8 @@ import static Model.Parametres.GAUCHE;
 import static Model.Parametres.HAUT;
 import static Model.Parametres.OBJECTIF;
 import static Model.Parametres.convertDirectionJ1;
+import static Model.Parametres.convertDirectionJ2;
+import Model.Partie;
 import Model.SuitesMathematiques;
 import static java.lang.StrictMath.E;
 import java.net.URL;
@@ -48,7 +50,7 @@ import javafx.stage.Stage;
 
 public class Controller implements Initializable, Parametres{
     public static ArrayList<Integer> termesFibonacci = SuitesMathematiques.fibonacci(OBJECTIF);
-    private static Grille grilles[] = new Grille[NOMBREDEJOUEURS]; // ici parce que utilisé dans plein de fonctions différentes, et plus simple que de le placer en parametre
+    public static Patrie = new Partie();
     
     /*
      * Variables globales correspondant à des objets définis dans la vue (fichier .fxml)
@@ -63,7 +65,6 @@ public class Controller implements Initializable, Parametres{
     private Label move1;
     @FXML
     private Label move2;
-    
     @FXML
     private GridPane gridpane;
     @FXML
@@ -195,7 +196,7 @@ public void delete(int row) {
     public void keyPressed(KeyEvent ke) {
         System.out.println("touche appuyée");
         String touche = ke.getText();
-        String direction = convertDirectionJ1(touche);
+        int direction = convertDirectionJ1(touche);
         
         if (direction != 0){
             boolean b2 = grilles[0].lanceurDeplacerCases(direction);
@@ -212,16 +213,7 @@ public void delete(int row) {
         }
         
         ///// Rajouter eune condition ici pour quand il y aura un joueur non réel ou pe mettre dans une autre fonction?
-        direction = 0;
-        if (touche.compareTo("k") == 0) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
-            direction = GAUCHE;
-        } else if (touche.compareTo("m") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
-            direction = DROITE;
-        } else if (touche.compareTo("o") == 0) { // utilisateur appuie sur "z" pour envoyer la tuile vers le haut
-            direction = HAUT;
-        } else if (touche.compareTo("l") == 0) { // utilisateur appuie sur "s" pour envoyer la tuile vers le bas
-            direction = BAS;
-        }
+        direction = convertDirectionJ2(touche);
         if (direction != 0){
             boolean b2 = grilles[1].lanceurDeplacerCases(direction);
             if (b2) {
