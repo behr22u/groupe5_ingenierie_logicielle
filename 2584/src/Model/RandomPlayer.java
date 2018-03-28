@@ -14,9 +14,7 @@ import java.util.Random;
  */
 public class RandomPlayer extends Joueur implements Parametres{
 
-    public RandomPlayer(Grille grille) {
-        super(grille);
-    }
+    
     
     public void jouer(){
         int direction = BAS;

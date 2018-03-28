@@ -8,12 +8,14 @@ package Controller;
 
 import Model.Case;
 import Model.Grille;
+import Model.Joueur;
 import Model.Parametres;
 import static Model.Parametres.BAS;
 import static Model.Parametres.DROITE;
 import static Model.Parametres.GAUCHE;
 import static Model.Parametres.HAUT;
 import static Model.Parametres.OBJECTIF;
+import static Model.Parametres.convertDirectionJ1;
 import Model.SuitesMathematiques;
 import static java.lang.StrictMath.E;
 import java.net.URL;
@@ -67,16 +69,17 @@ public class Controller implements Initializable, Parametres{
     @FXML
     private Pane fond; // panneau recouvrant toute la fenêtre
     
-    
+    /*
     private int movej1 = 0; // nombre de déplacements du joueur 1
     private int movej2 = 0; // nombre déplacements du joueur 2
-
+*/
     
     
     public static void lancementJeuGraphique(){
         for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
             System.out.println("Grille du joueur" + i);
-            grilles[i] = new Grille();
+            Joueur j = new Joueur();
+            grilles[i] = new Grille(j);
             boolean b = grilles[i].nouvelleCase();
             b = grilles[i].nouvelleCase(1);
         }
@@ -192,16 +195,7 @@ public void delete(int row) {
     public void keyPressed(KeyEvent ke) {
         System.out.println("touche appuyée");
         String touche = ke.getText();
-        int direction = 0;
-        if (touche.compareTo("q") == 0) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
-            direction = GAUCHE;
-        } else if (touche.compareTo("d") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
-            direction = DROITE;
-        } else if (touche.compareTo("z") == 0) { // utilisateur appuie sur "z" pour envoyer la tuile vers le haut
-            direction = HAUT;
-        } else if (touche.compareTo("s") == 0) { // utilisateur appuie sur "s" pour envoyer la tuile vers le bas
-            direction = BAS;
-        }
+        String direction = convertDirectionJ1(touche);
         
         if (direction != 0){
             boolean b2 = grilles[0].lanceurDeplacerCases(direction);
@@ -212,9 +206,9 @@ public void delete(int row) {
             System.out.println(grilles[0]);
             
             // on incrémente la variable
-            movej1 ++;
+            grilles[0].addDeplacement();
             // on modifie le label move1
-            move1.setText(Integer.toString(movej1));
+            move1.setText(Integer.toString(grilles[0].getDeplacement()));
         }
         
         ///// Rajouter eune condition ici pour quand il y aura un joueur non réel ou pe mettre dans une autre fonction?
@@ -237,9 +231,9 @@ public void delete(int row) {
             System.out.println(grilles[1]);
             
             //on incremente la variable
-            movej2 ++;
+            grilles[1].addDeplacement();
             //on modifie le label move2
-            move2.setText(Integer.toString(movej2));
+            move2.setText(Integer.toString(grilles[1].getDeplacement()));
         }
         this.afficheTableau();
     }
@@ -251,6 +245,7 @@ public void delete(int row) {
         Grille grilles[] = new Grille[NOMBREDEJOUEURS];
         for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
             System.out.println("Grille du joueur" + i);
+            
             grilles[i] = new Grille();
             boolean b = grilles[i].nouvelleCase(1);
             b = grilles[i].nouvelleCase(1);

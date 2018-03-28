@@ -10,23 +10,101 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
-import javafx.scene.layout.GridPane;
 
 /**
  *
  * @author Theloua
  **/
-public class Grille extends GridPane implements Parametres {
+public class Grille implements Parametres {
 
     private final HashSet<Case> grille;
     private int valeurMax = 0;
     private boolean deplacement;
+    private Joueur joueur;
 
     /**
      * Constructeur d'une grille
      */
     public Grille() {
+        this.joueur = new Joueur();
         this.grille = new HashSet<>();
+    }
+    public Grille(Joueur j){
+        this.joueur = new Joueur();
+        this.grille = new HashSet<>();
+    }
+    
+    public void setJoueur(Joueur j){
+        this.joueur = j;
+    }
+    
+    public int getScore(){
+        return this.joueur.getScore();
+    }
+    public int getDeplacement(){
+        return this.joueur.getDepacement();
+    }
+    public void setScore(int score){
+        joueur.setScore(score);
+    }
+    public void setDepacement(int depacement){
+        joueur.setDepacement(depacement);
+    }
+    public void addDeplacement(){
+        joueur.addDeplacement();
+    }
+   
+    
+     /**
+     * getGrille qui retourne le hashset
+     * @return un hashset qui contient des objets cases
+     */
+    public HashSet<Case> getGrille() {
+        return grille;
+    }
+
+    /**
+     * retourne la valeur maximale de la grille
+     * @return un entier
+     */
+    public int getValeurMax() {
+        return valeurMax;
+    }
+    
+    /*
+    * Si direction = HAUT : retourne les 4 cases qui sont le plus en haut (bas!?) (une pour chaque colonne)
+    * Si direction = DROITE : retourne les 4 cases qui sont le plus à droite (une pour chaque ligne)
+    * Si direction = BAS : retourne les 4 cases qui sont le plus en bas (une pour chaque colonne)
+    * Si direction = GAUCHE : retourne les 4 cases qui sont le plus à gauche (une pour chaque ligne)
+    * Attention : le tableau retourné peut contenir des null si les lignes/colonnes sont vides
+     */
+    public Case[] getCasesExtremites(int direction) {
+        Case[] result = new Case[TAILLE];
+        for (Case c : this.grille) {
+            switch (direction) {
+                case HAUT:
+                    if ((result[c.getX()] == null) || (result[c.getX()].getY() > c.getY())) { // si on n'avait pas encore de case pour cette rangée ou si on a trouvé un meilleur candidat
+                        result[c.getX()] = c;
+                    }
+                    break;
+                case BAS:
+                    if ((result[c.getX()] == null) || (result[c.getX()].getY() < c.getY())) {
+                        result[c.getX()] = c;
+                    }
+                    break;
+                case GAUCHE:
+                    if ((result[c.getY()] == null) || (result[c.getY()].getX() > c.getX())) {
+                        result[c.getY()] = c;
+                    }
+                    break;
+                default:
+                    if ((result[c.getY()] == null) || (result[c.getY()].getX() < c.getX())) {
+                        result[c.getY()] = c;
+                    }
+                    break;
+            }
+        }
+        return result;
     }
 
     @Override
@@ -43,21 +121,7 @@ public class Grille extends GridPane implements Parametres {
     }
     
 
-    /**
-     * getGrille qui retourne le hashset
-     * @return un hashset qui contient des objets cases
-     */
-    public HashSet<Case> getGrille() {
-        return grille;
-    }
-
-    /**
-     * retourne la valeur maximale de la grille
-     * @return un entier
-     */
-    public int getValeurMax() {
-        return valeurMax;
-    }
+   
 
     
     /**
@@ -162,41 +226,7 @@ public class Grille extends GridPane implements Parametres {
         }
     }
 
-    /*
-    * Si direction = HAUT : retourne les 4 cases qui sont le plus en haut (bas!?) (une pour chaque colonne)
-    * Si direction = DROITE : retourne les 4 cases qui sont le plus à droite (une pour chaque ligne)
-    * Si direction = BAS : retourne les 4 cases qui sont le plus en bas (une pour chaque colonne)
-    * Si direction = GAUCHE : retourne les 4 cases qui sont le plus à gauche (une pour chaque ligne)
-    * Attention : le tableau retourné peut contenir des null si les lignes/colonnes sont vides
-     */
-    public Case[] getCasesExtremites(int direction) {
-        Case[] result = new Case[TAILLE];
-        for (Case c : this.grille) {
-            switch (direction) {
-                case HAUT:
-                    if ((result[c.getX()] == null) || (result[c.getX()].getY() > c.getY())) { // si on n'avait pas encore de case pour cette rangée ou si on a trouvé un meilleur candidat
-                        result[c.getX()] = c;
-                    }
-                    break;
-                case BAS:
-                    if ((result[c.getX()] == null) || (result[c.getX()].getY() < c.getY())) {
-                        result[c.getX()] = c;
-                    }
-                    break;
-                case GAUCHE:
-                    if ((result[c.getY()] == null) || (result[c.getY()].getX() > c.getX())) {
-                        result[c.getY()] = c;
-                    }
-                    break;
-                default:
-                    if ((result[c.getY()] == null) || (result[c.getY()].getX() < c.getX())) {
-                        result[c.getY()] = c;
-                    }
-                    break;
-            }
-        }
-        return result;
-    }
+    
 
     public void victory() {
         System.out.println("Bravo ! Vous avez atteint " + this.valeurMax);
