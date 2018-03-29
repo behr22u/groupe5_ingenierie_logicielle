@@ -19,18 +19,12 @@ import static Model.Parametres.convertDirectionJ1;
 import static Model.Parametres.convertDirectionJ2;
 import Model.Partie;
 import Model.SuitesMathematiques;
-import static java.lang.StrictMath.E;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.Scanner;
-import javafx.application.Platform;
-import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
@@ -40,7 +34,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 /**
  *
@@ -50,7 +43,7 @@ import javafx.stage.Stage;
 
 public class Controller implements Initializable, Parametres{
     public static ArrayList<Integer> termesFibonacci = SuitesMathematiques.fibonacci(OBJECTIF);
-    public static Patrie = new Partie();
+    public static Partie partie = new Partie();
     
     /*
      * Variables globales correspondant à des objets définis dans la vue (fichier .fxml)
@@ -80,9 +73,11 @@ public class Controller implements Initializable, Parametres{
         for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
             System.out.println("Grille du joueur" + i);
             Joueur j = new Joueur();
-            grilles[i] = new Grille(j);
-            boolean b = grilles[i].nouvelleCase();
-            b = grilles[i].nouvelleCase(1);
+            Grille g = new Grille(j);
+            boolean b = g.nouvelleCase();
+            b = g.nouvelleCase(1);
+            System.out.println(g);
+            partie.setG(i,g);
         }
     }
   
@@ -96,9 +91,8 @@ public class Controller implements Initializable, Parametres{
     
     public void afficheTableau(){
         for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
-            System.out.println(grilles[i]);
             System.out.println("ici 1 : " + i);
-            HashSet<Case> g = grilles[i].getGrille(); 
+            HashSet<Case> g = partie.getHashGrille(i); 
             System.out.println("ici 2 : " + i);
             for(Case c : g){
                 System.out.println("ici 3 : " + i);
@@ -199,33 +193,33 @@ public void delete(int row) {
         int direction = convertDirectionJ1(touche);
         
         if (direction != 0){
-            boolean b2 = grilles[0].lanceurDeplacerCases(direction);
+            boolean b2 = partie.getG(0).lanceurDeplacerCases(direction);
             if (b2) {
-                boolean b = grilles[0].nouvelleCase();
-                if (!b) grilles[0].gameOver();
+                boolean b = partie.getG(0).nouvelleCase();
+                if (!b) partie.getG(0).gameOver();
             }
-            System.out.println(grilles[0]);
+            System.out.println(partie.getG(0));
             
             // on incrémente la variable
-            grilles[0].addDeplacement();
+            partie.getG(0).addDeplacement();
             // on modifie le label move1
-            move1.setText(Integer.toString(grilles[0].getDeplacement()));
+            move1.setText(Integer.toString(partie.getG(0).getDeplacement()));
         }
         
         ///// Rajouter eune condition ici pour quand il y aura un joueur non réel ou pe mettre dans une autre fonction?
         direction = convertDirectionJ2(touche);
         if (direction != 0){
-            boolean b2 = grilles[1].lanceurDeplacerCases(direction);
+            boolean b2 = partie.getG(1).lanceurDeplacerCases(direction);
             if (b2) {
-                boolean b = grilles[1].nouvelleCase();
-                if (!b) grilles[1].gameOver();
+                boolean b = partie.getG(1).nouvelleCase();
+                if (!b) partie.getG(1).gameOver();
             }
-            System.out.println(grilles[1]);
+            System.out.println(partie.getG(1));
             
             //on incremente la variable
-            grilles[1].addDeplacement();
+            partie.getG(1).addDeplacement();
             //on modifie le label move2
-            move2.setText(Integer.toString(grilles[1].getDeplacement()));
+            move2.setText(Integer.toString(partie.getG(1).getDeplacement()));
         }
         this.afficheTableau();
     }

@@ -30,8 +30,9 @@ public class Grille implements Parametres {
         this.grille = new HashSet<>();
     }
     public Grille(Joueur j){
-        this.joueur = new Joueur();
+        this.joueur = j;
         this.grille = new HashSet<>();
+        this.joueur.setGrilleActuelle(this);
     }
     
     public void setJoueur(Joueur j){

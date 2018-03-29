@@ -19,9 +19,9 @@ public class Joueur implements Parametres {
     protected int deplacement;
     
     
-    public Joueur( ){
-        this.grilleActuelle = new Grille();
-        this.grilleTampon = new Grille();
+    public Joueur(){
+        //this.grilleActuelle = new Grille();
+        //this.grilleTampon = new Grille();
         this.nbUndo = 5;
         this.scoreMax = 0;
         this.score = 0;
