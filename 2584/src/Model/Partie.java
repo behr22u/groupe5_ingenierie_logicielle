@@ -15,12 +15,15 @@ import java.util.HashSet;
  * @author leath
  */
 public class Partie implements Parametres{
-    private Grille grilles[];
+    private Grille[] grilles;
+    
+    
     
     public Partie(){
-        Grille grilles[] = new Grille[NOMBREDEJOUEURS];
+        this.grilles= new Grille[NOMBREDEJOUEURS];
     }
 
+    
     public Grille[] getGrilles() {
         return grilles;
     }

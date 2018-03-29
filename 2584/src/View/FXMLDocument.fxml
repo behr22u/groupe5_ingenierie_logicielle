@@ -69,7 +69,7 @@
                </rowConstraints>
             </GridPane>
             <Button fx:id="undoj1" layoutX="324.0" layoutY="75.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="100.0" text="Undo J1" />
-            <Button fx:id="undoj2" layoutX="618.0" layoutY="75.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="100.0" text="Undo J1" />    
+            <Button fx:id="undoj2" layoutX="618.0" layoutY="75.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="100.0" text="Undo J2" />    
 
            </children>
         </Pane>
