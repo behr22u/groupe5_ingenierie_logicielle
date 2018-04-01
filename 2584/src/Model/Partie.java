@@ -31,7 +31,10 @@ public class Partie implements Parametres{
         this.joueurs = joueurs;
     }
 
-    
+    public void setJoueurs(Joueur j1, Joueur j2){
+        this.joueurs[0] = j1;
+        this.joueurs[1] = j2;
+    }
     
     public HashSet<Case> getHashGrille(int i){
         return joueurs[i].getGrilleActuelle().getGrille();
@@ -43,7 +46,14 @@ public class Partie implements Parametres{
         if (i<NOMBREDEJOUEURS){
             return this.joueurs[i].grilleActuelle;
         }
-        return new Grille();
+        return null;
+    }
+    
+    public Joueur getJ(int i){
+        if (i<NOMBREDEJOUEURS){
+            return this.joueurs[i];
+        }
+        return null;
     }
     
     //Ajoute la grille passé en parmètre dans le tableau de grilles de la partie

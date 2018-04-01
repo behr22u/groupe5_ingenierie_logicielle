@@ -18,7 +18,6 @@ import java.util.Random;
  **/
 public class Grille implements Parametres {
 
-    //private Joueur joueur;
     private final HashSet<Case> grille;
     private int valeurMax = 0;
     private boolean deplacement;
@@ -28,43 +27,16 @@ public class Grille implements Parametres {
      * Constructeur d'une grille
      */
     public Grille() {
-        //this.joueur = new Joueur();
+        
         this.grille = new HashSet<>();
     }
-    /*
-    public Grille(Joueur j){
-        this.joueur = j;
-        this.grille = new HashSet<>();
-        this.joueur.setGrilleActuelle(this);
-    }
-    */
+    
     public Grille(HashSet<Case> g, int vmax, boolean deplacement ){
         this.grille = g;
         this.valeurMax = vmax;
         this.deplacement = deplacement;
     }
     
-    /*public void setJoueur(Joueur j){
-        this.joueur = j;
-    }
-    
-    public int getScore(){
-        return this.joueur.getScore();
-    }
-    
-    public int getDeplacement(){
-        return this.joueur.getDepacement();
-    }
-    public void setScore(int score){
-        joueur.setScore(score);
-    }
-    public void setDepacement(int depacement){
-        joueur.setDepacement(depacement);
-    }
-    public void addDeplacement(){
-        joueur.addDeplacement();
-    }
-    */
     
     @Override
     public Grille clone() {

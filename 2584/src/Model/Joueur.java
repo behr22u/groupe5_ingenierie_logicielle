@@ -20,8 +20,16 @@ public class Joueur implements Parametres {
     
     
     public Joueur(){
-        //this.grilleActuelle = new Grille();
-        //this.grilleTampon = new Grille();
+        this.grilleActuelle = new Grille();
+        this.grilleTampon = new Grille();
+        this.nbUndo = 5;
+        this.scoreMax = 0;
+        this.score = 0;
+        this.deplacement = 0;
+    }
+    public Joueur(Grille gA){
+        this.grilleActuelle = gA;
+        this.grilleTampon = new Grille();
         this.nbUndo = 5;
         this.scoreMax = 0;
         this.score = 0;
@@ -36,7 +44,7 @@ public class Joueur implements Parametres {
         return nbUndo;
     }
 
-    public int getDepacement() {
+    public int getDeplacement() {
         return deplacement;
     }
 

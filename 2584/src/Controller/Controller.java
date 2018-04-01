@@ -70,21 +70,16 @@ public class Controller implements Initializable, Parametres{
     
     
     public static void lancementJeuGraphique(){
-        Joueur j1 = new Joueur();
         Grille g1 = new Grille();
-        j1.setGrilleActuelle(g1);
         boolean b = g1.nouvelleCase();
         b = g1.nouvelleCase(1);
-        Joueur j2 = new Joueur();
+        Joueur j1 = new Joueur(g1);
         Grille g2 = g1.clone();
-        j2.setGrilleActuelle(g2);
+        Joueur j2 = new Joueur(g2);
+        Controller.partie.setJoueurs(j1, j2);
         System.out.println(g1);
         System.out.println(g2);
-        g1.lanceurDeplacerCases(HAUT);
-        g1.lanceurDeplacerCases(HAUT);
-        g1.lanceurDeplacerCases(BAS);
-        System.out.println(g1);
-        System.out.println(g2);
+ 
         
         /*
         for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
@@ -116,14 +111,14 @@ public class Controller implements Initializable, Parametres{
                 System.out.println("ici 3 : " + i);
                 Pane p = new Pane();
                 Label l = new Label(Integer.toString(c.getValeur()));
-                //gridpane.add(l, c.getX(), c.getY());
+                gridpane.add(l, c.getX(), c.getY());
                 System.out.println("ici 4 : " + i);
                 // utilisation de styles pour la grille et la tuile (voir styles.css)
                 p.getStyleClass().add("pane"); 
                 System.out.println("ici 5 : " + i);
                 l.getStyleClass().add("tuile");
                 System.out.println("ici 6 : " + i);
-               // gridpane.getStyleClass().add("gridpane");
+                gridpane.getStyleClass().add("gridpane");
                 System.out.println("ici 7 : " + i);
                 GridPane.setHalignment(l, HPos.CENTER);
                 System.out.println("ici 8 : " + i);
@@ -219,9 +214,9 @@ public void delete(int row) {
             System.out.println(partie.getG(0));
             
             // on incrémente la variable
-            //partie.getG(0).addDeplacement();
+            partie.getJ(0).addDeplacement();
             // on modifie le label move1
-            //move1.setText(Integer.toString(partie.getG(0).getDeplacement()));
+            move1.setText(Integer.toString(partie.getJ(0).getDeplacement()));
         }
         
         ///// Rajouter eune condition ici pour quand il y aura un joueur non réel ou pe mettre dans une autre fonction?
@@ -235,9 +230,9 @@ public void delete(int row) {
             System.out.println(partie.getG(1));
             
             //on incremente la variable
-            //partie.getG(1).addDeplacement();
+            partie.getJ(1).addDeplacement();
             //on modifie le label move2
-            //move2.setText(Integer.toString(partie.getG(1).getDeplacement()));
+            move2.setText(Integer.toString(partie.getJ(1).getDeplacement()));
         }
         this.afficheTableau();
     }
