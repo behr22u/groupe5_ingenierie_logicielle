@@ -66,8 +66,8 @@ public class Joueur implements Parametres {
     public void setScoreMax(int score){
         this.scoreMax = score;
     }
-    public void setScore(int score){
-        this.score = score;
+    public void setScore(int scorebis){
+        this.score = this.score + scorebis;
     }
     public Grille getGrilleActuelle(){
         return this.grilleActuelle;

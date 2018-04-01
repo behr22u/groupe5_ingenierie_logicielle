@@ -104,26 +104,26 @@ public class Controller implements Initializable, Parametres{
     
     public void afficheTableau(){
         for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
-            System.out.println("ici 1 : " + i);
+           // System.out.println("ici 1 : " + i);
             HashSet<Case> g = partie.getHashGrille(i); 
-            System.out.println("ici 2 : " + i);
+            //System.out.println("ici 2 : " + i);
             for(Case c : g){
-                System.out.println("ici 3 : " + i);
+              //  System.out.println("ici 3 : " + i);
                 Pane p = new Pane();
                 Label l = new Label(Integer.toString(c.getValeur()));
                 gridpane.add(l, c.getX(), c.getY());
-                System.out.println("ici 4 : " + i);
+               // System.out.println("ici 4 : " + i);
                 // utilisation de styles pour la grille et la tuile (voir styles.css)
                 p.getStyleClass().add("pane"); 
-                System.out.println("ici 5 : " + i);
+                //System.out.println("ici 5 : " + i);
                 l.getStyleClass().add("tuile");
-                System.out.println("ici 6 : " + i);
+                //System.out.println("ici 6 : " + i);
                 gridpane.getStyleClass().add("gridpane");
-                System.out.println("ici 7 : " + i);
+                //System.out.println("ici 7 : " + i);
                 GridPane.setHalignment(l, HPos.CENTER);
-                System.out.println("ici 8 : " + i);
+                //System.out.println("ici 8 : " + i);
                 fond.getChildren().add(p);
-                System.out.println("ici 9 : " + i);
+                //System.out.println("ici 9 : " + i);
                 p.getChildren().add(l);
                 // on place la tuile en précisant les coordonnées (x,y) du coin supérieur gauche 
                 
@@ -203,10 +203,10 @@ public void delete(int row) {
     public void keyPressed(KeyEvent ke) {
         System.out.println("touche appuyée");
         String touche = ke.getText();
-        int direction = convertDirectionJ1(touche);
         
+        int direction = convertDirectionJ1(touche);
         if (direction != 0){
-            boolean b2 = partie.getG(0).lanceurDeplacerCases(direction);
+            boolean b2 = partie.getG(0).lanceurDeplacerCases(direction, partie.getG(0));
             if (b2) {
                 boolean b = partie.getG(0).nouvelleCase();
                 if (!b) partie.getG(0).gameOver();
@@ -215,14 +215,17 @@ public void delete(int row) {
             
             // on incrémente la variable
             partie.getJ(0).addDeplacement();
-            // on modifie le label move1
+            System.out.println(partie.getJ(0).getScore());
+            
+            // on modifie le label move1 et score1
             move1.setText(Integer.toString(partie.getJ(0).getDeplacement()));
+            score1.setText(Integer.toString(partie.getJ(0).getScore()));
         }
         
         ///// Rajouter eune condition ici pour quand il y aura un joueur non réel ou pe mettre dans une autre fonction?
         direction = convertDirectionJ2(touche);
         if (direction != 0){
-            boolean b2 = partie.getG(1).lanceurDeplacerCases(direction);
+            boolean b2 = partie.getG(1).lanceurDeplacerCases(direction, partie.getG(1));
             if (b2) {
                 boolean b = partie.getG(1).nouvelleCase();
                 if (!b) partie.getG(1).gameOver();
@@ -233,6 +236,7 @@ public void delete(int row) {
             partie.getJ(1).addDeplacement();
             //on modifie le label move2
             move2.setText(Integer.toString(partie.getJ(1).getDeplacement()));
+            score2.setText(Integer.toString(partie.getJ(1).getScore()));
         }
         this.afficheTableau();
     }
@@ -274,7 +278,7 @@ public void delete(int row) {
                     } else {
                         direction = BAS;
                     }
-                    boolean b2 = grilles[i].lanceurDeplacerCases(direction);
+                    boolean b2 = grilles[i].lanceurDeplacerCases(direction, grilles[i]);
                     if (b2) {
                         boolean b = grilles[i].nouvelleCase();
                         if (!b) grilles[i].gameOver();

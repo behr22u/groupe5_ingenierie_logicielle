@@ -6,6 +6,8 @@
 package Model;
 
 import Controller.Controller;
+import static Controller.Controller.partie;
+import static Model.Parametres.convertDirectionJ1;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -157,22 +159,22 @@ public class Grille implements Parametres {
      * @param direction
      * @return 
      */
-    public boolean lanceurDeplacerCases(int direction) {
+    public boolean lanceurDeplacerCases(int direction, Grille g) {
         Case[] extremites = this.getCasesExtremites(direction);
         deplacement = false; // pour vérifier si on a bougé au moins une case après le déplacement, avant d'en rajouter une nouvelle
         for (int i = 0; i < TAILLE; i++) {
             switch (direction) {
                 case HAUT:
-                    this.deplacerCasesRecursif(extremites, i, direction, 0);
+                    this.deplacerCasesRecursif(extremites, i, direction, 0, g);
                     break;
                 case BAS:
-                    this.deplacerCasesRecursif(extremites, i, direction, 0);
+                    this.deplacerCasesRecursif(extremites, i, direction, 0, g);
                     break;
                 case GAUCHE:
-                    this.deplacerCasesRecursif(extremites, i, direction, 0);
+                    this.deplacerCasesRecursif(extremites, i, direction, 0, g);
                     break;
                 default:
-                    this.deplacerCasesRecursif(extremites, i, direction, 0);
+                    this.deplacerCasesRecursif(extremites, i, direction, 0, g);
                     break;
             }
         }
@@ -184,16 +186,23 @@ public class Grille implements Parametres {
      * @param c1
      * @param c2 
      */
-    private void fusion(Case c1, Case c2) {////////////
+    private void fusion(Case c1, Case c2, Grille g) {////////////
         c1.setValeur(c1.getValeur()+c2.getValeur() );
         if (this.valeurMax < c1.getValeur()) {
             this.valeurMax = c1.getValeur();
         }
         deplacement = true;
+        
+        if(g == partie.getG(0)){
+           partie.getJ(0).setScore(c1.getValeur());
+        } else
+        if(g == partie.getG(1)){
+            partie.getJ(1).setScore(c1.getValeur());
+        }        
     }
     
 
-    private void deplacerCasesRecursif(Case[] extremites, int rangee, int direction, int compteur) {
+    private void deplacerCasesRecursif(Case[] extremites, int rangee, int direction, int compteur, Grille g) {
         if (extremites[rangee] != null) {
             if ((direction == HAUT && extremites[rangee].getY() != compteur)
                     || (direction == BAS && extremites[rangee].getY() != TAILLE - 1 - compteur)
@@ -220,13 +229,13 @@ public class Grille implements Parametres {
             Case voisin = extremites[rangee].getVoisinDirect(-direction);
             if (voisin != null) {
                 if (extremites[rangee].estVoisinFibo(voisin)) {
-                    this.fusion(extremites[rangee],voisin );
+                    this.fusion(extremites[rangee],voisin, g);
                     extremites[rangee] = voisin.getVoisinDirect(-direction);
                     this.grille.remove(voisin);
-                    this.deplacerCasesRecursif(extremites, rangee, direction, compteur + 1);
+                    this.deplacerCasesRecursif(extremites, rangee, direction, compteur + 1, g);
                 } else {
                     extremites[rangee] = voisin;
-                    this.deplacerCasesRecursif(extremites, rangee, direction, compteur + 1);
+                    this.deplacerCasesRecursif(extremites, rangee, direction, compteur + 1, g);
                 }
             }
         }
