@@ -9,6 +9,7 @@ import Controller.Controller;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Random;
 
 /**
@@ -17,31 +18,40 @@ import java.util.Random;
  **/
 public class Grille implements Parametres {
 
+    //private Joueur joueur;
     private final HashSet<Case> grille;
     private int valeurMax = 0;
     private boolean deplacement;
-    private Joueur joueur;
+    
 
     /**
      * Constructeur d'une grille
      */
     public Grille() {
-        this.joueur = new Joueur();
+        //this.joueur = new Joueur();
         this.grille = new HashSet<>();
     }
+    /*
     public Grille(Joueur j){
         this.joueur = j;
         this.grille = new HashSet<>();
         this.joueur.setGrilleActuelle(this);
     }
+    */
+    public Grille(HashSet<Case> g, int vmax, boolean deplacement ){
+        this.grille = g;
+        this.valeurMax = vmax;
+        this.deplacement = deplacement;
+    }
     
-    public void setJoueur(Joueur j){
+    /*public void setJoueur(Joueur j){
         this.joueur = j;
     }
     
     public int getScore(){
         return this.joueur.getScore();
     }
+    
     public int getDeplacement(){
         return this.joueur.getDepacement();
     }
@@ -54,8 +64,31 @@ public class Grille implements Parametres {
     public void addDeplacement(){
         joueur.addDeplacement();
     }
-   
+    */
     
+    @Override
+    public Grille clone() {
+        HashSet<Case> hgrille = new HashSet<>();
+        Iterator<Case> iterator = this.grille.iterator();
+        System.out.println("ok1");
+        while (iterator.hasNext()) {
+            System.out.println("ok2");
+              Case elt = iterator.next();
+              Case c = new Case (elt.getX(), elt.getY(), elt.getValeur());
+              hgrille.add(c);
+        }
+        System.out.println("ok3");
+        Grille g = new Grille(hgrille, this.valeurMax, this.deplacement );
+        Iterator<Case> it = hgrille.iterator();
+        while (it.hasNext()) {
+            System.out.println("ok4");
+              Case elt = it.next();
+              elt.setGrille(g);
+        }
+        return g;
+    }
+
+       
      /**
      * getGrille qui retourne le hashset
      * @return un hashset qui contient des objets cases

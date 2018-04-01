@@ -51,6 +51,7 @@ public class Case implements Parametres {
     public int getValeur() {
         return this.valeur;
     }
+    
 
     @Override
     public boolean equals(Object obj) { // la méthode equals est utilisée lors de l'ajout d'une case à un ensemble pour vérifier qu'il n'y a pas de doublons (teste parmi tous les candidats qui ont le même hashcode)

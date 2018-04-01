@@ -70,6 +70,23 @@ public class Controller implements Initializable, Parametres{
     
     
     public static void lancementJeuGraphique(){
+        Joueur j1 = new Joueur();
+        Grille g1 = new Grille();
+        j1.setGrilleActuelle(g1);
+        boolean b = g1.nouvelleCase();
+        b = g1.nouvelleCase(1);
+        Joueur j2 = new Joueur();
+        Grille g2 = g1.clone();
+        j2.setGrilleActuelle(g2);
+        System.out.println(g1);
+        System.out.println(g2);
+        g1.lanceurDeplacerCases(HAUT);
+        g1.lanceurDeplacerCases(HAUT);
+        g1.lanceurDeplacerCases(BAS);
+        System.out.println(g1);
+        System.out.println(g2);
+        
+        /*
         for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
             System.out.println("Grille du joueur" + i);
             Joueur j = new Joueur();
@@ -79,6 +96,7 @@ public class Controller implements Initializable, Parametres{
             System.out.println(g);
             partie.setG(i,g);
         }
+        */
     }
   
    
@@ -201,9 +219,9 @@ public void delete(int row) {
             System.out.println(partie.getG(0));
             
             // on incrémente la variable
-            partie.getG(0).addDeplacement();
+            //partie.getG(0).addDeplacement();
             // on modifie le label move1
-            move1.setText(Integer.toString(partie.getG(0).getDeplacement()));
+            //move1.setText(Integer.toString(partie.getG(0).getDeplacement()));
         }
         
         ///// Rajouter eune condition ici pour quand il y aura un joueur non réel ou pe mettre dans une autre fonction?
@@ -217,9 +235,9 @@ public void delete(int row) {
             System.out.println(partie.getG(1));
             
             //on incremente la variable
-            partie.getG(1).addDeplacement();
+            //partie.getG(1).addDeplacement();
             //on modifie le label move2
-            move2.setText(Integer.toString(partie.getG(1).getDeplacement()));
+            //move2.setText(Integer.toString(partie.getG(1).getDeplacement()));
         }
         this.afficheTableau();
     }

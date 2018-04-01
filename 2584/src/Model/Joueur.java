@@ -76,4 +76,20 @@ public class Joueur implements Parametres {
     public void addDeplacement(){
         this.deplacement ++;
     }
+    @Override
+    public Joueur clone(){
+        
+        Joueur j = new Joueur();
+        j.setDepacement(this.deplacement);
+        j.setNbUndo(this.nbUndo);
+        j.setScore(this.score);
+        j.setScoreMax(this.score);
+        j.setGrilleActuelle(this.grilleActuelle.clone());
+        if (this.grilleTampon != null){
+            j.setGrilleTampon(this.grilleTampon.clone());
+        }
+        return j;
+        
+    }
+    
 }
