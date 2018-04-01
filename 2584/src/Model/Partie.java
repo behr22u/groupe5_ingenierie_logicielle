@@ -15,29 +15,33 @@ import java.util.HashSet;
  * @author leath
  */
 public class Partie implements Parametres{
-    private Grille[] grilles;
+    private Joueur[] joueurs;
     
     
     
     public Partie(){
-        this.grilles= new Grille[NOMBREDEJOUEURS];
+        this.joueurs= new Joueur[NOMBREDEJOUEURS];
+    }
+
+    public Joueur[] getJoueurs() {
+        return joueurs;
+    }
+
+    public void setJoueurs(Joueur[] joueurs) {
+        this.joueurs = joueurs;
     }
 
     
-    public Grille[] getGrilles() {
-        return grilles;
-    }
+    
     public HashSet<Case> getHashGrille(int i){
-        return grilles[i].getGrille();
+        return joueurs[i].getGrilleActuelle().getGrille();
     }
 
-    public void setGrilles(Grille[] grilles) {
-        this.grilles = grilles;
-    }
+    
     /// renvoie la grille de l'indice passé en paramètre, et si cette grille est trop grande renvoie une nouvelle grille vide
     public Grille getG(int i) {
         if (i<NOMBREDEJOUEURS){
-            return grilles[i];
+            return this.joueurs[i].grilleActuelle;
         }
         return new Grille();
     }
@@ -47,7 +51,7 @@ public class Partie implements Parametres{
         if (i<NOMBREDEJOUEURS){
             System.out.println(g);
             System.out.println("Dans le setG");
-            this.grilles[i] = g;
+            this.joueurs[i].setGrilleActuelle(g);
             return true;
             
         }
@@ -56,8 +60,8 @@ public class Partie implements Parametres{
     //Ajoute les grilles passées en paramètres aux indices 0 et1 dans le tableau de grilles
     public boolean setG(Grille g1, Grille g2){
         if (g1 != null && g2 != null){
-            grilles[0] = g1;
-            grilles[1] = g2;
+            this.joueurs[0].setGrilleActuelle(g1);
+            this.joueurs[1].setGrilleActuelle(g2);
             return true;
         }
         return false;
