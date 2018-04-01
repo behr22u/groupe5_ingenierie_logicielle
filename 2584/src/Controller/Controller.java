@@ -206,7 +206,7 @@ public void delete(int row) {
         
         int direction = convertDirectionJ1(touche);
         if (direction != 0){
-            boolean b2 = partie.getG(0).lanceurDeplacerCases(direction, partie.getG(0));
+            boolean b2 = partie.getG(0).lanceurDeplacerCases(direction);
             if (b2) {
                 boolean b = partie.getG(0).nouvelleCase();
                 if (!b) partie.getG(0).gameOver();
@@ -225,7 +225,7 @@ public void delete(int row) {
         ///// Rajouter eune condition ici pour quand il y aura un joueur non réel ou pe mettre dans une autre fonction?
         direction = convertDirectionJ2(touche);
         if (direction != 0){
-            boolean b2 = partie.getG(1).lanceurDeplacerCases(direction, partie.getG(1));
+            boolean b2 = partie.getG(1).lanceurDeplacerCases(direction);
             if (b2) {
                 boolean b = partie.getG(1).nouvelleCase();
                 if (!b) partie.getG(1).gameOver();
@@ -278,7 +278,7 @@ public void delete(int row) {
                     } else {
                         direction = BAS;
                     }
-                    boolean b2 = grilles[i].lanceurDeplacerCases(direction, grilles[i]);
+                    boolean b2 = grilles[i].lanceurDeplacerCases(direction);
                     if (b2) {
                         boolean b = grilles[i].nouvelleCase();
                         if (!b) grilles[i].gameOver();
