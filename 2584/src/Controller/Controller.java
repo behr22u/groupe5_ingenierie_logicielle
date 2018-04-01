@@ -59,7 +59,7 @@ public class Controller implements Initializable, Parametres{
     @FXML
     private Label move2;
     @FXML
-    private GridPane gridpane;
+    private GridPane gridpane = new GridPane();
     @FXML
     private Pane fond; // panneau recouvrant toute la fenêtre
     
