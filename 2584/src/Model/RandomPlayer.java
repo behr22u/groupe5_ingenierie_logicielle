@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Model;
 
 import java.util.Random;
@@ -12,16 +11,19 @@ import java.util.Random;
  *
  * @author leath
  */
-public class RandomPlayer extends Joueur implements Parametres{
+public class RandomPlayer extends Joueur implements Parametres {
 
-    
-    
-    public void jouer(){
-        int direction = BAS;
-        Random ra = new Random();
-        direction = ra.nextInt(DROITE - GAUCHE + 1) + GAUCHE;
-        boolean deplace = super.grilleActuelle.lanceurDeplacerCases(direction);
-        
+    public RandomPlayer() {
+        super();
     }
-    
+
+    public void jouer() {
+        int direction = BAS;
+        while (direction != 0) {
+            Random ra = new Random();
+            direction = ra.nextInt(DROITE - GAUCHE + 1) + GAUCHE;
+        }
+        boolean deplace = super.grilleActuelle.lanceurDeplacerCases(direction);
+    }
+
 }

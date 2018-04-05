@@ -25,10 +25,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -59,12 +62,19 @@ public class Controller implements Initializable, Parametres{
     @FXML
     private Label move2;
     @FXML
-    private GridPane gridpane = new GridPane();
+    private GridPane gridpane;
     @FXML
     private Pane fond; // panneau recouvrant toute la fenêtre
-    
     @FXML
     private Pane fond_case; // panneau utilisé pour la mise à jour des cases, suppression/reapparition
+    
+    // boutons utilisé dans le cas du Undo
+    @FXML
+    private Button undoj1;
+    @FXML
+    private Button undoj2;
+    
+    
     
     /*
     private int movej1 = 0; // nombre de déplacements du joueur 1
@@ -103,6 +113,24 @@ public class Controller implements Initializable, Parametres{
         // TODO
         System.out.println("le contrôleur initialise la vue");
         this.afficheTableau();
+        
+        // si on clique sur le bouton undoj1
+        undoj1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event){
+            System.out.println("Yo");    
+            //utiliser ici la méthode undo
+        }
+        });
+        
+        // si on clique sur le bouton undoj2
+        undoj2.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event){
+                System.out.println("Yo2");
+                // utiliser ici la méthode undo
+            }
+        });
     }
     
     /**
@@ -285,4 +313,8 @@ public class Controller implements Initializable, Parametres{
         }
         return fini;
     }
+     
+     
+     
+    
 }
