@@ -63,6 +63,9 @@ public class Controller implements Initializable, Parametres{
     @FXML
     private Pane fond; // panneau recouvrant toute la fenêtre
     
+    @FXML
+    private Pane fond_case; // panneau utilisé pour la mise à jour des cases, suppression/reapparition
+    
     /*
     private int movej1 = 0; // nombre de déplacements du joueur 1
     private int movej2 = 0; // nombre déplacements du joueur 2
@@ -102,10 +105,16 @@ public class Controller implements Initializable, Parametres{
         this.afficheTableau();
     }
     
+    /**
+     * Méthode qui permet d'afficher les visuels des tableaux
+     * On y appelle le css
+     * On affiche les différents labels qui représentent les cases avec leur valeurs
+     */
     public void afficheTableau(){
         for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
            // System.out.println("ici 1 : " + i);
             HashSet<Case> g = partie.getHashGrille(i); 
+            gridpane = new GridPane();
             //System.out.println("ici 2 : " + i);
             for(Case c : g){
               //  System.out.println("ici 3 : " + i);
@@ -122,7 +131,7 @@ public class Controller implements Initializable, Parametres{
                 //System.out.println("ici 7 : " + i);
                 GridPane.setHalignment(l, HPos.CENTER);
                 //System.out.println("ici 8 : " + i);
-                fond.getChildren().add(p);
+                fond_case.getChildren().add(p);
                 //System.out.println("ici 9 : " + i);
                 p.getChildren().add(l);
                 // on place la tuile en précisant les coordonnées (x,y) du coin supérieur gauche 
@@ -145,55 +154,17 @@ public class Controller implements Initializable, Parametres{
         }
     }
     
-  
-    private void updateView(){
-        
-        //utiliser gridPane.getChildren().remove(node);
-        
-        
-    }
     
-
-
-    private List<Node> getNodesFromRow(int i) {
-        List<Node> list = new ArrayList<Node>();
-        for (Node n : gridpane.getChildren()) {
-            if (gridpane.getRowIndex(n).equals(i)) {
-                list.add(n);
-            }
-        }
-        System.out.println(list.size());
-        return list;
-    }
-
     /**
-     * methode permettant de vider completement la gridpane rentrée en parametres
-     * @param gridpane 
+     * methode permettant de vider completement le panneau rentrée en parametres
+     * On l'utilise dans la methode keyPressed, juste avant l'appel d'afficherTableau qui permet d'afficher les nouveaux emplacements des cases
+     * @param pane 
      */
-    public void viderGrid(GridPane gridpane){
-            gridpane.getChildren().clear();
+    public void viderGrid(Pane pane){
+            pane.getChildren().clear();
     }
 
-    
-    
-// REGARDER API POUR CHANGER
-/*
-public void delete(int row) {
-        gridpane.removeNodes(getNodesFromRow(row));
-        int i = row;
-        while (!getNodesFromRow(i + 1).isEmpty()) {
-            moveNodes(i + 1, getNodesFromRow(i + 1));
-            removeNodes(getNodesFromRow(i + 1));
-            i++;
-        }
-    }
-*/
-
-
-
-
-
-    
+       
     @FXML
     private void handleButtonAction(MouseEvent event) {
         System.out.println("Clic de souris sur le bouton menu");
@@ -211,6 +182,7 @@ public void delete(int row) {
                 boolean b = partie.getG(0).nouvelleCase();
                 if (!b) partie.getG(0).gameOver();
             }
+            //affichage debogage
             System.out.println(partie.getG(0));
             
             // on incrémente la variable
@@ -222,7 +194,7 @@ public void delete(int row) {
             score1.setText(Integer.toString(partie.getJ(0).getScore()));
         }
         
-        ///// Rajouter eune condition ici pour quand il y aura un joueur non réel ou pe mettre dans une autre fonction?
+        ///// Rajouter une condition ici pour quand il y aura un joueur non réel ou pe mettre dans une autre fonction?
         direction = convertDirectionJ2(touche);
         if (direction != 0){
             boolean b2 = partie.getG(1).lanceurDeplacerCases(direction);
@@ -238,12 +210,17 @@ public void delete(int row) {
             move2.setText(Integer.toString(partie.getJ(1).getDeplacement()));
             score2.setText(Integer.toString(partie.getJ(1).getScore()));
         }
+        // on vide le panneau contenant les différents label représenant les cases
+        viderGrid(fond_case);
+        // on affiche les labels à leur nouvel emplacement ainsi que les nouveaux labels (les cases)
         this.afficheTableau();
     }
     
     
     
-    //jeu sans interface graphique
+    /**
+     * Méthode de lancement du Jeu, sans interface graphique, dans la console
+     */
      static public void lancementJeu(){
         Grille grilles[] = new Grille[NOMBREDEJOUEURS];
         for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
@@ -294,6 +271,11 @@ public void delete(int row) {
             
     }
      
+     /**
+      * Méthode qui permet de déterminer si la partie est finie
+      * @param grilles
+      * @return un boolean : true --> la partie est finie ; false --> la partie n'est pas finie
+      */
      static private boolean finDePartie(Grille grilles[]){
         boolean fini = false;
         for(Grille g : grilles){
