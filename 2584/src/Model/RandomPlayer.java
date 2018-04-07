@@ -16,6 +16,9 @@ public class RandomPlayer extends Joueur implements Parametres {
     public RandomPlayer() {
         super();
     }
+    public RandomPlayer(Grille g){
+        super(g);
+    }
 
     public void jouer() {
         int direction = BAS;

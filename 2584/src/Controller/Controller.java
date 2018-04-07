@@ -18,6 +18,7 @@ import static Model.Parametres.OBJECTIF;
 import static Model.Parametres.convertDirectionJ1;
 import static Model.Parametres.convertDirectionJ2;
 import Model.Partie;
+import Model.RandomPlayer;
 import Model.SuitesMathematiques;
 import java.net.URL;
 import java.util.ArrayList;
@@ -83,15 +84,26 @@ public class Controller implements Initializable, Parametres{
     
     
     public static void lancementJeuGraphique(){
+        Scanner sc = new Scanner(System.in);
+        String vs = "j";
+        System.out.println("Contre qui on joue? random (r) joueur réel (j)");
+        vs = sc.nextLine();
+        
         Grille g1 = new Grille();
         boolean b = g1.nouvelleCase();
         b = g1.nouvelleCase(1);
         Joueur j1 = new Joueur(g1);
         Grille g2 = g1.clone();
-        Joueur j2 = new Joueur(g2);
-        Controller.partie.setJoueurs(j1, j2);
+        if (vs.equals("r")){
+            RandomPlayer rp = new RandomPlayer(g2);
+            Controller.partie.setJoueurs(j1, rp);
+        }else{
+            Joueur j2 = new Joueur(g2);
+            Controller.partie.setJoueurs(j1, j2);
+        }
         System.out.println(g1);
         System.out.println(g2);
+        
  
         
         /*
