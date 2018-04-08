@@ -18,6 +18,13 @@ public interface Parametres {
     static final int TAILLE = 4;
     static final int OBJECTIF = 2584;
     static final int NOMBREDEJOUEURS = 2;
+    /// Pour les types de VS
+    static final int VSRANDOM = 1;
+    static final int VSDEFAULT = 0; 
+    static final int VSIA = 2; 
+    static final int VSIARANDOM = 3;
+    static final int VSJOUEUR = 0;
+           
     
     // prend en paramètre une chaine de caratère (touche du clavier) renvoire le int correspondant à la dirrection
     static public int convertDirection(String touche){

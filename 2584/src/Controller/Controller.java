@@ -97,9 +97,11 @@ public class Controller implements Initializable, Parametres{
         if (vs.equals("r")){
             RandomPlayer rp = new RandomPlayer(g2);
             Controller.partie.setJoueurs(j1, rp);
+            Controller.partie.setVs(VSRANDOM);
         }else{
             Joueur j2 = new Joueur(g2);
             Controller.partie.setJoueurs(j1, j2);
+            Controller.partie.setVs(VSJOUEUR);
         }
         System.out.println(g1);
         System.out.println(g2);

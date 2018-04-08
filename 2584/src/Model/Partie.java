@@ -16,11 +16,23 @@ import java.util.HashSet;
  */
 public class Partie implements Parametres{
     private Joueur[] joueurs;
+    private int vs; // 4 possibilités de jeu voir dans parametres
     
     
     
     public Partie(){
         this.joueurs= new Joueur[NOMBREDEJOUEURS];
+        this.vs = VSDEFAULT;
+    }
+    public Partie(Joueur j1, Joueur j2, int vs){
+        this.joueurs[0] = j1;
+        this.joueurs[1] = j2;
+        if (vs >=0 || vs <= 3){// si la valeur rentrée dans le vs est correcte on l'assigne 
+            this.vs = vs;  
+        }else{// sinon on assigne à vs la valeur par défaut
+            this.vs = VSDEFAULT;
+        }
+        
     }
 
     public Joueur[] getJoueurs() {
@@ -38,6 +50,14 @@ public class Partie implements Parametres{
     
     public HashSet<Case> getHashGrille(int i){
         return joueurs[i].getGrilleActuelle().getGrille();
+    }
+
+    public int getVs() {
+        return vs;
+    }
+
+    public void setVs(int vs) {
+        this.vs = vs;
     }
 
     
