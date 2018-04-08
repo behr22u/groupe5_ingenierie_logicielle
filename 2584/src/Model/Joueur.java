@@ -99,5 +99,9 @@ public class Joueur implements Parametres {
         return j;
         
     }
+
+    public void jouer() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

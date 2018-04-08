@@ -85,24 +85,31 @@ public class Controller implements Initializable, Parametres{
     
     public static void lancementJeuGraphique(){
         Scanner sc = new Scanner(System.in);
+        /////////////a retirer apres que louis est fait le visuel
         String vs = "j";
         System.out.println("Contre qui on joue? random (r) joueur réel (j)");
         vs = sc.nextLine();
+        if (vs.equals("r")){
+            Controller.partie.setVs(VSRANDOM);
+        }else{
+            Controller.partie.setVs(VSJOUEUR);
+        }
+        /////////// fin du a retirer 
         
         Grille g1 = new Grille();
         boolean b = g1.nouvelleCase();
         b = g1.nouvelleCase(1);
         Joueur j1 = new Joueur(g1);
         Grille g2 = g1.clone();
-        if (vs.equals("r")){
+        
+        if(Controller.partie.getVs() == VSRANDOM){
             RandomPlayer rp = new RandomPlayer(g2);
             Controller.partie.setJoueurs(j1, rp);
-            Controller.partie.setVs(VSRANDOM);
         }else{
             Joueur j2 = new Joueur(g2);
             Controller.partie.setJoueurs(j1, j2);
-            Controller.partie.setVs(VSJOUEUR);
         }
+        
         System.out.println(g1);
         System.out.println(g2);
         
@@ -216,46 +223,56 @@ public class Controller implements Initializable, Parametres{
     public void keyPressed(KeyEvent ke) {
         System.out.println("touche appuyée");
         String touche = ke.getText();
-        
-        int direction = convertDirectionJ1(touche);
-        if (direction != 0){
-            boolean b2 = partie.getG(0).lanceurDeplacerCases(direction);
-            if (b2) {
-                boolean b = partie.getG(0).nouvelleCase();
-                if (!b) partie.getG(0).gameOver();
+        if (Controller.partie.getVs() != VSIARANDOM){
+            int direction = convertDirectionJ1(touche);
+            boolean b1 = false;
+            if (direction != 0){
+                b1 = partie.getG(0).lanceurDeplacerCases(direction);
+                if (b1) {
+                    boolean b = partie.getG(0).nouvelleCase();
+                    if (!b) partie.getG(0).gameOver();
+                }
+                //affichage debogage
+                System.out.println(partie.getG(0));
+
+                // on incrémente la variable
+                partie.getJ(0).addDeplacement();
+                System.out.println(partie.getJ(0).getScore());
+
+                // on modifie le label move1 et score1
+                move1.setText(Integer.toString(partie.getJ(0).getDeplacement()));
+                score1.setText(Integer.toString(partie.getJ(0).getScore()));
             }
-            //affichage debogage
-            System.out.println(partie.getG(0));
-            
-            // on incrémente la variable
-            partie.getJ(0).addDeplacement();
-            System.out.println(partie.getJ(0).getScore());
-            
-            // on modifie le label move1 et score1
-            move1.setText(Integer.toString(partie.getJ(0).getDeplacement()));
-            score1.setText(Integer.toString(partie.getJ(0).getScore()));
-        }
         
-        ///// Rajouter une condition ici pour quand il y aura un joueur non réel ou pe mettre dans une autre fonction?
-        direction = convertDirectionJ2(touche);
-        if (direction != 0){
-            boolean b2 = partie.getG(1).lanceurDeplacerCases(direction);
-            if (b2) {
-                boolean b = partie.getG(1).nouvelleCase();
-                if (!b) partie.getG(1).gameOver();
+            if (Controller.partie.getVs() == VSRANDOM && b1){
+                System.out.println(Controller.partie.getJ(1).getClass());
+                Controller.partie.getJ(1).jouer();
             }
-            System.out.println(partie.getG(1));
-            
-            //on incremente la variable
-            partie.getJ(1).addDeplacement();
-            //on modifie le label move2
-            move2.setText(Integer.toString(partie.getJ(1).getDeplacement()));
-            score2.setText(Integer.toString(partie.getJ(1).getScore()));
+        
+        
+            if (Controller.partie.getVs() == VSJOUEUR){
+                direction = convertDirectionJ2(touche);
+                if (direction != 0){
+                    boolean b2 = partie.getG(1).lanceurDeplacerCases(direction);
+                    if (b2) {
+                        boolean b = partie.getG(1).nouvelleCase();
+                        if (!b) partie.getG(1).gameOver();
+                    }
+                    System.out.println(partie.getG(1));
+
+                    //on incremente la variable
+                    partie.getJ(1).addDeplacement();
+                    //on modifie le label move2
+                    move2.setText(Integer.toString(partie.getJ(1).getDeplacement()));
+                    score2.setText(Integer.toString(partie.getJ(1).getScore()));
+                }
+            }
+
+            // on vide le panneau contenant les différents label représenant les cases
+            viderGrid(fond_case);
+            // on affiche les labels à leur nouvel emplacement ainsi que les nouveaux labels (les cases)
+            this.afficheTableau();
         }
-        // on vide le panneau contenant les différents label représenant les cases
-        viderGrid(fond_case);
-        // on affiche les labels à leur nouvel emplacement ainsi que les nouveaux labels (les cases)
-        this.afficheTableau();
     }
     
     
