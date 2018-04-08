@@ -2,12 +2,15 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 
 <AnchorPane id="AnchorPane" prefHeight="613.0" prefWidth="445.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Controller">
     <children>
@@ -56,7 +59,7 @@
                 
                 
                 
-                <Button layoutX="471.0" layoutY="59.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="100.0" text="Start" />
+                <Button fx:id="start" layoutX="471.0" layoutY="59.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="100.0" text="Start" />
 
                 <Pane layoutX="145.0" layoutY="48.0" prefHeight="84.0" prefWidth="155.0" style="-fx-background-color: lightgrey;">
                     <children>
@@ -78,9 +81,21 @@
               
             
                 <Button fx:id="undoj1" layoutX="324.0" layoutY="75.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="100.0" text="Undo J1" />
-                <Button fx:id="undoj2" layoutX="618.0" layoutY="75.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="100.0" text="Undo J2" />    
-
+                <Button fx:id="undoj2" layoutX="618.0" layoutY="75.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="100.0" text="Undo J2" />
+                
             </children>
         </Pane>
+        
+        <ComboBox fx:id="choix" layoutX="446.0" layoutY="132.0" prefWidth="150.0" promptText="Select">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Joueur vs Joueur"></String>
+                    <String fx:value="Joueur vs Random"></String>
+                    <String fx:value="IA vs Joueur"></String>
+                    <String fx:value="IA vs Random"></String>
+                </FXCollections>
+            </items>
+        </ComboBox>
+                
     </children>
 </AnchorPane>

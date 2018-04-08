@@ -26,6 +26,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -33,6 +35,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -75,26 +78,31 @@ public class Controller implements Initializable, Parametres{
     @FXML
     private Button undoj2;
     
+    // menu déroulant
+    @FXML
+    private ComboBox choix;
+    
+    // bouton qui démarre le jeu
+    @FXML
+    private Button start;
     
     
-    /*
-    private int movej1 = 0; // nombre de déplacements du joueur 1
-    private int movej2 = 0; // nombre déplacements du joueur 2
-*/
     
-    
-    public static void lancementJeuGraphique(){
-        Scanner sc = new Scanner(System.in);
-        /////////////a retirer apres que louis est fait le visuel
-        String vs = "j";
-        System.out.println("Contre qui on joue? random (r) joueur réel (j)");
-        vs = sc.nextLine();
-        if (vs.equals("r")){
-            Controller.partie.setVs(VSRANDOM);
-        }else{
-            Controller.partie.setVs(VSJOUEUR);
+    public static void lancementJeuGraphique(String val){
+        
+        switch(val){
+            case "Joueur vs Joueur" : Controller.partie.setVs(VSJOUEUR);
+            break;
+            
+            case "Joueur vs Random" : Controller.partie.setVs(VSRANDOM);
+            break;
+            
+            case "IA vs Joueur" : Controller.partie.setVs(VSIA);
+            break;
+            
+            case "IA vs Random" : Controller.partie.setVs(VSIARANDOM);
+            break;
         }
-        /////////// fin du a retirer 
         
         Grille g1 = new Grille();
         boolean b = g1.nouvelleCase();
@@ -133,7 +141,9 @@ public class Controller implements Initializable, Parametres{
     public void initialize(URL url, ResourceBundle rb) {  
         // TODO
         System.out.println("le contrôleur initialise la vue");
-        this.afficheTableau();
+        
+        //pré-choix d'aversaire via menu déroulant
+        //this.afficheTableau();
         
         // si on clique sur le bouton undoj1
         undoj1.setOnAction(new EventHandler<ActionEvent>() {
@@ -152,6 +162,17 @@ public class Controller implements Initializable, Parametres{
                 // utiliser ici la méthode undo
             }
         });
+        
+        
+        start.setOnAction(new EventHandler<ActionEvent>(){
+           @Override
+           public void handle(ActionEvent event){
+               String val_choix = (String) choix.getValue();
+               lancementJeuGraphique(val_choix);
+               afficheTableau();
+           }
+        });  
+        
     }
     
     /**

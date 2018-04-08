@@ -43,7 +43,7 @@ public class Main extends Application implements Model.Parametres{
         //launch(args);
         // TODO code application logic here
         //lancementJeu();
-        lancementJeuGraphique();
+        //lancementJeuGraphique();
         launch(args);
     }
 
