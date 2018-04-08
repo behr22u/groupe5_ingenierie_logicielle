@@ -20,7 +20,6 @@ import javafx.stage.Stage;
  * @author Louis
  */
 public class Main extends Application implements Model.Parametres{
-    //Controller c = new Controller();
     
     @Override
     public void start(Stage stage) throws Exception {
@@ -40,8 +39,6 @@ public class Main extends Application implements Model.Parametres{
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        //launch(args);
-        // TODO code application logic here
         //lancementJeu();
         //lancementJeuGraphique();
         launch(args);
