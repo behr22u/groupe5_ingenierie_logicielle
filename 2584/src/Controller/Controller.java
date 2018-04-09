@@ -168,6 +168,7 @@ public class Controller implements Initializable, Parametres{
            @Override
            public void handle(ActionEvent event){
                String val_choix = (String) choix.getValue();
+               fond_case.getChildren().clear();
                lancementJeuGraphique(val_choix);
                afficheTableau();
            }
