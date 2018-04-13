@@ -155,6 +155,7 @@ public class Controller implements Initializable, Parametres{
             @Override
             public void handle(ActionEvent event){
                 Controller.partie.getJ(0).undo();
+                nbUndo1.setText(Integer.toString(partie.getJ(0).getNbUndo()));
                 //undoj1.setDisable(true);
                 // on vide le panneau contenant les différents label représenant les cases
                 viderGrid(fond_case);
@@ -168,6 +169,7 @@ public class Controller implements Initializable, Parametres{
             @Override
             public void handle(ActionEvent event){
                 Controller.partie.getJ(1).undo();
+                nbUndo2.setText(Integer.toString(partie.getJ(1).getNbUndo()));
                 // si on utilise setDisable(true), il n'est plus possible d'utiliser la methode keyPressed.. aucune idée pourquoi..
                 //undoj2.setDisable(true);
                 // on vide le panneau contenant les différents label représenant les cases
@@ -285,7 +287,6 @@ public class Controller implements Initializable, Parametres{
                 // on modifie le label move1 et score1
                 move1.setText(Integer.toString(partie.getJ(0).getDeplacement()));
                 score1.setText(Integer.toString(partie.getJ(0).getScore()));
-                nbUndo1.setText(Integer.toString(partie.getJ(0).getNbUndo()));
             }
             if (Controller.partie.getVs() == VSRANDOM && b1){
                 System.out.println(Controller.partie.getJ(1).getClass());
@@ -309,9 +310,7 @@ public class Controller implements Initializable, Parametres{
                     partie.getJ(1).addDeplacement();
                     //on modifie le label move2
                     move2.setText(Integer.toString(partie.getJ(1).getDeplacement()));
-                    score2.setText(Integer.toString(partie.getJ(1).getScore()));
-                    nbUndo2.setText(Integer.toString(partie.getJ(1).getNbUndo()));
-                    
+                    score2.setText(Integer.toString(partie.getJ(1).getScore()));                    
                 }
             }
 
