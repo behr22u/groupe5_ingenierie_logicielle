@@ -21,7 +21,7 @@ public class Joueur implements Parametres {
     
     public Joueur(){
         this.grilleActuelle = new Grille();
-        this.grilleTampon = new Grille();
+        this.grilleTampon = null;
         this.nbUndo = 5;
         this.scoreMax = 0;
         this.score = 0;
@@ -29,7 +29,7 @@ public class Joueur implements Parametres {
     }
     public Joueur(Grille gA){
         this.grilleActuelle = gA;
-        this.grilleTampon = new Grille();
+        this.grilleTampon = null;
         this.nbUndo = 5;
         this.scoreMax = 0;
         this.score = 0;
@@ -102,6 +102,44 @@ public class Joueur implements Parametres {
 
     public void jouer() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    public boolean jouer(int direction){
+        this.grilleTampon = this.grilleActuelle.clone();
+        boolean b = this.grilleActuelle.lanceurDeplacerCases(direction);
+        if (b){
+            return true;
+        }else{
+            this.grilleTampon = null;
+            return false;
+        }
+        
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public boolean undo(){
+        if (this.nbUndo > 0 && this.grilleTampon != null){
+            this.grilleActuelle = this.grilleTampon.clone();
+            this.nbUndo = this.nbUndo - 1;
+            //this.grilleTampon = null;
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public boolean undoPossible(){
+        if (this.nbUndo > 0 && this.grilleTampon != null){
+            return true;
+        }else{
+            return false;
+        }
     }
     
 }

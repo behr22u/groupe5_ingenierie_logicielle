@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -149,8 +149,17 @@ public class Controller implements Initializable, Parametres{
         undoj1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event){
-            System.out.println("Yo");    
-            //utiliser ici la méthode undo
+            System.out.println("Yo");
+            System.out.println(Controller.partie.getJ(0).getGrilleActuelle());
+            System.out.println(Controller.partie.getJ(0).getGrilleTampon());
+            Controller.partie.getJ(0).undo();
+            System.out.println(Controller.partie.getJ(0).getGrilleActuelle());
+            System.out.println(Controller.partie.getJ(0).getGrilleTampon());
+            System.out.println(Controller.partie.getJ(0).undo());
+            undoj1.setDisable(true);
+            System.out.println("On est avant le affiche j1");
+            afficheTableau();
+            System.out.println("On est apres le affiche j1");
         }
         });
         
@@ -159,7 +168,13 @@ public class Controller implements Initializable, Parametres{
             @Override
             public void handle(ActionEvent event){
                 System.out.println("Yo2");
-                // utiliser ici la méthode undo
+                Controller.partie.getJ(1).undo();
+                undoj2.setDisable(true);
+                // on vide le panneau contenant les différents label représenant les cases
+               viderGrid(fond_case);
+               // on affiche les labels à leur nouvel emplacement ainsi que les nouveaux labels (les cases)
+                afficheTableau();
+                
             }
         });
         
@@ -170,6 +185,9 @@ public class Controller implements Initializable, Parametres{
                String val_choix = (String) choix.getValue();
                fond_case.getChildren().clear();
                lancementJeuGraphique(val_choix);
+               // on vide le panneau contenant les différents label représenant les cases
+               viderGrid(fond_case);
+               // on affiche les labels à leur nouvel emplacement ainsi que les nouveaux labels (les cases)
                afficheTableau();
            }
         });  
@@ -246,13 +264,17 @@ public class Controller implements Initializable, Parametres{
         System.out.println("touche appuyée");
         String touche = ke.getText();
         if (Controller.partie.getVs() != VSIARANDOM){
+            /// on teste les directions du joueur 1
             int direction = convertDirectionJ1(touche);
             boolean b1 = false;
             if (direction != 0){
-                b1 = partie.getG(0).lanceurDeplacerCases(direction);
+                b1 = partie.getJ(0).jouer(direction);
                 if (b1) {
                     boolean b = partie.getG(0).nouvelleCase();
                     if (!b) partie.getG(0).gameOver();
+                    if (Controller.partie.getJ(0).undoPossible()){
+                        undoj1.setDisable(false);
+                    }
                 }
                 //affichage debogage
                 System.out.println(partie.getG(0));
@@ -275,10 +297,13 @@ public class Controller implements Initializable, Parametres{
             if (Controller.partie.getVs() == VSJOUEUR){
                 direction = convertDirectionJ2(touche);
                 if (direction != 0){
-                    boolean b2 = partie.getG(1).lanceurDeplacerCases(direction);
+                    boolean b2 = partie.getJ(1).jouer(direction);
                     if (b2) {
                         boolean b = partie.getG(1).nouvelleCase();
                         if (!b) partie.getG(1).gameOver();
+                        if (Controller.partie.getJ(1).undoPossible()){
+                            undoj1.setDisable(false);
+                        }
                     }
                     System.out.println(partie.getG(1));
 
