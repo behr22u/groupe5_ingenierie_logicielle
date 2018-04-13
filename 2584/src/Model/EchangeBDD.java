@@ -82,4 +82,52 @@ public class EchangeBDD {
             }
         }
     }
+
+
+    public static void insertPartie(int tmax, int score1, int score2, int nbDep1, int nbDep2){
+        try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            con = DriverManager.getConnection(connectUrl, username, password);
+            System.out.println("Database connection established.");
+
+            Statement stmt = con.createStatement();
+
+            //insertion de la partie dans la bdd
+            System.out.println("insertion de la partie dans la bdd");
+            query = "INSERT INTO `partie`(`valeurMax`) VALUES (" + tmax + ") ";
+            rs = stmt.executeQuery(query);
+            query = "SELECT MAX(id) AS id FROM `partie` WHERE 1 ";
+            String idPartieMax = "";
+            rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                idPartieMax = rs.getString("id");
+            }
+            if(!idPartieMax.equals("")){
+                query = "INSERT INTO `joueur`(`id_partie`, `score`, `deplacement`) VALUES (" + idPartieMax + ", " + score1 + ", " + nbDep1 + " )";
+                rs = stmt.executeQuery(query);
+                query = "INSERT INTO `joueur`(`id_partie`, `score`, `deplacement`) VALUES (" + idPartieMax + ", " + score2 + ", " + nbDep2 + " )";
+                rs = stmt.executeQuery(query);
+            }
+        } catch (ClassNotFoundException cnfe) {
+            System.out.println("Cannot load db driver: com.mysql.jdbc.Driver");
+            cnfe.printStackTrace();
+        } catch (SQLException se) {
+            System.out.println("Avez-vous pensé à démarrer EasyPHP/Wamp ?");
+            se.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("Erreur inattendue");
+            e.printStackTrace();
+        } finally {
+            // à la fin, on ferme la connection avec la BdD
+            if (con != null) {
+                try {
+                    con.close();
+                    System.out.println("Database connection terminated.");
+                } catch (Exception e) { /* ignore close errors */ }
+            }
+        }
+    }
+    public static void insertPartie(Partie p ){
+        
+    }
 }

@@ -21,7 +21,7 @@ import java.util.Random;
 public class Grille implements Parametres {
 
     private final HashSet<Case> grille;
-    private int valeurMax = 0;
+    private int valeurMax;
     private boolean deplacement;
     
 
@@ -29,8 +29,8 @@ public class Grille implements Parametres {
      * Constructeur d'une grille
      */
     public Grille() {
-        
         this.grille = new HashSet<>();
+        this.valeurMax = 0;
     }
     
     public Grille(HashSet<Case> g, int vmax, boolean deplacement ){
