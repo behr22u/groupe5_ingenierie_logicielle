@@ -24,6 +24,7 @@ public class Partie implements Parametres{
     public Partie(){
         this.joueurs= new Joueur[NOMBREDEJOUEURS];
         this.vs = VSDEFAULT;
+        this.valeurMax = 0;
     }
     public Partie(Joueur j1, Joueur j2, int vs){
         this.joueurs[0] = j1;
@@ -33,7 +34,7 @@ public class Partie implements Parametres{
         }else{// sinon on assigne à vs la valeur par défaut
             this.vs = VSDEFAULT;
         }
-        
+        this.valeurMax = 0;
     }
     public void setValeurMax(){
         int vJ1 = joueurs[0].getGrilleActuelle().getValeurMax();
@@ -79,7 +80,7 @@ public class Partie implements Parametres{
         return null;
     }
     public int getValeurMax(){
-        return this.getValeurMax();
+        return this.valeurMax;
     }
     
     public Joueur getJ(int i){
