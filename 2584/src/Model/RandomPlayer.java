@@ -24,7 +24,7 @@ public class RandomPlayer extends Joueur implements Parametres {
     public void jouer() {
         System.out.println("iciiiiiiiiiii");
         boolean deplace = false;
-        while (!deplace){
+        while (!deplace && !this.grilleActuelle.partieFinie()){
             int direction = 0;
             while (direction == 0) {
                 Random ra = new Random();

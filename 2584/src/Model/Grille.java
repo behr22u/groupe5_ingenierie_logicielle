@@ -61,23 +61,6 @@ public class Grille implements Parametres {
         }
         return g;
     }
-
-       
-     /**
-     * getGrille qui retourne le hashset
-     * @return un hashset qui contient des objets cases
-     */
-    public HashSet<Case> getGrille() {
-        return grille;
-    }
-
-    /**
-     * retourne la valeur maximale de la grille
-     * @return un entier
-     */
-    public int getValeurMax() {
-        return valeurMax;
-    }
     
     /*
     * Si direction = HAUT : retourne les 4 cases qui sont le plus en haut (bas!?) (une pour chaque colonne)
@@ -144,8 +127,9 @@ public class Grille implements Parametres {
                 for (int i = 1; i <= 2; i++) {
                     if (c.getVoisinDirect(i) != null) {
                         if (c.estVoisinFibo(c.getVoisinDirect(i))) {
+                            
                             return false;
-                        }
+                        } 
                     }
                 }
             }
@@ -308,4 +292,24 @@ public class Grille implements Parametres {
             return false;
         }
     }
+    
+    
+    
+       
+     /**
+     * getGrille qui retourne le hashset
+     * @return un hashset qui contient des objets cases
+     */
+    public HashSet<Case> getGrille() {
+        return grille;
+    }
+
+    /**
+     * retourne la valeur maximale de la grille
+     * @return un entier
+     */
+    public int getValeurMax() {
+        return valeurMax;
+    }
+    
 }
