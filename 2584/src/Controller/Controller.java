@@ -65,9 +65,9 @@ public class Controller implements Initializable, Parametres{
     @FXML
     private Label move2;
     @FXML
-    private Label nbundo1;
+    private Label nbUndo1;
     @FXML
-    private Label nbundo2;
+    private Label nbUndo2;
    
     
     @FXML
