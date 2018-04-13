@@ -17,6 +17,7 @@ import java.util.HashSet;
 public class Partie implements Parametres{
     private Joueur[] joueurs;
     private int vs; // 4 possibilités de jeu voir dans parametres
+    private int valeurMax; // valeur max de la partie
     
     
     
@@ -33,6 +34,15 @@ public class Partie implements Parametres{
             this.vs = VSDEFAULT;
         }
         
+    }
+    public void setValeurMax(){
+        int vJ1 = joueurs[0].getGrilleActuelle().getValeurMax();
+        int vJ2 = joueurs[1].getGrilleActuelle().getValeurMax();
+        if ( vJ1> vJ2){
+            this.valeurMax = vJ1;
+        }else{
+            this.valeurMax = vJ2;
+        }
     }
 
     public Joueur[] getJoueurs() {
