@@ -90,6 +90,18 @@ public class Controller implements Initializable, Parametres {
     // bouton qui démarre le jeu
     @FXML
     private Button start;
+<<<<<<< HEAD
+    
+    
+  
+  
+    /**
+     * Méthode lancée au début du programme, elle contient les différents EvenHandler au cas où l'utilisateur appuie sur les boutons
+     * Les boutons possédant une sous méthode handle ont chacun une action spécifique.
+     * @param url
+     * @param rb 
+     */
+=======
 
     /**
      * Paramètre le type de partie qui va être jouée.
@@ -146,6 +158,7 @@ public class Controller implements Initializable, Parametres {
          */
     }
 
+>>>>>>> df69df12ba46a556dfff306e92be9217b8fb14bb
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -196,6 +209,15 @@ public class Controller implements Initializable, Parametres {
         });
 
     }
+<<<<<<< HEAD
+    
+    
+    /**
+     * Méthode FXML qui est appelé à chaque fois que l'utilisateur appuie sur une touche du clavier
+     * Elle va avoir une place centrale dans notre projet étant donné que le jeu de 2584 se joue principalement au claver
+     * @param ke de type KeyEvent qui correspond à la touche appuyé par l'utilisateur
+     */
+=======
 
     /**
      * Méthode qui permet d'afficher les visuels des tableaux. On y appelle le
@@ -266,6 +288,7 @@ public class Controller implements Initializable, Parametres {
         System.out.println("Clic de souris sur le bouton menu");
     }
 
+>>>>>>> df69df12ba46a556dfff306e92be9217b8fb14bb
     @FXML
     public void keyPressed(KeyEvent ke) {
 
@@ -328,9 +351,110 @@ public class Controller implements Initializable, Parametres {
             }
         }
     }
+<<<<<<< HEAD
+    
+    
+    /**
+     * Méthode qui permet d'afficher les visuels des tableaux
+     * On y appelle le css
+     * On affiche les différents labels qui représentent les cases avec leur valeurs
+     */
+    public void afficheTableau(){
+        for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
+           // System.out.println("ici 1 : " + i);
+            HashSet<Case> g = partie.getHashGrille(i); 
+            
+            gridpane = new GridPane();
+            //System.out.println("ici 2 : " + i);
+            for(Case c : g){
+              //  System.out.println("ici 3 : " + i);
+                Pane p = new Pane();
+                Label l = new Label(Integer.toString(c.getValeur()));
+                gridpane.add(l, c.getX(), c.getY());
+               // System.out.println("ici 4 : " + i);
+                // utilisation de styles pour la grille et la tuile (voir styles.css)
+                p.getStyleClass().add("pane"); 
+                //System.out.println("ici 5 : " + i);
+                l.getStyleClass().add("tuile");
+                //System.out.println("ici 6 : " + i);
+                gridpane.getStyleClass().add("gridpane");
+                //System.out.println("ici 7 : " + i);
+                GridPane.setHalignment(l, HPos.CENTER);
+                //System.out.println("ici 8 : " + i);
+                fond_case.getChildren().add(p);
+                //System.out.println("ici 9 : " + i);
+                p.getChildren().add(l);
+                // on place la tuile en précisant les coordonnées (x,y) du coin supérieur gauche 
+                
+                switch(i){
+                    
+                    case 0 :  p.setLayoutX(24 + c.getX()*100);
+                              p.setLayoutY(191 + c.getY()*100);
+                              break;
+                              
+                    case 1 :  p.setLayoutX(618 + c.getX()*100);
+                              p.setLayoutY(191 + c.getY()*100);
+                              break;
+                }
+               
+                p.setVisible(true);
+                l.setVisible(true);
+                
+            }
+        }
+    }
+    
+    
+    /**
+     * methode permettant de vider completement le panneau rentrée en parametres
+     * On l'utilise dans la methode keyPressed, juste avant l'appel d'afficherTableau qui permet d'afficher les nouveaux emplacements des cases
+     * @param pane 
+     */
+    public void viderGrid(Pane pane){
+            pane.getChildren().clear();
+    }
 
+      
+    
+    
+    /**
+     * 
+     * @param val 
+     */
+    public static void lancementJeuGraphique(String val){
+        
+        switch(val){
+            case "Joueur vs Joueur" : Controller.partie.setVs(VSJOUEUR);
+            break;
+            
+            case "Joueur vs Random" : Controller.partie.setVs(VSRANDOM);
+            break;
+        }
+        
+        Grille g1 = new Grille();
+        boolean b = g1.nouvelleCase();
+        b = g1.nouvelleCase(1);
+        Joueur j1 = new Joueur(g1);
+        Grille g2 = (Grille) g1.clone();
+        
+        if(Controller.partie.getVs() == VSRANDOM){
+            RandomPlayer rp = new RandomPlayer(g2);
+            Controller.partie.setJoueurs(j1, rp);
+        }else{
+            Joueur j2 = new Joueur(g2);
+            Controller.partie.setJoueurs(j1, j2);
+        }
+        
+        System.out.println(g1);
+        System.out.println(g2);
+    }
+    
+=======
+
+>>>>>>> df69df12ba46a556dfff306e92be9217b8fb14bb
     /**
      * Méthode de lancement du Jeu, sans interface graphique, dans la console
+     * C'est la méthode qui est appelé dans le cas où l'utilisateur décide de run jeu sans le GUI
      */
     static public void lancementJeu() {
         Grille grilles[] = new Grille[NOMBREDEJOUEURS];
@@ -419,9 +543,14 @@ public class Controller implements Initializable, Parametres {
     static private boolean finDePartie() {
 
         boolean fini = false;
+<<<<<<< HEAD
+         //on parcours le nombre de joueurs
+        for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
+=======
 
         //on parcours le nombre de joueurs
         for (int i = 0; i < NOMBREDEJOUEURS; i++) {
+>>>>>>> df69df12ba46a556dfff306e92be9217b8fb14bb
             //on attribue à un objet grille la grille qui correspond au joueur i
             Grille g = Controller.partie.getG(i);
             // si la grille contient plus de 16 cases
