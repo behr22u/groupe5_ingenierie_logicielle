@@ -68,7 +68,7 @@ public class Controller implements Initializable, Parametres {
     @FXML
     private Label nbUndo2;
     @FXML
-    private static Label winner;
+    private Label winner;
 
     @FXML
     private GridPane gridpane;
@@ -82,6 +82,9 @@ public class Controller implements Initializable, Parametres {
     private Button undoj1;
     @FXML
     private Button undoj2;
+    
+    @FXML
+    private Button historique;
 
     // menu déroulant
     @FXML
@@ -193,6 +196,7 @@ public class Controller implements Initializable, Parametres {
             }
         });
 
+        
         start.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -203,6 +207,14 @@ public class Controller implements Initializable, Parametres {
                 viderGrid(fond_case);
                 // on affiche les labels à leur nouvel emplacement ainsi que les nouveaux labels (les cases)
                 afficheTableau();
+            }
+        });
+        
+        // Bouton qui déclenche l'affichage de l'historique dans la console
+        historique.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                EchangeBDD.recupParties();
             }
         });
     }
@@ -216,28 +228,19 @@ public class Controller implements Initializable, Parametres {
      */
     public void afficheTableau() {
         for (int i = 0; i < NOMBREDEJOUEURS; i++) {
-            // System.out.println("ici 1 : " + i);
             HashSet<Case> g = partie.getHashGrille(i);
 
             gridpane = new GridPane();
-            //System.out.println("ici 2 : " + i);
             for (Case c : g) {
-                //  System.out.println("ici 3 : " + i);
                 Pane p = new Pane();
                 Label l = new Label(Integer.toString(c.getValeur()));
                 gridpane.add(l, c.getX(), c.getY());
-                // System.out.println("ici 4 : " + i);
                 // utilisation de styles pour la grille et la tuile (voir styles.css)
                 p.getStyleClass().add("pane");
-                //System.out.println("ici 5 : " + i);
                 l.getStyleClass().add("tuile");
-                //System.out.println("ici 6 : " + i);
                 gridpane.getStyleClass().add("gridpane");
-                //System.out.println("ici 7 : " + i);
                 GridPane.setHalignment(l, HPos.CENTER);
-                //System.out.println("ici 8 : " + i);
                 fond_case.getChildren().add(p);
-                //System.out.println("ici 9 : " + i);
                 p.getChildren().add(l);
                 // on place la tuile en précisant les coordonnées (x,y) du coin supérieur gauche 
 
@@ -285,7 +288,7 @@ public class Controller implements Initializable, Parametres {
      */
     public void keyPressed(KeyEvent ke) {
 
-        if (!finDePartie()) {
+        if (!this.finDePartie()) {
             System.out.println("touche appuyée");
             System.out.println("type vs = " + Controller.partie.getVs());
             String touche = ke.getText();
@@ -434,35 +437,29 @@ public class Controller implements Initializable, Parametres {
      *
      * @return un boolean afin de savoir si la partie est finie ou pas
      */
-    static private boolean finDePartie() {
+    private boolean finDePartie() {
 
         boolean fini = false;
-
-        //on parcours le nombre de joueurs
         for (int i = 0; i < NOMBREDEJOUEURS; i++) {
-
-            //on attribue à un objet grille la grille qui correspond au joueur i
-            Grille g = Controller.partie.getG(i);
-            // si la grille contient plus de 16 cases
-            if (g.partieFinie()) {
+            if (Controller.partie.getG(i).partieFinie()) {
                 fini = true;
-                if (i == 0) {
-                    winner.setText("Joueur 2");
-                } else {
-                    winner.setText("Joueur 1");
-                }
-                //g.gameOver();
-
-            } else {
-                if (g.getValeurMax() == OBJECTIF) {
-                    winner.setText(String.valueOf(partie.getJ(i)));
-                    // g.victory();                
-                }
+                Controller.partie.getJ(i).setScoreMax();
+                
             }
         }
-        if (fini) {
+        if (fini){
+            System.out.println("on rentre dans le if fini");
+            int s1 = Controller.partie.getJ(0).getScoreMax();
+            int s2 = Controller.partie.getJ(1).getScoreMax();
+            Controller.partie.setValeurMax();
+            if (s1 > s2){
+                winner.setText("Le joueur 1 gagne");
+            }else{
+                winner.setText("Le joueur 2 gagne!");
+            }
             EchangeBDD.insertPartie(Controller.partie);
         }
+
         return fini;
     }
         

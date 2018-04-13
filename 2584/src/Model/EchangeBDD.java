@@ -28,8 +28,8 @@ public class EchangeBDD {
     
     public static void recupParties(){
         try {
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            con = DriverManager.getConnection(connectUrl, username, password);
+            Class.forName("com.mysql.jdbc.Driver");//.newInstance()
+            con = DriverManager.getConnection(EchangeBDD.connectUrl, EchangeBDD.username, EchangeBDD.password);
             System.out.println("Database connection established.");
 
             Statement stmt = con.createStatement();

@@ -87,7 +87,7 @@ public class Partie implements Parametres{
     /// renvoie la grille de l'indice passé en paramètre, et si cette grille est trop grande renvoie une nouvelle grille vide
     public Grille getG(int i) {
         if (i<NOMBREDEJOUEURS){
-            return this.joueurs[i].grilleActuelle;
+            return this.joueurs[i].getGrilleActuelle();
         }
         return null;
     }

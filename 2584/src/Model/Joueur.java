@@ -13,8 +13,8 @@ public class Joueur implements Parametres {
 
     protected Grille grilleActuelle;
     protected Grille grilleTampon;
-    protected int scoreMax;
-    protected int score;
+    protected int scoreMax; // nombre de la plus grosse tuile
+    protected int score; // score en nombre de points
     protected int nbUndo;
     protected int deplacement;
 
@@ -66,6 +66,9 @@ public class Joueur implements Parametres {
 
     public void setScoreMax(int score) {
         this.scoreMax = score;
+    }
+    public void setScoreMax() {
+        this.scoreMax = grilleActuelle.getValeurMax();
     }
 
     public void setScore(int scorebis) {

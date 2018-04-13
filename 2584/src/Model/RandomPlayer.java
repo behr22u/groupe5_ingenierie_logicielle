@@ -23,7 +23,7 @@ public class RandomPlayer extends Joueur implements Parametres {
     @Override
     public void jouer() {
         boolean deplace = false;
-        while (!deplace && !this.grilleActuelle.partieFinie()){
+        while (!deplace && !super.grilleActuelle.partieFinie()){
             int direction = 0;
             while (direction == 0) {
                 Random ra = new Random();
