@@ -263,6 +263,15 @@ public class Controller implements Initializable, Parametres{
 
     @FXML
     public void keyPressed(KeyEvent ke) {
+        
+            
+        if(partie.getG(0).getValeurMax() == 2584 || partie.getG(1).getValeurMax() == 2584){
+            
+            
+            
+        } else {
+        }
+        
         System.out.println("touche appuyée");
         System.out.println("type vs = " + Controller.partie.getVs());
         String touche = ke.getText();

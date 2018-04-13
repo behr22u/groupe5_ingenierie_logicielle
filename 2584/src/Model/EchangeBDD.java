@@ -127,7 +127,15 @@ public class EchangeBDD {
             }
         }
     }
+    
+    //insertPartie(int tmax, int score1, int score2, int nbDep1, int nbDep2){
     public static void insertPartie(Partie p ){
-        
+        p.setValeurMax();
+        int tmax = p.getValeurMax();
+        int s1 = p.getJ(0).getScore();
+        int s2 = p.getJ(1).getScore();
+        int dep1 = p.getJ(0).getDeplacement();
+        int dep2 = p.getJ(1).getDeplacement();
+        EchangeBDD.insertPartie(tmax, s1, s2, dep1, dep2);
     }
 }

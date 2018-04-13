@@ -267,7 +267,7 @@ public class Grille implements Parametres {
             Random ra = new Random();
             int valeur = (n);
             // on crée toutes les cases encore libres
-            for (int x = 0; x < TAILLE; x++) {
+            for (int x = 0; x < TAILLE; x++){
                 for (int y = 0; y < TAILLE; y++) {
                     Case c = new Case(x, y, valeur);
                     if (!this.grille.contains(c)) { // contains utilise la méthode equals dans Case (qui vérifie les positions)

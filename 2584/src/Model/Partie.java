@@ -78,6 +78,9 @@ public class Partie implements Parametres{
         }
         return null;
     }
+    public int getValeurMax(){
+        return this.getValeurMax();
+    }
     
     public Joueur getJ(int i){
         if (i<NOMBREDEJOUEURS){
