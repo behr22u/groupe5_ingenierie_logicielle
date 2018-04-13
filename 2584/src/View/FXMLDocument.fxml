@@ -18,7 +18,7 @@
         <Pane fx:id="fond_case" onKeyPressed="#keyPressed" prefHeight="803.0" prefWidth="1041.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
         </Pane>      
         
-        <Pane fx:id="fond" onKeyPressed="#keyPressed" prefHeight="803.0" prefWidth="1041.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+        <Pane fx:id="fond" onKeyPressed="#keyPressed" prefHeight="803.0" prefWidth="1041.0" stylesheets="@style.css">
             <children>
                 
                 <GridPane fx:id="grille" gridLinesVisible="true" layoutX="24.0" layoutY="191.0" prefHeight="400.0" prefWidth="400.0">
@@ -57,9 +57,9 @@
                     </rowConstraints>
                 </GridPane>
                 
+                                              
                 
-                
-                <Button fx:id="start" layoutX="471.0" layoutY="59.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="100.0" text="Start" />
+                <Button fx:id="start" layoutX="471.0" layoutY="127.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="100.0" text="Start" />
 
                 <Pane layoutX="145.0" layoutY="48.0" prefHeight="119.0" prefWidth="155.0" style="-fx-background-color: lightgrey;">
                     <children>
@@ -67,8 +67,8 @@
                         <Label fx:id="move1" alignment="CENTER" contentDisplay="CENTER" layoutX="94.0" layoutY="14.0" prefHeight="21.0" prefWidth="37.0" text="0" textAlignment="CENTER" />
                         <Label layoutX="14.0" layoutY="51.0" prefHeight="21.0" prefWidth="72.0" text="Scores J1" />
                         <Label fx:id="score1" alignment="CENTER" contentDisplay="CENTER" layoutX="94.0" layoutY="51.0" prefHeight="21.0" prefWidth="37.0" text="0" textAlignment="CENTER" />
-                  <Label layoutX="14.0" layoutY="84.0" prefHeight="21.0" prefWidth="72.0" text="Nb Undo J1" />
-                  <Label fx:id="nbUndo1" alignment="CENTER" contentDisplay="CENTER" layoutX="94.0" layoutY="84.0" prefHeight="21.0" prefWidth="37.0" text="5" textAlignment="CENTER" />
+                        <Label layoutX="14.0" layoutY="84.0" prefHeight="21.0" prefWidth="72.0" text="Nb Undo J1" />
+                        <Label fx:id="nbUndo1" alignment="CENTER" contentDisplay="CENTER" layoutX="94.0" layoutY="84.0" prefHeight="21.0" prefWidth="37.0" text="5" textAlignment="CENTER" />
                     </children>
                 </Pane>
               
@@ -78,28 +78,35 @@
                         <Label fx:id="move2" alignment="CENTER" contentDisplay="CENTER" layoutX="104.0" layoutY="14.0" prefHeight="21.0" prefWidth="37.0" text="0" textAlignment="CENTER" />
                         <Label layoutX="15.0" layoutY="51.0" prefHeight="21.0" prefWidth="72.0" text="Scores J2" />
                         <Label fx:id="score2" alignment="CENTER" contentDisplay="CENTER" layoutX="104.0" layoutY="51.0" prefHeight="21.0" prefWidth="37.0" text="0" textAlignment="CENTER" />
-                  <Label layoutX="6.0" layoutY="84.0" prefHeight="21.0" prefWidth="72.0" text="Nb Undo J2" />
-                  <Label fx:id="nbUndo2" alignment="CENTER" contentDisplay="CENTER" layoutX="111.0" layoutY="79.0" prefHeight="21.0" prefWidth="37.0" text="5" textAlignment="CENTER" />
+                        <Label layoutX="6.0" layoutY="84.0" prefHeight="21.0" prefWidth="72.0" text="Nb Undo J2" />
+                        <Label fx:id="nbUndo2" alignment="CENTER" contentDisplay="CENTER" layoutX="111.0" layoutY="79.0" prefHeight="21.0" prefWidth="37.0" text="5" textAlignment="CENTER" />
                     </children>
                 </Pane>
               
-            
+                                          
                 <Button fx:id="undoj1" layoutX="324.0" layoutY="75.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="100.0" text="Undo J1" />
                 <Button fx:id="undoj2" layoutX="618.0" layoutY="75.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="100.0" text="Undo J2" />
+                <Button fx:id="historique" layoutX="471.0" layoutY="376.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="100.0" text="Historique" />
+              
+                <ComboBox fx:id="choix" layoutX="446.0" layoutY="182.0" prefWidth="150.0" promptText="Select">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Joueur vs Joueur" />
+                            <String fx:value="Joueur vs Random" />
+                            <!--   <String fx:value="IA vs Joueur" />
+                            <String fx:value="IA vs Random" /> -->
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+                <Pane layoutX="440.0" layoutY="46.0" prefHeight="42.0" prefWidth="150.0">
+                    <children>
+                        <Label fx:id="winner" layoutX="47.0" layoutY="14.0" text="Let's Play !" />
+                    </children>
+                </Pane>
+            
                 
             </children>
         </Pane>
-        
-        <ComboBox fx:id="choix" layoutX="446.0" layoutY="132.0" prefWidth="150.0" promptText="Select">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="Joueur vs Joueur" />
-                    <String fx:value="Joueur vs Random" />
-                    <String fx:value="IA vs Joueur" />
-                    <String fx:value="IA vs Random" />
-                </FXCollections>
-            </items>
-        </ComboBox>
                 
     </children>
 </AnchorPane>

@@ -69,7 +69,8 @@ public class Controller implements Initializable, Parametres{
     private Label nbUndo1;
     @FXML
     private Label nbUndo2;
-   
+    @FXML
+    private static Label winner;
     
     @FXML
     private GridPane gridpane;
@@ -183,7 +184,7 @@ public class Controller implements Initializable, Parametres{
         
         start.setOnAction(new EventHandler<ActionEvent>(){
            @Override
-           public void handle(ActionEvent event){
+           public void handle(ActionEvent event){               
                String val_choix = (String) choix.getValue();
                fond_case.getChildren().clear();
                lancementJeuGraphique(val_choix);
@@ -383,7 +384,7 @@ public class Controller implements Initializable, Parametres{
     }
      
      /**
-      * Méthode qui permet de déterminer si la partie est finie
+      * Méthode qui permet de déterminer si la partie est finie, version console
       * @param grilles
       * @return un boolean : true --> la partie est finie ; false --> la partie n'est pas finie
       */
@@ -393,7 +394,7 @@ public class Controller implements Initializable, Parametres{
             if (g.partieFinie()){
                 fini = true;
                 
-                if(g.getValeurMax() == 2584){
+                if(g.getValeurMax() == OBJECTIF){
                     g.victory();
                 }
             }
@@ -403,17 +404,37 @@ public class Controller implements Initializable, Parametres{
         }
         return fini;
     }
+     
+     /**
+      * méthode qui permet de déterminer si la partie est finie et d'afficher le vainqueur dans un label
+      * @return un boolean afin de savoir si la partie est finie ou pas
+      */
      static private boolean finDePartie(){
+         
         boolean fini = false;
         
+        //on parcours le nombre de joueurs
         for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
+            //on attribue à un objet grille la grille qui correspond au joueur i
             Grille g = Controller.partie.getG(i);
+            // si la grille contient plus de 16 cases
             if (g.partieFinie()){
                 fini = true;
-                if(g.getValeurMax() == OBJECTIF){
-                    g.victory();
+                if(i == 0){
+                    winner.setText("Joueur 2");
+                } else{
+                    winner.setText("Joueur 1");
                 }
-            }
+                //g.gameOver();
+
+                
+                
+            } else{
+               if(g.getValeurMax() == OBJECTIF){
+                    winner.setText(String.valueOf(partie.getJ(i)));
+                   // g.victory();                
+                } 
+            }                
         }
         if (fini){
             EchangeBDD.insertPartie(Controller.partie);
