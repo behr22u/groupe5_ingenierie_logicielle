@@ -393,7 +393,7 @@ public class Controller implements Initializable, Parametres{
             if (g.partieFinie()){
                 fini = true;
                 
-                if(g.getValeurMax() == 2584){
+                if(g.getValeurMax() == OBJECTIF){
                     g.victory();
                 }
             }
