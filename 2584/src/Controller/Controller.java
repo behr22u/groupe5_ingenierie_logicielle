@@ -60,11 +60,16 @@ public class Controller implements Initializable, Parametres{
     private Label score1; // value will be injected by the FXMLLoader
     @FXML
     private Label score2;
-    
     @FXML
     private Label move1;
     @FXML
     private Label move2;
+    @FXML
+    private Label nbundo1;
+    @FXML
+    private Label nbundo2;
+   
+    
     @FXML
     private GridPane gridpane;
     @FXML
@@ -280,6 +285,7 @@ public class Controller implements Initializable, Parametres{
                 // on modifie le label move1 et score1
                 move1.setText(Integer.toString(partie.getJ(0).getDeplacement()));
                 score1.setText(Integer.toString(partie.getJ(0).getScore()));
+                nbUndo1.setText(Integer.toString(partie.getJ(0).getNbUndo()));
             }
             if (Controller.partie.getVs() == VSRANDOM && b1){
                 System.out.println(Controller.partie.getJ(1).getClass());
@@ -304,6 +310,7 @@ public class Controller implements Initializable, Parametres{
                     //on modifie le label move2
                     move2.setText(Integer.toString(partie.getJ(1).getDeplacement()));
                     score2.setText(Integer.toString(partie.getJ(1).getScore()));
+                    nbUndo2.setText(Integer.toString(partie.getJ(1).getNbUndo()));
                     
                 }
             }
