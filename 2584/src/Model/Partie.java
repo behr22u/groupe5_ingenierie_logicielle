@@ -15,17 +15,29 @@ import java.util.HashSet;
  * @author leath
  */
 public class Partie implements Parametres{
+   
+    //tableau de joueurs qui contiendra les deux joueurs de la partie
     private Joueur[] joueurs;
-    private int vs; // 4 possibilités de jeu voir dans parametres
-    private int valeurMax; // valeur max de la partie
+    //4 possibilité de jeu, voir dans paramètres pour plus de détails
+    private int vs;
+    //valeur max de la partie
+    private int valeurMax; 
     
-    
-    
+    /**
+     * Constructeur de Partie, avec des attributs par défaut
+     */
     public Partie(){
         this.joueurs= new Joueur[NOMBREDEJOUEURS];
         this.vs = VSDEFAULT;
         this.valeurMax = 0;
     }
+    
+    /**
+     * 
+     * @param j1
+     * @param j2
+     * @param vs 
+     */
     public Partie(Joueur j1, Joueur j2, int vs){
         this.joueurs[0] = j1;
         this.joueurs[1] = j2;
