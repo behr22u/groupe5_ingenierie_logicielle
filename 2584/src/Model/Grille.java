@@ -287,9 +287,6 @@ public class Grille implements Parametres {
             return false;
         }
     }
-    
-    
-    
        
      /**
      * getGrille qui retourne le hashset

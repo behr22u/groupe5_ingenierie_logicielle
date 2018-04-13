@@ -7,6 +7,7 @@
 package Controller;
 
 import Model.Case;
+import Model.EchangeBDD;
 import Model.Grille;
 import Model.Joueur;
 import Model.Parametres;
@@ -264,71 +265,65 @@ public class Controller implements Initializable, Parametres{
     @FXML
     public void keyPressed(KeyEvent ke) {
         
-            
-        if(partie.getG(0).getValeurMax() == 2584 || partie.getG(1).getValeurMax() == 2584){
-            
-            
-            
-        } else {
-        }
-        
-        System.out.println("touche appuyée");
-        System.out.println("type vs = " + Controller.partie.getVs());
-        String touche = ke.getText();
-        if (Controller.partie.getVs() != VSIARANDOM){
-            /// on teste les directions du joueur 1
-            int direction = convertDirectionJ1(touche);
-            boolean b1 = false;
-            if (direction != 0){
-                b1 = partie.getJ(0).jouer(direction);
-                if (b1) {
-                    boolean b = partie.getG(0).nouvelleCase();
-                    if (!b) partie.getG(0).gameOver();
-                    if (Controller.partie.getJ(0).undoPossible()){
-                        undoj1.setDisable(false);
-                    }
-                }
-                //affichage debogage
-                System.out.println(partie.getG(0));
-                // on incrémente la variable
-                partie.getJ(0).addDeplacement();
-                System.out.println(partie.getJ(0).getScore());
-                // on modifie le label move1 et score1
-                move1.setText(Integer.toString(partie.getJ(0).getDeplacement()));
-                score1.setText(Integer.toString(partie.getJ(0).getScore()));
-            }
-            if (Controller.partie.getVs() == VSRANDOM && b1){
-                System.out.println(Controller.partie.getJ(1).getClass());
-                Controller.partie.getJ(1).jouer();
-            }
-            if (Controller.partie.getVs() == VSJOUEUR){
-                direction = convertDirectionJ2(touche);
-                boolean b2 = false;
+        if(!finDePartie()){
+            System.out.println("touche appuyée");
+            System.out.println("type vs = " + Controller.partie.getVs());
+            String touche = ke.getText();
+            if (Controller.partie.getVs() != VSIARANDOM){
+                /// on teste les directions du joueur 1
+                int direction = convertDirectionJ1(touche);
+                boolean b1 = false;
                 if (direction != 0){
-                    b2 = partie.getJ(1).jouer(direction);
-                    if (b2) {
-                        boolean b = partie.getG(1).nouvelleCase();
-                        if (!b) partie.getG(1).gameOver();
-                        if (Controller.partie.getJ(1).undoPossible()){
-                            undoj2.setDisable(false);
+                    b1 = partie.getJ(0).jouer(direction);
+                    if (b1) {
+                        boolean b = partie.getG(0).nouvelleCase();
+                        //if (!b) partie.getG(0).gameOver();
+                        if (Controller.partie.getJ(0).undoPossible()){
+                            undoj1.setDisable(false);
                         }
                     }
-                    System.out.println(partie.getG(1));
-
-                    //on incremente la variable
-                    partie.getJ(1).addDeplacement();
-                    //on modifie le label move2
-                    move2.setText(Integer.toString(partie.getJ(1).getDeplacement()));
-                    score2.setText(Integer.toString(partie.getJ(1).getScore()));                    
+                    //affichage debogage
+                    System.out.println(partie.getG(0));
+                    // on incrémente la variable
+                    partie.getJ(0).addDeplacement();
+                    System.out.println(partie.getJ(0).getScore());
+                    // on modifie le label move1 et score1
+                    move1.setText(Integer.toString(partie.getJ(0).getDeplacement()));
+                    score1.setText(Integer.toString(partie.getJ(0).getScore()));
                 }
-            }
+                if (Controller.partie.getVs() == VSRANDOM && b1){
+                    System.out.println(Controller.partie.getJ(1).getClass());
+                    Controller.partie.getJ(1).jouer();
+                }
+                if (Controller.partie.getVs() == VSJOUEUR){
+                    direction = convertDirectionJ2(touche);
+                    boolean b2 = false;
+                    if (direction != 0){
+                        b2 = partie.getJ(1).jouer(direction);
+                        if (b2) {
+                            boolean b = partie.getG(1).nouvelleCase();
+                            //if (!b) partie.getG(1).gameOver();
+                            if (Controller.partie.getJ(1).undoPossible()){
+                                undoj2.setDisable(false);
+                            }
+                        }
+                        System.out.println(partie.getG(1));
 
-           
-            
-            // on vide le panneau contenant les différents label représenant les cases
-            viderGrid(fond_case);
-            // on affiche les labels à leur nouvel emplacement ainsi que les nouveaux labels (les cases)
-            this.afficheTableau();
+                        //on incremente la variable
+                        partie.getJ(1).addDeplacement();
+                        //on modifie le label move2
+                        move2.setText(Integer.toString(partie.getJ(1).getDeplacement()));
+                        score2.setText(Integer.toString(partie.getJ(1).getScore()));                    
+                    }
+                }
+
+
+
+                // on vide le panneau contenant les différents label représenant les cases
+                viderGrid(fond_case);
+                // on affiche les labels à leur nouvel emplacement ainsi que les nouveaux labels (les cases)
+                this.afficheTableau();
+            }
         }
     }
     
@@ -403,10 +398,27 @@ public class Controller implements Initializable, Parametres{
                 }
             }
         }
+        if (fini){
+            EchangeBDD.insertPartie(Controller.partie);
+        }
         return fini;
     }
-     
-     
-     
-    
+     static private boolean finDePartie(){
+        boolean fini = false;
+        
+        for( int i = 0 ; i < NOMBREDEJOUEURS ; i++ ){
+            Grille g = Controller.partie.getG(i);
+            if (g.partieFinie()){
+                fini = true;
+                if(g.getValeurMax() == OBJECTIF){
+                    g.victory();
+                }
+            }
+        }
+        if (fini){
+            EchangeBDD.insertPartie(Controller.partie);
+        }
+        return fini;
+    }
+  
 }
