@@ -55,32 +55,8 @@ public class Grille implements Parametres {
         g.deplacement = this.deplacement;
         return (Object) g;
     }
-    /**
-    @Override
-    public Grille clone() throws CloneNotSupportedException {
-        HashSet<Case> hgrille = new HashSet<>();
-        Iterator<Case> iterator = this.grille.iterator();
-        System.out.println("ok1");
-        while (iterator.hasNext()) {
-            System.out.println("ok2");
-            Case elt = iterator.next();
-            Case c = new Case (elt.getX(), elt.getY(), elt.getValeur());
-            hgrille.add(c);
-        }
-        System.out.println("ok3");
-        Grille g = new Grille(hgrille, this.valeurMax, this.deplacement );
-        Iterator<Case> it = hgrille.iterator();
-        while (it.hasNext()) {
-            System.out.println("ok4");
-            Case elt = it.next();
-            elt.setGrille(g);
-        }
-        
-        
-        
-        return g;
-    }
-    **/
+    
+    
     /*
     * Si direction = HAUT : retourne les 4 cases qui sont le plus en haut (bas!?) (une pour chaque colonne)
     * Si direction = DROITE : retourne les 4 cases qui sont le plus à droite (une pour chaque ligne)
