@@ -25,6 +25,9 @@ public class EchangeBDD {
     private static String query;
     private static ResultSet rs;
 
+    /**
+     * Récupère les 10 dernières parties.
+     */
     public static void recupParties() {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
