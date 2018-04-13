@@ -168,7 +168,6 @@ public class Controller implements Initializable, Parametres{
             @Override
             public void handle(ActionEvent event){
                 System.out.println("Yo2");
-<<<<<<< HEAD
                 Controller.partie.getJ(1).undo();
                 undoj2.setDisable(true);
                 // on vide le panneau contenant les différents label représenant les cases
@@ -177,13 +176,7 @@ public class Controller implements Initializable, Parametres{
                 afficheTableau();
                 
             }
-=======
-                // utiliser ici la méthode undo
-                
-
-        }
->>>>>>> 3180561a31ac5d5fe88f4d7f0839408b1c22b5f5
-        });
+            });
         
         
         start.setOnAction(new EventHandler<ActionEvent>(){
