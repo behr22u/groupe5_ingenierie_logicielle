@@ -17,13 +17,13 @@ import java.util.Random;
 /**
  *
  * @author Theloua
- **/
+ *
+ */
 public class Grille implements Parametres {
 
     private final HashSet<Case> grille;
     private int valeurMax;
     private boolean deplacement;
-    
 
     /**
      * Constructeur d'une grille
@@ -32,37 +32,40 @@ public class Grille implements Parametres {
         this.grille = new HashSet<>();
         this.valeurMax = 0;
     }
-    
-    public Grille(HashSet<Case> g, int vmax, boolean deplacement ){
+
+    public Grille(HashSet<Case> g, int vmax, boolean deplacement) {
         this.grille = g;
         this.valeurMax = vmax;
         this.deplacement = deplacement;
     }
-    
-   
+
     @Override
-    public Object clone(){
+    public Object clone() {
         Grille g = new Grille();
         Case case_t;
-        
-        for (Case c : this.grille){
+
+        for (Case c : this.grille) {
             case_t = (Case) c.clone();
             case_t.setGrille(g);
             g.grille.add(case_t);
         }
-        
+
         g.valeurMax = this.valeurMax;
         g.deplacement = this.deplacement;
         return (Object) g;
     }
-    
-    
-    /*
-    * Si direction = HAUT : retourne les 4 cases qui sont le plus en haut (bas!?) (une pour chaque colonne)
-    * Si direction = DROITE : retourne les 4 cases qui sont le plus à droite (une pour chaque ligne)
-    * Si direction = BAS : retourne les 4 cases qui sont le plus en bas (une pour chaque colonne)
-    * Si direction = GAUCHE : retourne les 4 cases qui sont le plus à gauche (une pour chaque ligne)
-    * Attention : le tableau retourné peut contenir des null si les lignes/colonnes sont vides
+
+    /**
+     * Si direction = HAUT : retourne les 4 cases qui sont le plus en haut (une
+     * pour chaque colonne) Si direction = DROITE : retourne les 4 cases qui
+     * sont le plus à droite (une pour chaque ligne) Si direction = BAS :
+     * retourne les 4 cases qui sont le plus en bas (une pour chaque colonne) Si
+     * direction = GAUCHE : retourne les 4 cases qui sont le plus à gauche (une
+     * pour chaque ligne) Attention : le tableau retourné peut contenir des null
+     * si les lignes/colonnes sont vides
+     *
+     * @param direction la direction considérée
+     * @return le tableau des 4 cases concernées
      */
     public Case[] getCasesExtremites(int direction) {
         Case[] result = new Case[TAILLE];
@@ -105,14 +108,13 @@ public class Grille implements Parametres {
         }
         return result;
     }
-    
 
-   
-
-    
     /**
-     * methode partieFinie qu'on appelle pour tester si la partie est finie ou pas
-     * @return true si le nombre d'éléments de la grille est supérieur à 16, false si le nombre d'élément est inférieur à 16
+     * methode partieFinie qu'on appelle pour tester si la partie est finie ou
+     * pas
+     *
+     * @return true si le nombre d'éléments de la grille est supérieur à 16,
+     * false si le nombre d'élément est inférieur à 16
      */
     public boolean partieFinie() {
         if (this.grille.size() < TAILLE * TAILLE) {
@@ -122,21 +124,21 @@ public class Grille implements Parametres {
                 for (int i = 1; i <= 2; i++) {
                     if (c.getVoisinDirect(i) != null) {
                         if (c.estVoisinFibo(c.getVoisinDirect(i))) {
-                            
+
                             return false;
-                        } 
+                        }
                     }
                 }
             }
         }
         return true;
     }
-    
-    
+
     /**
-     * 
-     * @param direction
-     * @return 
+     * Déplace la grille dans la direction passée en paramètre.
+     *
+     * @param direction la direction dans laquelle en déplace les cases.
+     * @return
      */
     public boolean lanceurDeplacerCases(int direction) {
         Case[] extremites = this.getCasesExtremites(direction);
@@ -161,26 +163,32 @@ public class Grille implements Parametres {
     }
 
     /**
-     * 
-     * @param c1
-     * @param c2 
+     * Fusionne les 2 cases en paramètre.
+     *
+     * @param c1 la première case
+     * @param c2 la deuxième case
      */
     private void fusion(Case c1, Case c2) {////////////
-        c1.setValeur(c1.getValeur()+c2.getValeur() );
+        c1.setValeur(c1.getValeur() + c2.getValeur());
         if (this.valeurMax < c1.getValeur()) {
             this.valeurMax = c1.getValeur();
         }
         deplacement = true;
-        
-        if(this == partie.getG(0)){
-           partie.getJ(0).setScore(c1.getValeur());
-        } else
-        if(this == partie.getG(1)){
-            partie.getJ(1).setScore(c1.getValeur());
-        }        
-    }
-    
 
+        if (this == partie.getG(0)) {
+            partie.getJ(0).setScore(c1.getValeur());
+        } else if (this == partie.getG(1)) {
+            partie.getJ(1).setScore(c1.getValeur());
+        }
+    }
+
+    /**
+     *
+     * @param extremites
+     * @param rangee
+     * @param direction
+     * @param compteur
+     */
     private void deplacerCasesRecursif(Case[] extremites, int rangee, int direction, int compteur) {
         if (extremites[rangee] != null) {
             if ((direction == HAUT && extremites[rangee].getY() != compteur)
@@ -208,7 +216,7 @@ public class Grille implements Parametres {
             Case voisin = extremites[rangee].getVoisinDirect(-direction);
             if (voisin != null) {
                 if (extremites[rangee].estVoisinFibo(voisin)) {
-                    this.fusion(extremites[rangee],voisin);
+                    this.fusion(extremites[rangee], voisin);
                     extremites[rangee] = voisin.getVoisinDirect(-direction);
                     this.grille.remove(voisin);
                     this.deplacerCasesRecursif(extremites, rangee, direction, compteur + 1);
@@ -220,19 +228,27 @@ public class Grille implements Parametres {
         }
     }
 
-    
-
+    /**
+     * Renvoie un message de victoire.
+     */
     public void victory() {
         System.out.println("Bravo ! Vous avez atteint " + this.valeurMax);
         //System.exit(0);
     }
 
-    
+    /**
+     * Renvoie un message de défaite, ainsi que le score.
+     */
     public void gameOver() {
         System.out.println("La partie est finie. Votre score est " + this.valeurMax);
-       // System.exit(1);
+        // System.exit(1);
     }
 
+    /**
+     * Crée une nouvelle case
+     *
+     * @return true dès qu'elle est crée.
+     */
     public boolean nouvelleCase() {
         if (this.grille.size() < TAILLE * TAILLE) {
             ArrayList<Case> casesLibres = new ArrayList<>();
@@ -259,15 +275,20 @@ public class Grille implements Parametres {
             return false;
         }
     }
-    
-    
+
+    /**
+     * crée une nouvelle case dont la valeur est passée en paramètre.
+     *
+     * @param n valeur de la case
+     * @return true dès qu'elle est crée.
+     */
     public boolean nouvelleCase(int n) {
         if (this.grille.size() < TAILLE * TAILLE) {
             ArrayList<Case> casesLibres = new ArrayList<>();
             Random ra = new Random();
             int valeur = (n);
             // on crée toutes les cases encore libres
-            for (int x = 0; x < TAILLE; x++){
+            for (int x = 0; x < TAILLE; x++) {
                 for (int y = 0; y < TAILLE; y++) {
                     Case c = new Case(x, y, valeur);
                     if (!this.grille.contains(c)) { // contains utilise la méthode equals dans Case (qui vérifie les positions)
@@ -287,9 +308,10 @@ public class Grille implements Parametres {
             return false;
         }
     }
-       
-     /**
+
+    /**
      * getGrille qui retourne le hashset
+     *
      * @return un hashset qui contient des objets cases
      */
     public HashSet<Case> getGrille() {
@@ -298,10 +320,11 @@ public class Grille implements Parametres {
 
     /**
      * retourne la valeur maximale de la grille
+     *
      * @return un entier
      */
     public int getValeurMax() {
         return valeurMax;
     }
-    
+
 }

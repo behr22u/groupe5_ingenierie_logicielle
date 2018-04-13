@@ -18,6 +18,9 @@ public class Joueur implements Parametres {
     protected int nbUndo;
     protected int deplacement;
 
+    /**
+     * Constructeur d'un joueur.
+     */
     public Joueur() {
         this.grilleActuelle = new Grille();
         this.grilleTampon = null;
@@ -27,6 +30,11 @@ public class Joueur implements Parametres {
         this.deplacement = 0;
     }
 
+    /**
+     * Constructeur d'un joueur en passant la grille en paramètre
+     *
+     * @param gA la grille actuelle du joueur
+     */
     public Joueur(Grille gA) {
         this.grilleActuelle = gA;
         this.grilleTampon = null;
@@ -112,6 +120,12 @@ public class Joueur implements Parametres {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * joue dans la direction passée en paramètre.
+     *
+     * @param direction direction dans laquelle on joue
+     * @return true dès que le déplacement est effectué
+     */
     public boolean jouer(int direction) {
         this.grilleTampon = (Grille) this.grilleActuelle.clone();
         boolean b = this.grilleActuelle.lanceurDeplacerCases(direction);
@@ -125,11 +139,13 @@ public class Joueur implements Parametres {
     }
 
     /**
-     *Methode undo qui permet à l'aide de deux variables de récupérer la grille du coup précédent
-     * @return 
+     * Methode undo qui permet à l'aide de deux variables de récupérer la grille
+     * du coup précédent
+     *
+     * @return true dès que le undo est effectué.
      */
     public boolean undo() {
-        
+
         if (this.nbUndo > 0 && this.grilleTampon != null) {
             this.grilleActuelle = (Grille) this.grilleTampon.clone();
             this.nbUndo = this.nbUndo - 1;
@@ -141,8 +157,9 @@ public class Joueur implements Parametres {
     }
 
     /**
+     * Détermine la possibilité d'un undo
      *
-     * @return
+     * @return le booléen correspondant au résultat
      */
     public boolean undoPossible() {
         if (this.nbUndo > 0 && this.grilleTampon != null) {
