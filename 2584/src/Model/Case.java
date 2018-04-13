@@ -117,6 +117,17 @@ public class Case implements Parametres {
         }
         return null;
     }
+    
+    /**
+     * Methode qui copie une case,elle sera utilisée dans le clone de grille
+     * @return un objet qui est une copie d'une case
+     */
+    @Override
+    public Object clone(){
+        Case c = new Case(this.x, this.y, this.valeur);
+        return (Object) c;
+    }
+    
 
     @Override
     public String toString() {

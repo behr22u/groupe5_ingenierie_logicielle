@@ -108,7 +108,7 @@ public class Controller implements Initializable, Parametres{
         boolean b = g1.nouvelleCase();
         b = g1.nouvelleCase(1);
         Joueur j1 = new Joueur(g1);
-        Grille g2 = g1.clone();
+        Grille g2 = (Grille) g1.clone();
         
         if(Controller.partie.getVs() == VSRANDOM){
             RandomPlayer rp = new RandomPlayer(g2);
@@ -149,7 +149,7 @@ public class Controller implements Initializable, Parametres{
         undoj1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event){
-            System.out.println("Yo");
+            System.out.println("Action Event undo j1");
             System.out.println("grille actuelle av undo j1 = "+Controller.partie.getJ(0).getGrilleActuelle());
             System.out.println("grille tp av undo j1 = "+Controller.partie.getJ(0).getGrilleTampon());
             Controller.partie.getJ(0).undo();
@@ -167,7 +167,7 @@ public class Controller implements Initializable, Parametres{
         undoj2.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event){
-                System.out.println("Yo2");
+                System.out.println("action event undo j2");
                 Controller.partie.getJ(1).undo();
                 undoj2.setDisable(true);
                 // on vide le panneau contenant les différents label représenant les cases
@@ -263,6 +263,7 @@ public class Controller implements Initializable, Parametres{
     @FXML
     public void keyPressed(KeyEvent ke) {
         System.out.println("touche appuyée");
+        System.out.println("type vs = " + Controller.partie.getVs());
         String touche = ke.getText();
         if (Controller.partie.getVs() != VSIARANDOM){
             /// on teste les directions du joueur 1

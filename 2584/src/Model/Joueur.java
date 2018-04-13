@@ -92,9 +92,9 @@ public class Joueur implements Parametres {
         j.setNbUndo(this.nbUndo);
         j.setScore(this.score);
         j.setScoreMax(this.score);
-        j.setGrilleActuelle(this.grilleActuelle.clone());
+        j.setGrilleActuelle((Grille) this.grilleActuelle.clone());
         if (this.grilleTampon != null){
-            j.setGrilleTampon(this.grilleTampon.clone());
+            j.setGrilleTampon((Grille) this.grilleTampon.clone());
         }
         return j;
         
@@ -104,7 +104,7 @@ public class Joueur implements Parametres {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     public boolean jouer(int direction){
-        this.grilleTampon = this.grilleActuelle.clone();
+        this.grilleTampon = (Grille) this.grilleActuelle.clone();
         boolean b = this.grilleActuelle.lanceurDeplacerCases(direction);
         if (b){
             return true;
@@ -122,11 +122,16 @@ public class Joueur implements Parametres {
     public boolean undo(){
         if (this.nbUndo > 0 && this.grilleTampon != null){
             System.out.println("On rentre dans le undo");
-            this.grilleActuelle = this.grilleTampon.clone();
+            this.grilleActuelle = (Grille) this.grilleTampon.clone();
+            System.out.println("Après le clone");
+            System.out.println(this.grilleActuelle);
             this.nbUndo = this.nbUndo - 1;
+            System.out.println("Après le minus undo");
             this.grilleTampon = null;
+            System.out.println("true");
             return true;
         }else{
+            System.out.println("false");
             return false;
         }
     }
