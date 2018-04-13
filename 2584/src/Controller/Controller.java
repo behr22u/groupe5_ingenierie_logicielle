@@ -149,34 +149,28 @@ public class Controller implements Initializable, Parametres{
         undoj1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event){
-            System.out.println("Action Event undo j1");
-            System.out.println("grille actuelle av undo j1 = "+Controller.partie.getJ(0).getGrilleActuelle());
-            System.out.println("grille tp av undo j1 = "+Controller.partie.getJ(0).getGrilleTampon());
-            Controller.partie.getJ(0).undo();
-            System.out.println("grille actuelle ap undo j1 = "+Controller.partie.getJ(0).getGrilleActuelle());
-            System.out.println("grille actuelle ap undo j1 = "+Controller.partie.getJ(0).getGrilleTampon());
-            undoj1.setDisable(true);
-            // on vide le panneau contenant les différents label représenant les cases
-            viderGrid(fond_case);
-            // on affiche les labels à leur nouvel emplacement ainsi que les nouveaux labels (les cases)
-            afficheTableau();
-        }
+                Controller.partie.getJ(0).undo();
+                //undoj1.setDisable(true);
+                // on vide le panneau contenant les différents label représenant les cases
+                viderGrid(fond_case);
+                // on affiche les labels à leur nouvel emplacement ainsi que les nouveaux labels (les cases)
+                afficheTableau();
+            }
         });
         
         // si on clique sur le bouton undoj2
         undoj2.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event){
-                System.out.println("action event undo j2");
                 Controller.partie.getJ(1).undo();
-                undoj2.setDisable(true);
+                // si on utilise setDisable(true), il n'est plus possible d'utiliser la methode keyPressed.. aucune idée pourquoi..
+                //undoj2.setDisable(true);
                 // on vide le panneau contenant les différents label représenant les cases
-               viderGrid(fond_case);
-               // on affiche les labels à leur nouvel emplacement ainsi que les nouveaux labels (les cases)
+                viderGrid(fond_case);
+                // on affiche les labels à leur nouvel emplacement ainsi que les nouveaux labels (les cases)
                 afficheTableau();
-                
             }
-            });
+       });
         
         
         start.setOnAction(new EventHandler<ActionEvent>(){
@@ -300,7 +294,7 @@ public class Controller implements Initializable, Parametres{
                         boolean b = partie.getG(1).nouvelleCase();
                         if (!b) partie.getG(1).gameOver();
                         if (Controller.partie.getJ(1).undoPossible()){
-                            undoj1.setDisable(false);
+                            undoj2.setDisable(false);
                         }
                     }
                     System.out.println(partie.getG(1));
@@ -310,6 +304,7 @@ public class Controller implements Initializable, Parametres{
                     //on modifie le label move2
                     move2.setText(Integer.toString(partie.getJ(1).getDeplacement()));
                     score2.setText(Integer.toString(partie.getJ(1).getScore()));
+                    
                 }
             }
 
