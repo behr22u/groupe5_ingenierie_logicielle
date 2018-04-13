@@ -150,16 +150,16 @@ public class Controller implements Initializable, Parametres{
             @Override
             public void handle(ActionEvent event){
             System.out.println("Yo");
-            System.out.println(Controller.partie.getJ(0).getGrilleActuelle());
-            System.out.println(Controller.partie.getJ(0).getGrilleTampon());
+            System.out.println("grille actuelle av undo j1 = "+Controller.partie.getJ(0).getGrilleActuelle());
+            System.out.println("grille tp av undo j1 = "+Controller.partie.getJ(0).getGrilleTampon());
             Controller.partie.getJ(0).undo();
-            System.out.println(Controller.partie.getJ(0).getGrilleActuelle());
-            System.out.println(Controller.partie.getJ(0).getGrilleTampon());
-            System.out.println(Controller.partie.getJ(0).undo());
+            System.out.println("grille actuelle ap undo j1 = "+Controller.partie.getJ(0).getGrilleActuelle());
+            System.out.println("grille actuelle ap undo j1 = "+Controller.partie.getJ(0).getGrilleTampon());
             undoj1.setDisable(true);
-            System.out.println("On est avant le affiche j1");
+            // on vide le panneau contenant les différents label représenant les cases
+            viderGrid(fond_case);
+            // on affiche les labels à leur nouvel emplacement ainsi que les nouveaux labels (les cases)
             afficheTableau();
-            System.out.println("On est apres le affiche j1");
         }
         });
         
@@ -279,26 +279,22 @@ public class Controller implements Initializable, Parametres{
                 }
                 //affichage debogage
                 System.out.println(partie.getG(0));
-
                 // on incrémente la variable
                 partie.getJ(0).addDeplacement();
                 System.out.println(partie.getJ(0).getScore());
-
                 // on modifie le label move1 et score1
                 move1.setText(Integer.toString(partie.getJ(0).getDeplacement()));
                 score1.setText(Integer.toString(partie.getJ(0).getScore()));
             }
-        
             if (Controller.partie.getVs() == VSRANDOM && b1){
                 System.out.println(Controller.partie.getJ(1).getClass());
                 Controller.partie.getJ(1).jouer();
             }
-        
-        
             if (Controller.partie.getVs() == VSJOUEUR){
                 direction = convertDirectionJ2(touche);
+                boolean b2 = false;
                 if (direction != 0){
-                    boolean b2 = partie.getJ(1).jouer(direction);
+                    b2 = partie.getJ(1).jouer(direction);
                     if (b2) {
                         boolean b = partie.getG(1).nouvelleCase();
                         if (!b) partie.getG(1).gameOver();

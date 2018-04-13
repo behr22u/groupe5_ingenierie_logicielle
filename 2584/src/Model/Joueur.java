@@ -121,9 +121,10 @@ public class Joueur implements Parametres {
      */
     public boolean undo(){
         if (this.nbUndo > 0 && this.grilleTampon != null){
+            System.out.println("On rentre dans le undo");
             this.grilleActuelle = this.grilleTampon.clone();
             this.nbUndo = this.nbUndo - 1;
-            //this.grilleTampon = null;
+            this.grilleTampon = null;
             return true;
         }else{
             return false;
