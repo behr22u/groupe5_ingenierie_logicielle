@@ -22,16 +22,14 @@ public class RandomPlayer extends Joueur implements Parametres {
 
     @Override
     public void jouer() {
-        System.out.println("iciiiiiiiiiii");
         boolean deplace = false;
         while (!deplace && !this.grilleActuelle.partieFinie()){
             int direction = 0;
             while (direction == 0) {
                 Random ra = new Random();
                 direction = ra.nextInt(DROITE - GAUCHE + 1) + GAUCHE;
-                System.out.println("la direction aléatoire : " + direction); 
             }
-            deplace = super.grilleActuelle.lanceurDeplacerCases(direction);
+            deplace = super.jouer(direction);
             System.out.println(deplace);
         }
         boolean b = super.grilleActuelle.nouvelleCase();
