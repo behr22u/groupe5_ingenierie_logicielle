@@ -24,7 +24,7 @@ public class Partie implements Parametres{
     private int valeurMax; 
     
     /**
-     * Constructeur de Partie, avec des attributs par défaut
+     * Constructeur d'une partie.
      */
     public Partie(){
         this.joueurs= new Joueur[NOMBREDEJOUEURS];
@@ -32,11 +32,13 @@ public class Partie implements Parametres{
         this.valeurMax = 0;
     }
     
+    
     /**
-     * 
-     * @param j1
-     * @param j2
-     * @param vs 
+     * Constructeur d'une partie en passant ses attributs en paramètre.
+     *
+     * @param j1 joueur numéro 1
+     * @param j2 joueur numéro 2
+     * @param vs type d'adversaire affronté @see Parametres
      */
     public Partie(Joueur j1, Joueur j2, int vs){
         this.joueurs[0] = j1;
@@ -84,7 +86,13 @@ public class Partie implements Parametres{
     }
 
     
-    /// renvoie la grille de l'indice passé en paramètre, et si cette grille est trop grande renvoie une nouvelle grille vide
+    /**
+     * renvoie la grille de l'indice passé en paramètre, et si cette grille est
+     * trop grande renvoie une nouvelle grille vide
+     *
+     * @param i l'indice de la grille à obtenir
+     * @return la grille obtenue
+     */
     public Grille getG(int i) {
         if (i<NOMBREDEJOUEURS){
             return this.joueurs[i].getGrilleActuelle();
@@ -102,7 +110,14 @@ public class Partie implements Parametres{
         return null;
     }
     
-    //Ajoute la grille passé en parmètre dans le tableau de grilles de la partie
+    /**
+     * Ajoute la grille passé en parmètre dans le tableau de grilles de la
+     * partie
+     *
+     * @param i l'indice auquel on ajoute la grille
+     * @param g la grille à ajouter
+     * @return
+     */
     public boolean setG(int i, Grille g){
         if (i<NOMBREDEJOUEURS){
             System.out.println(g);
@@ -113,7 +128,14 @@ public class Partie implements Parametres{
         }
         return false;
     }
-    //Ajoute les grilles passées en paramètres aux indices 0 et1 dans le tableau de grilles
+    /**
+     * Ajoute les grilles passées en paramètres aux indices 0 et1 dans le
+     * tableau de grilles
+     *
+     * @param g1 la première grille
+     * @param g2 la deuxième grille
+     * @return
+     */
     public boolean setG(Grille g1, Grille g2){
         if (g1 != null && g2 != null){
             this.joueurs[0].setGrilleActuelle(g1);

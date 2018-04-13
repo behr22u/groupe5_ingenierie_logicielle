@@ -1,10 +1,9 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  *and open the template in the editor.
  */
-
-
 package Model;
 
 import java.sql.Connection;
@@ -19,17 +18,21 @@ import java.util.ArrayList;
  * @author Louis
  */
 public class EchangeBDD {
+
     private static String connectUrl = "jdbc:mysql://localhost/java";
     private static String username = "root";
     private static String password = "";
     private static Connection con = null;
     private static String query;
     private static ResultSet rs;
-    
-    public static void recupParties(){
+
+    /**
+     * Récupère les 10 dernières parties.
+     */
+    public static void recupParties() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");//.newInstance()
-            con = DriverManager.getConnection(EchangeBDD.connectUrl, EchangeBDD.username, EchangeBDD.password);
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            con = DriverManager.getConnection(connectUrl, username, password);
             System.out.println("Database connection established.");
 
             Statement stmt = con.createStatement();
@@ -46,7 +49,7 @@ public class EchangeBDD {
             }
 
             System.out.println("Historique des parties : ");
-            for (int i=0; i<id.size();i++){
+            for (int i = 0; i < id.size(); i++) {
                 //requete recupération des scores et nombre de déplacements
                 query = "SELECT score, deplacement FROM Joueur WHERE id_partie=" + id.get(i);
                 ArrayList<String> score = new ArrayList<>();
@@ -57,8 +60,8 @@ public class EchangeBDD {
                     deplacement.add(rs.getString("deplacement"));
                 }
                 System.out.println("Valeur max de la partie : " + valeurMax.get(i));
-                for (int j=0 ; j<score.size() ; j++){
-                    System.out.println("Joueur " + (j+1) + " : score : " + score.get(j) + " , Nombre de déplacements : " + deplacement.get(j));
+                for (int j = 0; j < score.size(); j++) {
+                    System.out.println("Joueur " + (j + 1) + " : score : " + score.get(j) + " , Nombre de déplacements : " + deplacement.get(j));
                 }
                 System.out.println("------------------");
             }
@@ -78,13 +81,22 @@ public class EchangeBDD {
                 try {
                     con.close();
                     System.out.println("Database connection terminated.");
-                } catch (Exception e) { /* ignore close errors */ }
+                } catch (Exception e) {
+                    /* ignore close errors */ }
             }
         }
     }
 
-
-    public static void insertPartie(int tmax, int score1, int score2, int nbDep1, int nbDep2){
+    /**
+     * Insère une partie dans la BDD.
+     *
+     * @param tmax
+     * @param score1
+     * @param score2
+     * @param nbDep1
+     * @param nbDep2
+     */
+    public static void insertPartie(int tmax, int score1, int score2, int nbDep1, int nbDep2) {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             con = DriverManager.getConnection(connectUrl, username, password);
@@ -102,7 +114,7 @@ public class EchangeBDD {
             while (rs.next()) {
                 idPartieMax = rs.getString("id");
             }
-            if(!idPartieMax.equals("")){
+            if (!idPartieMax.equals("")) {
                 query = "INSERT INTO `joueur`(`id_partie`, `score`, `deplacement`) VALUES (" + idPartieMax + ", " + score1 + ", " + nbDep1 + " )";
                 rs = stmt.executeQuery(query);
                 query = "INSERT INTO `joueur`(`id_partie`, `score`, `deplacement`) VALUES (" + idPartieMax + ", " + score2 + ", " + nbDep2 + " )";
@@ -123,13 +135,14 @@ public class EchangeBDD {
                 try {
                     con.close();
                     System.out.println("Database connection terminated.");
-                } catch (Exception e) { /* ignore close errors */ }
+                } catch (Exception e) {
+                    /* ignore close errors */ }
             }
         }
     }
-    
+
     //insertPartie(int tmax, int score1, int score2, int nbDep1, int nbDep2){
-    public static void insertPartie(Partie p ){
+    public static void insertPartie(Partie p) {
         p.setValeurMax();
         int tmax = p.getValeurMax();
         int s1 = p.getJ(0).getScore();
