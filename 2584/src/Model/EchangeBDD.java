@@ -19,7 +19,7 @@ import java.util.ArrayList;
  */
 public class EchangeBDD {
 
-    private static String connectUrl = "jdbc:mysql://localhost/java";
+    private static String connectUrl = "jdbc:mysql://localhost:3306/java";
     private static String username = "root";
     private static String password = "";
     private static Connection con = null;
@@ -106,19 +106,29 @@ public class EchangeBDD {
 
             //insertion de la partie dans la bdd
             System.out.println("insertion de la partie dans la bdd");
-            query = "INSERT INTO `partie`(`valeurMax`) VALUES (" + tmax + ") ";
-            rs = stmt.executeQuery(query);
+            System.out.println("voici la valeur max qu'on va mettre dans la rqte : " + tmax);
+            query = "INSERT INTO partie (valeurMax) VALUES (" + tmax+ ");";
+            System.out.println(query);
+            System.out.println("on l'a écrit");
+            stmt.executeUpdate(query);
+            System.out.println("on l'a mise");
             query = "SELECT MAX(id) AS id FROM `partie` WHERE 1 ";
             String idPartieMax = "";
-            rs = stmt.executeQuery(query);
+            rs = stmt.executeQuery(query); 
+            System.out.println("on a recup last id c'est : ");
             while (rs.next()) {
                 idPartieMax = rs.getString("id");
+                System.out.println(idPartieMax);
             }
             if (!idPartieMax.equals("")) {
-                query = "INSERT INTO `joueur`(`id_partie`, `score`, `deplacement`) VALUES (" + idPartieMax + ", " + score1 + ", " + nbDep1 + " )";
-                rs = stmt.executeQuery(query);
-                query = "INSERT INTO `joueur`(`id_partie`, `score`, `deplacement`) VALUES (" + idPartieMax + ", " + score2 + ", " + nbDep2 + " )";
-                rs = stmt.executeQuery(query);
+                 System.out.println("il n'est pas vide on fait les autres rqt");
+                query = "INSERT INTO joueur (id_partie, score, deplacement) VALUES (" + idPartieMax + ", " + score1 + ", " + nbDep1 + ");";
+                System.out.println(query);
+                //rs = 
+                stmt.executeUpdate(query);
+                query = "INSERT INTO joueur (id_partie, score, deplacement  ) VALUES (" + idPartieMax + ", " + score2 + ", " + nbDep2 + ");";
+                //rs =
+                stmt.executeUpdate(query);
             }
         } catch (ClassNotFoundException cnfe) {
             System.out.println("Cannot load db driver: com.mysql.jdbc.Driver");

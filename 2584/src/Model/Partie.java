@@ -23,6 +23,8 @@ public class Partie implements Parametres{
     //valeur max de la partie
     private int valeurMax; 
     
+    private boolean addedToBDD = false;
+    
     /**
      * Constructeur d'une partie.
      */
@@ -58,6 +60,13 @@ public class Partie implements Parametres{
         }else{
             this.valeurMax = vJ2;
         }
+    }
+    public void setAddedToBDD(){
+        this.addedToBDD = true;
+    }
+    
+    public boolean getAddedToBDD(){
+        return this.addedToBDD;
     }
 
     public Joueur[] getJoueurs() {

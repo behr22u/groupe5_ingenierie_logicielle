@@ -61,7 +61,7 @@ public class Joueur implements Parametres {
         this.nbUndo = nbUndo;
     }
 
-    public void setDepacement(int nbDepacement) {
+    public void setDeplacement(int nbDepacement) {
         this.deplacement = nbDepacement;
     }
 
@@ -108,7 +108,7 @@ public class Joueur implements Parametres {
     public Joueur clone() {
 
         Joueur j = new Joueur();
-        j.setDepacement(this.deplacement);
+        j.setDeplacement(this.deplacement);
         j.setNbUndo(this.nbUndo);
         j.setScore(this.score);
         j.setScoreMax(this.score);

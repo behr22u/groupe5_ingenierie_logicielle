@@ -317,6 +317,11 @@ public class Controller implements Initializable, Parametres {
                 if (Controller.partie.getVs() == VSRANDOM && b1) {
                     System.out.println(Controller.partie.getJ(1).getClass());
                     Controller.partie.getJ(1).jouer();
+                   // partie.getJ(0).setDeplacement(partie.getJ(1).getDeplacement());
+                    move2.setText(Integer.toString(partie.getJ(0).getDeplacement()));
+                    score2.setText(Integer.toString(partie.getJ(1).getScore()));
+                    
+                    
                 }
                 if (Controller.partie.getVs() == VSJOUEUR) {
                     direction = convertDirectionJ2(touche);
@@ -447,19 +452,23 @@ public class Controller implements Initializable, Parametres {
                 
             }
         }
-        if (fini){
+        if (fini && !Controller.partie.getAddedToBDD()){
             System.out.println("on rentre dans le if fini");
-            int s1 = Controller.partie.getJ(0).getScoreMax();
-            int s2 = Controller.partie.getJ(1).getScoreMax();
+            int s1 = Controller.partie.getJ(0).getScore();
+            int s2 = Controller.partie.getJ(1).getScore();
             Controller.partie.setValeurMax();
             if (s1 > s2){
+                System.out.println("s1: "+s1);
+                System.out.println("s2: "+s2);
                 winner.setText("Le joueur 1 gagne");
             }else{
+                System.out.println("s1: "+s1);
+                System.out.println("s2: "+s2);
                 winner.setText("Le joueur 2 gagne!");
             }
             EchangeBDD.insertPartie(Controller.partie);
+            Controller.partie.setAddedToBDD();
         }
-
         return fini;
     }
         
